@@ -8,7 +8,8 @@ namespace ORM
     {
         private static void SelectCustomers()
         {
-            using (var sqlConnection = new SqlConnection(""))
+            
+            using (var sqlConnection = new SqlConnection(@"Server=DESKTOP-1CNU397\SQLEXPRESS; Database=customer;Integrated Security=True;"))
             {
                 var command = new SqlCommand();
 
@@ -23,21 +24,20 @@ namespace ORM
                 {
                     while(reader.Read())
                     {
-                        Console.WriteLine(reader.GetGuid(0));
+                        Console.WriteLine(reader.GetGuid(0) +" "+ reader.GetString(1));
                     }
                 }
 
 
                 sqlConnection.Close();
-            }
-
-            context.Products;
-            
+            }            
         }
 
         static void Main(string[] args)
         {
             SelectCustomers();
+
+            Console.ReadLine();
         }
     }
 }
