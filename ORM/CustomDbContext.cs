@@ -5,7 +5,7 @@ namespace ORM
 {
     public class CustomDbContext : BaseDBContext
     {
-        public CustomDbContext() : base("CustomConnectionString")
+        public CustomDbContext() : base(@"Server = DESKTOP - 1CNU397\SQLEXPRESS; Database = customer; Integrated Security = True;")
         {
         }
 

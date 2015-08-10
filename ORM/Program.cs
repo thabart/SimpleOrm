@@ -7,8 +7,7 @@ namespace ORM
     class Program
     {
         private static void SelectCustomers()
-        {
-            
+        {            
             using (var sqlConnection = new SqlConnection(@"Server=DESKTOP-1CNU397\SQLEXPRESS; Database=customer;Integrated Security=True;"))
             {
                 var command = new SqlCommand();
@@ -35,7 +34,12 @@ namespace ORM
 
         static void Main(string[] args)
         {
-            SelectCustomers();
+            // SelectCustomers();
+
+            using (var context = new CustomDbContext())
+            {
+
+            }
 
             Console.ReadLine();
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 
 namespace ORM.Core
 {
@@ -13,6 +15,7 @@ namespace ORM.Core
             _connectionManager = new ConnectionManager(connectionString);
 
             _isDisposed = false;
+            InitializeDbSets();
         }
 
         public void Dispose()
@@ -28,6 +31,24 @@ namespace ORM.Core
             }
 
             _isDisposed = true;
+        }
+
+        private void InitializeDbSets()
+        {
+            var dbSetType = typeof(DbSet<>);
+            var properties = GetType().GetProperties();
+            foreach(var property in properties)
+            {
+                var propertyInfo = property.PropertyType
+                    .GetInterfaces()
+                    .FirstOrDefault(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>));
+                if (propertyInfo != null)
+                {
+
+                }
+            }
+
+            string s = "zouzou";
         }
     }
 }

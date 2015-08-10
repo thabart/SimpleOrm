@@ -1,6 +1,10 @@
 ﻿namespace ORM.Core
 {
-    public class DbSet<T> where T : class
+    public interface IDbSet<T> where T : class
+    {
+    }
+
+    public class DbSet<T> : IDbSet<T> where T : class
     {
         public DbSet()
         {
