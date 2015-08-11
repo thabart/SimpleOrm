@@ -8,12 +8,14 @@
     {
         private readonly BaseDBContext _dbContext;
 
+        private readonly QueryBuilder _queryBuilder;
+
         public DbSet(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
-
-            var type = typeof(T);
-            string s = "coco";
+            _queryBuilder = new QueryBuilder();
         }
+
+        
     }
 }
