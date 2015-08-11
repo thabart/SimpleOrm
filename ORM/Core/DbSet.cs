@@ -6,9 +6,14 @@
 
     public class DbSet<T> : IDbSet<T> where T : class
     {
-        public DbSet()
-        {
+        private readonly BaseDBContext _dbContext;
 
+        public DbSet(BaseDBContext dbContext)
+        {
+            _dbContext = dbContext;
+
+            var type = typeof(T);
+            string s = "coco";
         }
     }
 }

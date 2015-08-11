@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ORM.Models;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -20,7 +21,7 @@ namespace ORM.Core
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(_isDisposed);
         }
 
         public void Dispose(bool isDisposed)
@@ -35,20 +36,20 @@ namespace ORM.Core
 
         private void InitializeDbSets()
         {
+            var type = GetType();
             var dbSetType = typeof(DbSet<>);
-            var properties = GetType().GetProperties();
-            foreach(var property in properties)
+            var properties = type.GetProperties();     
+            foreach(PropertyInfo property in properties)
             {
-                var propertyInfo = property.PropertyType
+                var implementInterface = property.PropertyType
                     .GetInterfaces()
-                    .FirstOrDefault(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>));
-                if (propertyInfo != null)
+                    .Any(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>));
+                if (implementInterface)
                 {
-
+                    var dbSet = Activator.CreateInstance(property.PropertyType, new[] { this });
+                    property.SetValue(this, dbSet, null);
                 }
-            }
-
-            string s = "zouzou";
+            }            
         }
     }
 }
