@@ -1,7 +1,10 @@
-﻿namespace ORM.Core
+﻿using System.Collections.Generic;
+
+namespace ORM.Core
 {
     public interface IDbSet<T> where T : class
     {
+        List<T> All();
     }
 
     public class DbSet<T> : IDbSet<T> where T : class
@@ -16,6 +19,10 @@
             _queryBuilder = new QueryBuilder();
         }
 
-        
+        public List<T> All()
+        {
+            // TODO : based on the type & mapping rules => create the query
+            return null;
+        }
     }
 }

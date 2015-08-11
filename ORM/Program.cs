@@ -38,7 +38,7 @@ namespace ORM
 
             using (var context = new CustomDbContext())
             {
-
+                context.Customers.All();
             }
 
             Console.ReadLine();

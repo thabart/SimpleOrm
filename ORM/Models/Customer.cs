@@ -14,7 +14,8 @@ namespace ORM.Models
 
         public override void Mappings()
         {
-            // Possible here to define mapping rules between table & customer.
+            AddColumnMapping("FirstName", () => FirstName);
+            AddColumnMapping("LastName", () => LastName);
         } 
     }
 }
