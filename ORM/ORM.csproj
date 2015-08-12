@@ -43,14 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\BaseDBContext.cs" />
     <Compile Include="Core\DbSet.cs" />
+    <Compile Include="Core\CommandBuilder.cs" />
     <Compile Include="CustomDbContext.cs" />
     <Compile Include="Exceptions\BaseOrmException.cs" />
+    <Compile Include="Helpers\ReflectorHelper.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\BaseCommand.cs" />
+    <Compile Include="Query\InnerJoinCommand.cs" />
+    <Compile Include="Query\BaseSelectCommand.cs" />
+    <Compile Include="Query\SelectQueryCommand.cs" />
+    <Compile Include="Query\SelectTableCommand.cs" />
+    <Compile Include="Query\SqlCommand.cs" />
+    <Compile Include="Query\WhereCommand.cs" />
     <Compile Include="SelectCommand.cs" />
   </ItemGroup>
   <ItemGroup>

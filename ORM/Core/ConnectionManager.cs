@@ -21,6 +21,14 @@ namespace ORM.Core
             EstablishConnection();
         }
 
+        public SqlConnection Connection
+        {
+            get
+            {
+                return _connection;
+            }
+        }
+
         ~ConnectionManager()
         {
         }

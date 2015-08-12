@@ -38,7 +38,16 @@ namespace ORM
 
             using (var context = new CustomDbContext())
             {
-                context.Customers.All();
+                var getLastNameCommand = context.Customers
+                    .Select(c => c.LastName)
+                    .Select(c => c.FirstName)
+                    .GetSqlCommand();
+                var getFirstNameCommand = context.Customers
+                    .Select(c => c.FirstName)
+                    .GetSqlCommand();
+
+                Console.WriteLine(getLastNameCommand);
+                Console.WriteLine(getFirstNameCommand);
             }
 
             Console.ReadLine();

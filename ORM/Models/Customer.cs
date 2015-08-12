@@ -4,7 +4,7 @@ using ORM.Core;
 
 namespace ORM.Models
 {
-    public sealed class Customer : BaseEntity
+    public sealed class Customer : BaseEntity<Customer>
     {
         public Guid Id { get; set; }
 
@@ -14,8 +14,9 @@ namespace ORM.Models
 
         public override void Mappings()
         {
-            AddColumnMapping("FirstName", () => FirstName);
-            AddColumnMapping("LastName", () => LastName);
+            LinkToTable("dbo.Customers");
+            AddColumnMapping("FirstName", x => x.FirstName);
+            AddColumnMapping("LastName", x => x.LastName);
         } 
     }
 }
