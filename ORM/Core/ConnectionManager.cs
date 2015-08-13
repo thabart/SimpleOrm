@@ -53,7 +53,7 @@ namespace ORM.Core
             if (string.IsNullOrWhiteSpace(_connectionString))
             {
                 // TODO : Returns the appropriate exception
-                throw new BaseOrmException("the connection string cannot be null or empty");
+                throw new OrmInvalidConfigurationException("It's not possible to establish a connection because the connection string is empty");
             }
 
             try
@@ -62,7 +62,7 @@ namespace ORM.Core
             }
             catch (Exception ex)
             {
-                throw new BaseOrmException("An exception occured when attempting to open the sql connection");
+                throw new OrmDataAccessException("Cannot establish a connection to the SQLServer database", ex);
             }
         }
 

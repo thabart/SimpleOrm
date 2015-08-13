@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ORM.Exceptions;
+using System;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 
@@ -6,16 +8,30 @@ namespace ORM.Core
 {
     public class BaseDBContext : IDisposable
     {
-        private readonly ConnectionManager _connectionManager;
+        private ConnectionManager _connectionManager;
 
         private bool _isDisposed;
 
-        public BaseDBContext(string connectionString)
+        /// <summary>
+        /// Configure the base db context via a connection string name
+        /// </summary>
+        /// <param name="connectionStringName">Name of the connection string</param>
+        public BaseDBContext(string connectionStringName)
         {
-            _connectionManager = new ConnectionManager(connectionString);
+            var connectionString = LoadConnectionStringFromConfigurationFile(connectionStringName);
+            InitializeDbContext(connectionString);
+        }
 
-            _isDisposed = false;
-            InitializeDbSets();
+        /// <summary>
+        /// DBContext of the constructor. The connection string is deduced based on the data source & catalog.
+        /// The integrated security mode is enabled
+        /// </summary>
+        /// <param name="dataSource">Data source</param>
+        /// <param name="initialCatalog">Catalog</param>
+        public BaseDBContext(string dataSource, string initialCatalog)
+        {
+            var connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;", dataSource, initialCatalog);
+            InitializeDbContext(connectionString);
         }
 
         public void Dispose()
@@ -31,6 +47,18 @@ namespace ORM.Core
             }
 
             _isDisposed = true;
+        }
+
+        /// <summary>
+        /// Initialize the DbContext
+        /// </summary>
+        /// <param name="connectionString">Connection string</param>
+        private void InitializeDbContext(string connectionString)
+        {
+            _connectionManager = new ConnectionManager(connectionString);
+
+            _isDisposed = false;
+            InitializeDbSets();
         }
 
         private void InitializeDbSets()
@@ -49,6 +77,26 @@ namespace ORM.Core
                     property.SetValue(this, dbSet, null);
                 }
             }            
+        }
+
+        /// <summary>
+        /// Returns the connection string from configuration file
+        /// </summary>
+        /// <param name="connectionStringName">Name of the connection string</param>
+        /// <returns>Connection string</returns>
+        private static string LoadConnectionStringFromConfigurationFile(string connectionStringName)
+        {
+            try
+            {
+                var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName];
+                return connectionString.ConnectionString;
+            }
+            catch (ConfigurationErrorsException exception)
+            {
+                throw new OrmInvalidConfigurationException(
+                    string.Format("The connection string {0} doesn't exist", connectionStringName),
+                    exception);
+            }
         }
     }
 }

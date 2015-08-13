@@ -61,12 +61,6 @@ namespace ORM
                 {
                     Console.WriteLine(info.FirstName);
                 }
-                /*
-                context.Customers
-                    .Select(c => c.LastName)
-                    .Select(c => c.FirstName)
-                    .Execute();
-                */
             }
 
             Console.ReadLine();
