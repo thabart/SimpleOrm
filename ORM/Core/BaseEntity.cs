@@ -3,12 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ORM.Core
 {
     public abstract class BaseEntity<TSource> where TSource : class
     {
-        private readonly Dictionary<string, string> _mappingRules;
+        private readonly Dictionary<string, Action<TSource, object>> _mappingRules;
 
         private readonly ReflectorHelper _reflectorHelper; 
 
@@ -16,11 +17,11 @@ namespace ORM.Core
 
         protected BaseEntity()
         {
-            _mappingRules = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            _mappingRules = new Dictionary<string, Action<TSource, object>>(StringComparer.OrdinalIgnoreCase);
             _reflectorHelper = new ReflectorHelper();
         }
 
-        public Dictionary<string, string> MappingRules
+        public Dictionary<string, Action<TSource, object>> MappingRules
         {
             get
             {
@@ -45,8 +46,14 @@ namespace ORM.Core
         /// <param name="property">Property</param>
         protected void AddColumnMapping<TTarget>(string columnName, Expression<Func<TSource, TTarget>> property)
         {
-            var propertyName = _reflectorHelper.GetPropertyName(property);
-            _mappingRules.Add(columnName, propertyName);
+            var compiledExpression = property.Compile();
+            var memberInfo = (PropertyInfo)_reflectorHelper.GetMemberInfo(property);
+            Action<TSource, object> callback = (s,p) =>
+            {
+                memberInfo.SetValue(s, p);
+            };
+
+            _mappingRules.Add(columnName, callback);
         }
 
         protected void LinkToTable(string tableName)

@@ -15,6 +15,7 @@ namespace ORM.Models
         public override void Mappings()
         {
             LinkToTable("dbo.Customers");
+            AddColumnMapping("Id", x => x.Id);
             AddColumnMapping("FirstName", x => x.FirstName);
             AddColumnMapping("LastName", x => x.LastName);
         } 

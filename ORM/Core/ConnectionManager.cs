@@ -33,6 +33,16 @@ namespace ORM.Core
         {
         }
 
+        public void Open()
+        {
+            _connection.Open();
+        }
+
+        public void Close()
+        {
+            _connection.Close();
+        }
+
         public void Dispose()
         {
             Dispose(_isDisposed);

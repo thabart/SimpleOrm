@@ -6,20 +6,18 @@ namespace ORM.Core
 {
     public interface IDbSet<TSource> where TSource : class
     {
-        CommandBuilder<TSource> Select<TTarget>(Expression<Func<TSource, TTarget>> callback = null);
+        CommandBuilder<TSource, TTarget> Select<TTarget>(Expression<Func<TSource, TTarget>> callback = null);
     }
 
     public class DbSet<TSource> : IDbSet<TSource> where TSource : class
     {
         private readonly ConnectionManager _connectionManager;
 
-        private readonly BaseDBContext _dbContext;
-
         private BaseEntity<TSource> _instanciateEntity;
 
-        public DbSet(BaseDBContext dbContext)
+        public DbSet(ConnectionManager connectionManager)
         {
-            _dbContext = dbContext;
+            _connectionManager = connectionManager;
             LoadEntity();
         }
 
@@ -29,10 +27,10 @@ namespace ORM.Core
         /// <typeparam name="TTarget"></typeparam>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public CommandBuilder<TSource> Select<TTarget>(Expression<Func<TSource, TTarget>> callback)
+        public CommandBuilder<TSource, TTarget> Select<TTarget>(Expression<Func<TSource, TTarget>> callback)
         {
             // TODO : Interprete the select.
-            var commandBuilder = new CommandBuilder<TSource>(_instanciateEntity);
+            var commandBuilder = new CommandBuilder<TSource, TTarget>(_instanciateEntity, _connectionManager);
             commandBuilder.Select(callback);
             return commandBuilder;
         }

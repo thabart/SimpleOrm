@@ -59,7 +59,6 @@
     <Compile Include="Query\BaseSelectCommand.cs" />
     <Compile Include="Query\SelectQueryCommand.cs" />
     <Compile Include="Query\SelectTableCommand.cs" />
-    <Compile Include="Query\SqlCommand.cs" />
     <Compile Include="Query\WhereCommand.cs" />
     <Compile Include="SelectCommand.cs" />
   </ItemGroup>

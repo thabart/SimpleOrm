@@ -38,16 +38,35 @@ namespace ORM
 
             using (var context = new CustomDbContext())
             {
-                var getLastNameCommand = context.Customers
+                // Returns one specific field.
+                var customerFirstNames = context.Customers
+                    .Select(c => c.FirstName)
+                    .Execute();
+
+                foreach(var firstName in customerFirstNames)
+                {
+                    Console.WriteLine(firstName);
+                }
+                
+                // Returns anynamous type.
+                var customerInformations = context.Customers
+                    .Select(c => new
+                    {
+                        c.FirstName,
+                        c.LastName
+                    })
+                    .Execute();
+
+                foreach(var info in customerInformations)
+                {
+                    Console.WriteLine(info.FirstName);
+                }
+                /*
+                context.Customers
                     .Select(c => c.LastName)
                     .Select(c => c.FirstName)
-                    .GetSqlCommand();
-                var getFirstNameCommand = context.Customers
-                    .Select(c => c.FirstName)
-                    .GetSqlCommand();
-
-                Console.WriteLine(getLastNameCommand);
-                Console.WriteLine(getFirstNameCommand);
+                    .Execute();
+                */
             }
 
             Console.ReadLine();

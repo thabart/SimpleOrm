@@ -1,5 +1,4 @@
-﻿using ORM.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 
@@ -46,7 +45,7 @@ namespace ORM.Core
                     .Any(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>));
                 if (implementInterface)
                 {
-                    var dbSet = Activator.CreateInstance(property.PropertyType, new[] { this });
+                    var dbSet = Activator.CreateInstance(property.PropertyType, new[] { _connectionManager });
                     property.SetValue(this, dbSet, null);
                 }
             }            
