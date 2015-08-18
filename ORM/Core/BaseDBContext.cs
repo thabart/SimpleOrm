@@ -61,20 +61,26 @@ namespace ORM.Core
             InitializeDbSets();
         }
 
+        /// <summary>
+        /// Initialize the DBSet properties by type reflection.
+        /// </summary>
         private void InitializeDbSets()
         {
             var type = GetType();
             var dbSetType = typeof(DbSet<>);
-            var properties = type.GetProperties();     
-            foreach(PropertyInfo property in properties)
+            var properties = type.GetRuntimeProperties()
+                .Where(p => p.PropertyType.GetInterfaces().Any(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>)))
+                .Select(p => new
+                {
+                    p,
+                    p.PropertyType
+                });
+            if (properties != null && properties.Any())
             {
-                var implementInterface = property.PropertyType
-                    .GetInterfaces()
-                    .Any(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>));
-                if (implementInterface)
+                foreach(var property in properties)
                 {
                     var dbSet = Activator.CreateInstance(property.PropertyType, new[] { _connectionManager });
-                    property.SetValue(this, dbSet, null);
+                    property.p.SetValue(this, dbSet, null);
                 }
             }            
         }

@@ -5,10 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Contracts;
 using System.Linq.Expressions;
 
 namespace ORM.Core
 {
+    /// <summary>
+    /// Execute SQL Request against an entity.
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <typeparam name="TTarget"></typeparam>
     public class CommandBuilder<TSource, TTarget> where TSource : class
     {
         private readonly ReflectorHelper _reflectorHelper;
@@ -21,6 +27,9 @@ namespace ORM.Core
 
         public CommandBuilder(BaseEntity<TSource> entity, ConnectionManager connectionManager)
         {
+            Contract.Requires<ArgumentNullException>(entity != null, "The entity cannot be null");
+            Contract.Requires<ArgumentNullException>(connectionManager != null, "The connection manager cannot be null");
+
             _reflectorHelper = new ReflectorHelper();
             _entity = entity;
             _connectionManager = connectionManager;

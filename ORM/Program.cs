@@ -1,6 +1,11 @@
-﻿using System;
+﻿using ORM.Models;
+using ORM.Translators;
+using ORM.LinqToSql;
+
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 
 namespace ORM
 {
@@ -32,10 +37,26 @@ namespace ORM
             }            
         }
 
+        private static void InspectExpressionTree(Expression expression)
+        {
+            var queryTranslator = new QueryTranslator();
+            var info = queryTranslator.Visit(expression);
+        }
+
+        private static void ShowSelectRequest()
+        {
+            var dbProvider = new DBProvider(string.Empty);
+            var customers = dbProvider.GetTable<Customer>();
+            var result = customers.Select(c => c.FirstName).ToString();
+        }
+
         static void Main(string[] args)
         {
-            // SelectCustomers();
+            ShowSelectRequest();
 
+
+            /*
+            // SelectCustomers();
             using (var context = new CustomDbContext())
             {
                 // Returns one specific field.
@@ -59,9 +80,10 @@ namespace ORM
 
                 foreach(var info in customerInformations)
                 {
-                    Console.WriteLine(info.FirstName);
+                    Console.WriteLine(info.FirstName +" "+ info.LastName);
                 }
             }
+            */
 
             Console.ReadLine();
         }

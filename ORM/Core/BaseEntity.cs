@@ -56,7 +56,7 @@ namespace ORM.Core
             _mappingRules.Add(columnName, callback);
         }
 
-        protected void LinkToTable(string tableName)
+        protected void ToTable(string tableName)
         {
             _tableName = tableName;
         }
