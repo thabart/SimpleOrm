@@ -64,8 +64,8 @@ namespace ORM.LinqToSql
 
         public override string ToString()
         {
-            // Returns the SQL script.
-            return string.Empty;
+            var sql = _queryProvider.Execute(Expression).ToString();
+            return sql;
         }
     }
 }

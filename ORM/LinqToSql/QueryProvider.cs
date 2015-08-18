@@ -20,8 +20,8 @@ namespace ORM.LinqToSql
 
         public object Execute(Expression expression)
         {
-            // Execute the query.
-            throw new NotImplementedException();
+            var queryTranslator = new QueryTranslator();
+            return queryTranslator.Translate(expression);
         }
 
         /// <summary>

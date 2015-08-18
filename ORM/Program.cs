@@ -48,6 +48,8 @@ namespace ORM
             var dbProvider = new DBProvider(string.Empty);
             var customers = dbProvider.GetTable<Customer>();
             var result = customers.Select(c => c.FirstName).ToString();
+
+            Console.WriteLine(result);
         }
 
         static void Main(string[] args)
