@@ -1,4 +1,5 @@
 ﻿using ORM.Exceptions;
+using ORM.LinqToSql;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -58,6 +59,7 @@ namespace ORM.Core
             _connectionManager = new ConnectionManager(connectionString);
 
             _isDisposed = false;
+
             InitializeDbSets();
         }
 
@@ -69,20 +71,26 @@ namespace ORM.Core
             var type = GetType();
             var dbSetType = typeof(DbSet<>);
             var properties = type.GetRuntimeProperties()
-                .Where(p => p.PropertyType.GetInterfaces().Any(i => i.GetGenericTypeDefinition() == typeof(IDbSet<>)))
+                .Where(p => (p.PropertyType.GetInterfaces().Count() > 0 &&
+                    p.PropertyType.GetInterfaces().Any(i => CheckPropertyInfoImplementsIDbSet(i)))
+                    || (CheckPropertyInfoImplementsIDbSet(p.PropertyType)))
                 .Select(p => new
                 {
                     p,
                     p.PropertyType
                 });
+            
             if (properties != null && properties.Any())
             {
                 foreach(var property in properties)
                 {
-                    var dbSet = Activator.CreateInstance(property.PropertyType, new[] { _connectionManager });
+                    var queryProvider = new QueryProvider();
+                    var genericArguments = property.p.PropertyType.GetGenericArguments();
+                    var constructedType = dbSetType.MakeGenericType(genericArguments);
+                    var dbSet = Activator.CreateInstance(constructedType, new[] { queryProvider });
                     property.p.SetValue(this, dbSet, null);
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -103,6 +111,16 @@ namespace ORM.Core
                     string.Format("The connection string {0} doesn't exist", connectionStringName),
                     exception);
             }
+        }
+
+        /// <summary>
+        /// Check if the type implements the IDbSet interface.
+        /// </summary>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
+        private static bool CheckPropertyInfoImplementsIDbSet(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDbSet<>);
         }
     }
 }

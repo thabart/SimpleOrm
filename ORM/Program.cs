@@ -1,11 +1,9 @@
 ﻿using ORM.Models;
-using ORM.Translators;
 using ORM.LinqToSql;
 
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq.Expressions;
 
 namespace ORM
 {
@@ -37,12 +35,6 @@ namespace ORM
             }            
         }
 
-        private static void InspectExpressionTree(Expression expression)
-        {
-            var queryTranslator = new QueryTranslator();
-            var info = queryTranslator.Visit(expression);
-        }
-
         private static void ShowSelectRequestWithAnonymousType()
         {
             var dbProvider = new DBProvider(string.Empty);
@@ -69,40 +61,19 @@ namespace ORM
             Console.WriteLine(result);
         }
 
+        private static void ExecuteSelectQuery()
+        {
+            using (var context = new CustomDbContext())
+            {
+
+            }
+        }
+
         static void Main(string[] args)
         {
             ShowSelectRequestWithAnonymousType();
             ShowSelectRequestBasicForm();
-
-            /*
-            // SelectCustomers();
-            using (var context = new CustomDbContext())
-            {
-                // Returns one specific field.
-                var customerFirstNames = context.Customers
-                    .Select(c => c.FirstName)
-                    .Execute();
-
-                foreach(var firstName in customerFirstNames)
-                {
-                    Console.WriteLine(firstName);
-                }
-                
-                // Returns anynamous type.
-                var customerInformations = context.Customers
-                    .Select(c => new
-                    {
-                        c.FirstName,
-                        c.LastName
-                    })
-                    .Execute();
-
-                foreach(var info in customerInformations)
-                {
-                    Console.WriteLine(info.FirstName +" "+ info.LastName);
-                }
-            }
-            */
+            ExecuteSelectQuery();
 
             Console.ReadLine();
         }

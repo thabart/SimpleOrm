@@ -88,7 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\BaseEntity.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\BaseDBContext.cs" />
     <Compile Include="Core\DbSet.cs" />
@@ -96,9 +95,6 @@
     <Compile Include="LinqToSql\QueryableExtensions.cs" />
     <Compile Include="LinqToSql\QueryProvider.cs" />
     <Compile Include="LinqToSql\Queryable.cs" />
-    <Compile Include="Core\CommandBuilder.cs" />
-    <Compile Include="Core\Expression.cs" />
-    <Compile Include="Core\OrmQueryableExtensions.cs" />
     <Compile Include="CustomDbContext.cs" />
     <Compile Include="Exceptions\BaseOrmException.cs" />
     <Compile Include="Exceptions\OrmConfigurationException.cs" />
@@ -107,17 +103,9 @@
     <Compile Include="Exceptions\OrmInvalidConfigurationException.cs" />
     <Compile Include="Translators\QueryHelper.cs" />
     <Compile Include="Translators\SelectTranslator.cs" />
-    <Compile Include="Expressions\SelectExpression.cs" />
-    <Compile Include="Helpers\ReflectorHelper.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\BaseCommand.cs" />
-    <Compile Include="Query\InnerJoinCommand.cs" />
-    <Compile Include="Query\BaseSelectCommand.cs" />
-    <Compile Include="Query\SelectQueryCommand.cs" />
-    <Compile Include="Query\SelectTableCommand.cs" />
-    <Compile Include="Query\WhereCommand.cs" />
     <Compile Include="SelectCommand.cs" />
     <Compile Include="Translators\QueryTranslator.cs" />
     <Compile Include="Translators\WhereTranslator.cs" />
@@ -125,6 +113,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
