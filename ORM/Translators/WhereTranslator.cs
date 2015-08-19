@@ -1,6 +1,12 @@
-﻿namespace ORM.Translators
+﻿using System.Linq.Expressions;
+
+namespace ORM.Translators
 {
-    public class WhereTranslator
+    public class WhereTranslator : ExpressionVisitor
     {
+        public string Translate(Expression expression)
+        {
+            return string.Empty;
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ORM.Exceptions;
-
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,22 +10,35 @@ namespace ORM.Translators
     {
         private readonly SelectTranslator _selectTranslator;
 
+        private readonly WhereTranslator _whereTranslator;
+
+        private string _translatedSelect;
+
+        private string _translatedWhere;
+
         private StringBuilder _builder;
 
         public QueryTranslator()
         {
             _selectTranslator = new SelectTranslator();
+
+            _translatedSelect = string.Empty;
+            _translatedWhere = string.Empty;
         }
         
+        /// <summary>
+        /// Translate an expression and returns the SQL Script
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public string Translate(Expression expression)
         {
-            _builder = new StringBuilder();
             Visit(expression);
-            return _builder.ToString();
+            return GenerateSql();
         }
 
         /// <summary>
-        /// Visit an expression.
+        /// Visit on node of the expression tree.
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
@@ -45,21 +58,32 @@ namespace ORM.Translators
                 case ExpressionType.Constant:
                     VisitConstant((ConstantExpression)expression);
                     break;
+                case ExpressionType.Quote:
+                    break;
             }
             return expression;
         }
 
         /// <summary>
-        /// Visit a call to a method.
+        /// Visit the expression tree node which makes a call to a method.
         /// </summary>
-        /// <param name="expression"></param>
+        /// <param name="expression"></param>   
         /// <returns></returns>
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
-            var declaringType = expression.Method.DeclaringType;
-            if (typeof(IQueryable).IsAssignableFrom(declaringType))
+            var declaringType = expression.Type;
+            if (!typeof(IQueryable).IsAssignableFrom(declaringType))
             {
                 throw new OrmInternalException("The type of the query is not IQueryable");
+            }
+            
+            var arguments = expression.Arguments;
+            foreach (var argument in arguments)
+            {
+                if (argument.NodeType == ExpressionType.Call)
+                {
+                    Visit(argument);
+                }
             }
 
             var methodName = expression.Method.Name;
@@ -67,21 +91,23 @@ namespace ORM.Translators
             {
                 case "Select":
                     var translated = _selectTranslator.Translate(expression);
-                    _builder.Append(translated);
+                    _translatedSelect = translated;
+                    break;
+                case "Where":
+
                     break;
             }
 
             return expression;
         }
 
-        private static Expression StripQuotes(Expression expression)
+        /// <summary>
+        /// When the class has finished to read the expression tree this function is called to generate the corresponding sql script.
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateSql()
         {
-            while(expression.NodeType == ExpressionType.Quote)
-            {
-                expression = ((UnaryExpression)expression).Operand;
-            }
-
-            return expression;
+            return _translatedSelect;
         }
     }
 }

@@ -23,5 +23,21 @@ namespace ORM.LinqToSql
             });
             return source.Provider.CreateQuery<TSource>(expressionTree);
         }
+
+        public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> expression)
+        {
+            var expressionTree = Expression.Call(
+                null,
+                ((MethodInfo)MethodBase.GetCurrentMethod()).MakeGenericMethod(new Type[]
+                {
+                    typeof(TSource)
+                }),
+                new Expression[]
+                {
+                    source.Expression,
+                    Expression.Quote(expression)
+                });
+            return source.Provider.CreateQuery<TSource>(expressionTree);
+        }
     }
 }

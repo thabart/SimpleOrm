@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using ORM.Exceptions;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace ORM.Exceptions
+namespace ORM.Translators
 {
     public class SelectTranslator : ExpressionVisitor
     {
@@ -29,6 +31,9 @@ namespace ORM.Exceptions
                 case ExpressionType.MemberAccess:
                     VisitMember((MemberExpression)expression);
                     break;
+                case ExpressionType.New:
+                    VisitNew((NewExpression)expression);
+                    break;
             }
 
             return expression;
@@ -36,15 +41,25 @@ namespace ORM.Exceptions
 
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
+            var declaringType = expression.Type;
+            if (!typeof(IQueryable).IsAssignableFrom(declaringType))
+            {
+                throw new OrmInternalException("The type of the query is not IQueryable");
+            }
+
             _builder.Append("SELECT ");
             var secondArgument = expression.Arguments[1];
-            var lambdaExpression = (LambdaExpression)StripQuotes(secondArgument);
+
+            var lambdaExpression = (LambdaExpression)QueryHelper.StripQuotes(secondArgument);
             var bodyLambdaExpression = lambdaExpression.Body;
+            var nodeType = bodyLambdaExpression.NodeType;
+
             Visit(bodyLambdaExpression);
 
-            _builder.Append("FROM ");
-            var firstArgument = expression.Arguments[0];
-            Visit(firstArgument);
+            var genericArgument = declaringType.GetGenericArguments().First();
+            var table = genericArgument.Name;
+            _builder.Append(" FROM ");
+            _builder.Append(table);
 
             return expression;
         }
@@ -64,20 +79,28 @@ namespace ORM.Exceptions
         {
             if (expression.Expression != null && expression.Expression.NodeType == ExpressionType.Parameter)
             {
-                _builder.Append(expression.Member.Name + " ");
+                _builder.Append(expression.Member.Name);
             }
 
             return expression;
         }
 
-        private static Expression StripQuotes(Expression e)
+        /// <summary>
+        /// Visits an expression which is making a call to the constructor.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        protected override Expression VisitNew(NewExpression expression)
         {
-            while (e.NodeType == ExpressionType.Quote)
+            var members = expression.Members;
+            var columnNames = new List<string>();
+            foreach(var member in members)
             {
-                e = ((UnaryExpression)e).Operand;
+                columnNames.Add(member.Name);
             }
 
-            return e;
+            _builder.Append(string.Join(",", columnNames));
+            return expression;
         }
     }
 }

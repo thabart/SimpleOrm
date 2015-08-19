@@ -43,19 +43,36 @@ namespace ORM
             var info = queryTranslator.Visit(expression);
         }
 
-        private static void ShowSelectRequest()
+        private static void ShowSelectRequestWithAnonymousType()
         {
             var dbProvider = new DBProvider(string.Empty);
             var customers = dbProvider.GetTable<Customer>();
-            var result = customers.Select(c => c.FirstName).ToString();
+            var result = customers
+                .Select(c => new
+                {
+                    c.FirstName,
+                    c.LastName
+                })
+                .ToString();
+
+            Console.WriteLine(result);
+        }
+
+        private static void ShowSelectRequestBasicForm()
+        {
+            var dbProvider = new DBProvider(string.Empty);
+            var customers = dbProvider.GetTable<Customer>();
+            var result = customers
+                .Select(c => c.FirstName)
+                .ToString();
 
             Console.WriteLine(result);
         }
 
         static void Main(string[] args)
         {
-            ShowSelectRequest();
-
+            ShowSelectRequestWithAnonymousType();
+            ShowSelectRequestBasicForm();
 
             /*
             // SelectCustomers();
