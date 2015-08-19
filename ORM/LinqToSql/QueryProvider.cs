@@ -1,4 +1,5 @@
-﻿using ORM.Translators;
+﻿using ORM.Core;
+using ORM.Translators;
 
 using System;
 using System.Linq;
@@ -8,6 +9,13 @@ namespace ORM.LinqToSql
 {
     public class QueryProvider : IQueryProvider
     {
+        private readonly IConnectionManager _connectionManager;
+
+        public QueryProvider(IConnectionManager connectionManager)
+        {
+            _connectionManager = connectionManager;
+        }
+
         public IQueryable CreateQuery(Expression expression)
         {
             throw new NotImplementedException();
@@ -18,10 +26,17 @@ namespace ORM.LinqToSql
             return new Queryable<TElement>(this, expression);
         }
 
+        /// <summary>
+        /// Transform the expression tree into SQL script, execute it and returns the result.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public object Execute(Expression expression)
         {
             var queryTranslator = new QueryTranslator();
-            return queryTranslator.Translate(expression);
+            var query = queryTranslator.Translate(expression);
+
+            return null;
         }
 
         /// <summary>
@@ -34,6 +49,16 @@ namespace ORM.LinqToSql
         {
             var queryTranslator = new QueryTranslator();
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Translate the expression tree into T-SQL and return the value.
+        /// </summary>
+        /// <returns>Sql script</returns>
+        public string TranslateToSql(Expression expression)
+        {
+            var queryTranslator = new QueryTranslator();
+            return queryTranslator.Translate(expression);
         }
     }
 }

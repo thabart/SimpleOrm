@@ -10,7 +10,5 @@ namespace ORM
         }
 
         public IDbSet<Customer> Customers { get; set; }
-
-        public DbSet<Customer> Customers2 { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using ORM.Exceptions;
 
 namespace ORM.Core
 {
-    public class ConnectionManager : IDisposable
+    public class ConnectionManager : IConnectionManager
     {
         private readonly string _connectionString;
 

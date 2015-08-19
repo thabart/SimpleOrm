@@ -65,7 +65,11 @@ namespace ORM
         {
             using (var context = new CustomDbContext())
             {
+                var result = context.Customers
+                    .Select(c => c.FirstName)
+                    .ToString();
 
+                Console.WriteLine(result);
             }
         }
 

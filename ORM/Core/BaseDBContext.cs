@@ -1,5 +1,6 @@
 ﻿using ORM.Exceptions;
 using ORM.LinqToSql;
+
 using System;
 using System.Configuration;
 using System.Linq;
@@ -84,7 +85,7 @@ namespace ORM.Core
             {
                 foreach(var property in properties)
                 {
-                    var queryProvider = new QueryProvider();
+                    var queryProvider = new QueryProvider(_connectionManager);
                     var genericArguments = property.p.PropertyType.GetGenericArguments();
                     var constructedType = dbSetType.MakeGenericType(genericArguments);
                     var dbSet = Activator.CreateInstance(constructedType, new[] { queryProvider });

@@ -12,17 +12,17 @@ namespace ORM.LinqToSql
     /// <typeparam name="TSource"></typeparam>
     public class Queryable<TSource> : IQueryable<TSource>
     {
-        private readonly IQueryProvider _queryProvider;
+        private readonly QueryProvider _queryProvider;
 
         private readonly Expression _expression;
         
-        public Queryable(IQueryProvider queryProvider)
+        public Queryable(QueryProvider queryProvider)
         {
             _queryProvider = queryProvider;
             _expression = Expression.Constant(this);
         }
 
-        public Queryable(IQueryProvider queryProvider, Expression expression)
+        public Queryable(QueryProvider queryProvider, Expression expression)
         {
             _queryProvider = queryProvider;
             _expression = expression;
@@ -64,7 +64,7 @@ namespace ORM.LinqToSql
 
         public override string ToString()
         {
-            var sql = _queryProvider.Execute(Expression).ToString();
+            var sql = _queryProvider.TranslateToSql(Expression);
             return sql;
         }
     }
