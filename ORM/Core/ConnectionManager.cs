@@ -29,10 +29,6 @@ namespace ORM.Core
             }
         }
 
-        ~ConnectionManager()
-        {
-        }
-
         public void Open()
         {
             _connection.Open();

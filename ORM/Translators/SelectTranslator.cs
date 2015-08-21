@@ -47,12 +47,13 @@ namespace ORM.Translators
                 throw new OrmInternalException("The type of the query is not IQueryable");
             }
 
+            // Retrieve the mapping roles.
+
             _builder.Append("SELECT ");
             var secondArgument = expression.Arguments[1];
 
             var lambdaExpression = (LambdaExpression)QueryHelper.StripQuotes(secondArgument);
             var bodyLambdaExpression = lambdaExpression.Body;
-            var nodeType = bodyLambdaExpression.NodeType;
 
             Visit(bodyLambdaExpression);
 

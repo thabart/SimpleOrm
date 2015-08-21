@@ -4,3 +4,9 @@ C:\Project\ORM\ORM\bin\Debug\ORM.pdb
 C:\Project\ORM\ORM\obj\Debug\ORM.exe
 C:\Project\ORM\ORM\obj\Debug\ORM.pdb
 C:\Project\ORM\ORM\obj\Debug\ORM.rewritten
+C:\Project\OTHERS\SimpleOrm\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache
+C:\Project\OTHERS\SimpleOrm\ORM\obj\Debug\ORM.exe
+C:\Project\OTHERS\SimpleOrm\ORM\bin\Debug\ORM.exe.config
+C:\Project\OTHERS\SimpleOrm\ORM\bin\Debug\ORM.exe
+C:\Project\OTHERS\SimpleOrm\ORM\bin\Debug\ORM.pdb
+C:\Project\OTHERS\SimpleOrm\ORM\obj\Debug\ORM.pdb

@@ -1,4 +1,6 @@
-﻿using ORM.Core;
+﻿using System.Data;
+using System.Data.SqlClient;
+using ORM.Core;
 using ORM.Translators;
 
 using System;
@@ -9,11 +11,11 @@ namespace ORM.LinqToSql
 {
     public class QueryProvider : IQueryProvider
     {
-        private readonly IConnectionManager _connectionManager;
+        private readonly IQueryExecutor _queryExecutor;
 
-        public QueryProvider(IConnectionManager connectionManager)
+        public QueryProvider(IQueryExecutor queryExecutor)
         {
-            _connectionManager = connectionManager;
+            _queryExecutor = queryExecutor;
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -35,6 +37,20 @@ namespace ORM.LinqToSql
         {
             var queryTranslator = new QueryTranslator();
             var query = queryTranslator.Translate(expression);
+            /*
+            
+            _connectionManager.Open();
+            
+            var command = new SqlCommand();
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+            command.Connection = _connectionManager.Connection;
+
+            var reader = command.ExecuteReader();
+
+            reader.Close();
+            _connectionManager.Close();
+            */
 
             return null;
         }

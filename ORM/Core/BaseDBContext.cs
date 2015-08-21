@@ -8,17 +8,17 @@ using System.Reflection;
 
 namespace ORM.Core
 {
-    public class BaseDBContext : IDisposable
+    public class BaseDbContext : IDisposable
     {
-        private ConnectionManager _connectionManager;
+        private QueryExecutor _queryExecutor;
 
         private bool _isDisposed;
-
+        
         /// <summary>
         /// Configure the base db context via a connection string name
         /// </summary>
         /// <param name="connectionStringName">Name of the connection string</param>
-        public BaseDBContext(string connectionStringName)
+        public BaseDbContext(string connectionStringName)
         {
             var connectionString = LoadConnectionStringFromConfigurationFile(connectionStringName);
             InitializeDbContext(connectionString);
@@ -30,7 +30,7 @@ namespace ORM.Core
         /// </summary>
         /// <param name="dataSource">Data source</param>
         /// <param name="initialCatalog">Catalog</param>
-        public BaseDBContext(string dataSource, string initialCatalog)
+        public BaseDbContext(string dataSource, string initialCatalog)
         {
             var connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True;", dataSource, initialCatalog);
             InitializeDbContext(connectionString);
@@ -45,23 +45,25 @@ namespace ORM.Core
         {
             if (!isDisposed)
             {
-                _connectionManager.Dispose();
+                _queryExecutor.Dispose();
             }
 
             _isDisposed = true;
         }
 
         /// <summary>
-        /// Initialize the DbContext
+        /// Initialize the DbContext and initialize the mapping roles.
         /// </summary>
         /// <param name="connectionString">Connection string</param>
         private void InitializeDbContext(string connectionString)
         {
-            _connectionManager = new ConnectionManager(connectionString);
+            _queryExecutor = new QueryExecutor(connectionString);
 
             _isDisposed = false;
 
             InitializeDbSets();
+
+            Mappings();
         }
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace ORM.Core
             {
                 foreach(var property in properties)
                 {
-                    var queryProvider = new QueryProvider(_connectionManager);
+                    var queryProvider = new QueryProvider(_queryExecutor);
                     var genericArguments = property.p.PropertyType.GetGenericArguments();
                     var constructedType = dbSetType.MakeGenericType(genericArguments);
                     var dbSet = Activator.CreateInstance(constructedType, new[] { queryProvider });
@@ -117,11 +119,18 @@ namespace ORM.Core
         /// <summary>
         /// Check if the type implements the IDbSet interface.
         /// </summary>
-        /// <param name="propertyInfo"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         private static bool CheckPropertyInfoImplementsIDbSet(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDbSet<>);
+        }
+
+        /// <summary>
+        /// Load the mapping roles.
+        /// </summary>
+        protected virtual void Mappings()
+        {
         }
     }
 }
