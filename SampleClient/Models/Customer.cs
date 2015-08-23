@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ORM.Models
+namespace SampleClient.Models
 {
     public class Customer
     {

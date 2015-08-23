@@ -1,8 +1,10 @@
 ﻿using ORM.Core;
 using ORM.Mappings;
-using ORM.Models;
 
-namespace ORM
+using SampleClient.Mappings;
+using SampleClient.Models;
+
+namespace SampleClient
 {
     public class CustomDbContext : BaseDbContext
     {

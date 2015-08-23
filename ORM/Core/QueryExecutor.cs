@@ -57,7 +57,7 @@ namespace ORM.Core
             reader.Close();
             _connectionManager.Close();
 
-            return null;
+            return new List<string>();
         }
 
         public void Dispose()

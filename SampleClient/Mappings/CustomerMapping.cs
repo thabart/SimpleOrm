@@ -1,6 +1,7 @@
-﻿using ORM.Models;
+﻿using ORM.Mappings;
+using SampleClient.Models;
 
-namespace ORM.Mappings
+namespace SampleClient.Mappings
 {
     public class CustomerMapping : BaseMapping<Customer>
     {

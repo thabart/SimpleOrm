@@ -54,8 +54,7 @@ namespace ORM.LinqToSql
             var query = queryTranslator.Translate(expression);
 
             // TODO : pass to this function the mapping rule ? or the type?
-            _queryExecutor.ExecuteText(query);
-            return null;
+            return _queryExecutor.ExecuteText(query);
         }
 
         /// <summary>
