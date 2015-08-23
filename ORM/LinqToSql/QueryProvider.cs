@@ -32,32 +32,29 @@ namespace ORM.LinqToSql
         }
 
         /// <summary>
-        /// Transform the expression tree into SQL script, execute it and returns the result.
+        /// Transforms the expression tree into SQL script, executes it and returns the result.
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
         public object Execute(Expression expression)
         {
+            if (!expression.Type.IsGenericType)
+            {
+                // TODO : throw the appropriate exception.
+            }
+
+
+            if (!typeof(IQueryable).IsAssignableFrom(expression.Type))
+            {
+                // TODO : throw the appropriate exception.
+            }
+
+
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
 
+            // TODO : pass to this function the mapping rule ? or the type?
             _queryExecutor.ExecuteText(query);
-            Console.WriteLine(query);
-            /*
-            
-            _connectionManager.Open();
-            
-            var command = new SqlCommand();
-            command.CommandText = query;
-            command.CommandType = CommandType.Text;
-            command.Connection = _connectionManager.Connection;
-
-            var reader = command.ExecuteReader();
-
-            reader.Close();
-            _connectionManager.Close();
-            */
-
             return null;
         }
 
@@ -70,7 +67,8 @@ namespace ORM.LinqToSql
         public TResult Execute<TResult>(Expression expression)
         {
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
-            return default(TResult);
+            var query = queryTranslator.Translate(expression);
+            return (TResult)_queryExecutor.ExecuteText(query);
         }
 
         /// <summary>

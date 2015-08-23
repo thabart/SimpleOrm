@@ -59,7 +59,7 @@ namespace ORM.LinqToSql
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<TSource>)_queryProvider.Execute(_expression)).GetEnumerator();
+            return ((IEnumerable)_queryProvider.Execute(_expression)).GetEnumerator();
         }
 
         public override string ToString()

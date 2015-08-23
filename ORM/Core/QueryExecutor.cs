@@ -30,6 +30,11 @@ namespace ORM.Core
             _connectionManager = new ConnectionManager(connectionString);
         }
 
+        /// <summary>
+        /// Execute the sql script and returns the result.
+        /// </summary>
+        /// <param name="sqlScript"></param>
+        /// <returns></returns>
         public object ExecuteText(string sqlScript)
         {
             _connectionManager.Open();
@@ -42,6 +47,7 @@ namespace ORM.Core
             var reader = command.ExecuteReader();
             if (reader.HasRows)
             {
+                var columnNames = GetColumnNames(reader);
                 while (reader.Read())
                 {
                     Console.WriteLine(reader.GetString(0));
@@ -52,23 +58,6 @@ namespace ORM.Core
             _connectionManager.Close();
 
             return null;
-        }
-
-        public List<TResult> ExecuteText<TResult>(string sqlScript)
-        {
-            _connectionManager.Open();
-
-            var command = new SqlCommand();
-            command.CommandText = sqlScript;
-            command.CommandType = CommandType.Text;
-            command.Connection = _connectionManager.Connection;
-
-            var reader = command.ExecuteReader();
-
-            reader.Close();
-            _connectionManager.Close();
-
-            return new List<TResult>();
         }
 
         public void Dispose()
@@ -84,6 +73,17 @@ namespace ORM.Core
             }
 
             _isDisposed = true;
+        }
+
+        private static List<string> GetColumnNames(SqlDataReader reader)
+        {
+            var columns = new List<string>();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                columns.Add(reader.GetName(i));
+            }
+
+            return columns;
         }
     }
 }
