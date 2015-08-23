@@ -1,8 +1,0 @@
-C:\Project\ORM\SampleClient\bin\Debug\SampleClient.exe.config
-C:\Project\ORM\SampleClient\bin\Debug\SampleClient.exe
-C:\Project\ORM\SampleClient\bin\Debug\SampleClient.pdb
-C:\Project\ORM\SampleClient\bin\Debug\ORM.exe
-C:\Project\ORM\SampleClient\bin\Debug\ORM.pdb
-C:\Project\ORM\SampleClient\obj\Debug\SampleClient.csprojResolveAssemblyReference.cache
-C:\Project\ORM\SampleClient\obj\Debug\SampleClient.exe
-C:\Project\ORM\SampleClient\obj\Debug\SampleClient.pdb

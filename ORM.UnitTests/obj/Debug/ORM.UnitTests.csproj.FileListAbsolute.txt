@@ -1,5 +1,0 @@
-C:\Project\ORM\ORM.UnitTests\bin\Debug\ORM.UnitTests.dll
-C:\Project\ORM\ORM.UnitTests\bin\Debug\ORM.UnitTests.pdb
-C:\Project\ORM\ORM.UnitTests\obj\Debug\ORM.UnitTests.dll
-C:\Project\ORM\ORM.UnitTests\obj\Debug\ORM.UnitTests.pdb
-C:\Project\ORM\ORM.UnitTests\obj\Debug\ORM.UnitTests.csprojResolveAssemblyReference.cache
