@@ -1,5 +1,6 @@
 ﻿using ORM.Exceptions;
 using ORM.LinqToSql;
+using ORM.Mappings;
 
 using System;
 using System.Configuration;
@@ -12,6 +13,8 @@ namespace ORM.Core
     {
         private QueryExecutor _queryExecutor;
 
+        private IMappingRuleTranslator _mappingRuleTranslator;
+        
         private bool _isDisposed;
         
         /// <summary>
@@ -58,12 +61,14 @@ namespace ORM.Core
         private void InitializeDbContext(string connectionString)
         {
             _queryExecutor = new QueryExecutor(connectionString);
+            var entityMappingContainer = new EntityMappingContainer();
+            _mappingRuleTranslator = new MappingRuleTranslator(entityMappingContainer);
 
             _isDisposed = false;
 
             InitializeDbSets();
 
-            Mappings();
+            Mappings(entityMappingContainer);
         }
 
         /// <summary>
@@ -87,7 +92,7 @@ namespace ORM.Core
             {
                 foreach(var property in properties)
                 {
-                    var queryProvider = new QueryProvider(_queryExecutor);
+                    var queryProvider = new QueryProvider(_queryExecutor, _mappingRuleTranslator);
                     var genericArguments = property.p.PropertyType.GetGenericArguments();
                     var constructedType = dbSetType.MakeGenericType(genericArguments);
                     var dbSet = Activator.CreateInstance(constructedType, new[] { queryProvider });
@@ -129,8 +134,18 @@ namespace ORM.Core
         /// <summary>
         /// Load the mapping roles.
         /// </summary>
-        protected virtual void Mappings()
+        protected virtual void Mappings(IEntityMappingContainer entityMappingContainer)
         {
+            ResolveMappingRolesByConvention(entityMappingContainer);
+        }
+
+        /// <summary>
+        /// Resolve the mappings roles by convention.
+        /// </summary>
+        /// <param name="entityMappingContainer"></param>
+        private static void ResolveMappingRolesByConvention(IEntityMappingContainer entityMappingContainer)
+        {
+            // TODO : Implement this method.
         }
     }
 }

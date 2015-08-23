@@ -1,4 +1,6 @@
-﻿using ORM.Exceptions;
+﻿using ORM.Core;
+using ORM.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,7 +10,16 @@ namespace ORM.Translators
 {
     public class SelectTranslator : ExpressionVisitor
     {
+        private readonly IMappingRuleTranslator _mappingRuleTranslator;
+
         private StringBuilder _builder;
+
+        private Type _genericType;
+
+        public SelectTranslator(IMappingRuleTranslator mappingRuleTranslator)
+        {
+            _mappingRuleTranslator = mappingRuleTranslator;
+        }
 
         public string Translate(Expression expression)
         {
@@ -46,8 +57,18 @@ namespace ORM.Translators
             {
                 throw new OrmInternalException("The type of the query is not IQueryable");
             }
+            
+            if (!declaringType.IsGenericType)
+            {
+                throw new OrmInternalException("The type of the query is not generic");
+            }
 
-            // Retrieve the mapping roles.
+            if (declaringType.GetGenericArguments().Count() > 1)
+            {
+                throw new OrmInternalException("The type of the query is generic but contains more than one argument");
+            }
+
+            _genericType = declaringType.GetGenericArguments().First();
 
             _builder.Append("SELECT ");
             var secondArgument = expression.Arguments[1];
@@ -57,10 +78,10 @@ namespace ORM.Translators
 
             Visit(bodyLambdaExpression);
 
-            var genericArgument = declaringType.GetGenericArguments().First();
-            var table = genericArgument.Name;
             _builder.Append(" FROM ");
-            _builder.Append(table);
+
+            var tableName = _mappingRuleTranslator.GetTableName(_genericType);
+            _builder.Append(tableName);
 
             return expression;
         }
@@ -78,9 +99,12 @@ namespace ORM.Translators
 
         protected override Expression VisitMember(MemberExpression expression)
         {
+            var type = expression.Type;
             if (expression.Expression != null && expression.Expression.NodeType == ExpressionType.Parameter)
             {
-                _builder.Append(expression.Member.Name);
+                var memberName = expression.Member.Name;
+                var columnName = _mappingRuleTranslator.GetColumnName(_genericType, memberName);
+                _builder.Append(columnName);
             }
 
             return expression;
@@ -97,7 +121,8 @@ namespace ORM.Translators
             var columnNames = new List<string>();
             foreach(var member in members)
             {
-                columnNames.Add(member.Name);
+                var columnName = _mappingRuleTranslator.GetColumnName(_genericType, member.Name);
+                columnNames.Add(columnName);
             }
 
             _builder.Append(string.Join(",", columnNames));

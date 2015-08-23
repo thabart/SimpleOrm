@@ -61,23 +61,39 @@ namespace ORM
             Console.WriteLine(result);
         }
 
-        private static void ExecuteSelectQuery()
+        private static void ExecuteQueryAndDisplaySqlScript()
         {
             using (var context = new CustomDbContext())
             {
                 var result = context.Customers
-                    .Select(c => c.FirstName)
+                    .Select(c => new
+                    {
+                        c.FirstName
+                    })
                     .ToString();
 
                 Console.WriteLine(result);
             }
         }
 
+        private static void ExecuteQueryAndDisplayResult()
+        {
+            using (var context = new CustomDbContext())
+            {
+                var result = context.Customers
+                    .Select(c => new
+                    {
+                        c.FirstName
+                    }).GetEnumerator();
+            }
+        }
+
         static void Main(string[] args)
         {
-            ShowSelectRequestWithAnonymousType();
-            ShowSelectRequestBasicForm();
-            ExecuteSelectQuery();
+            // ShowSelectRequestWithAnonymousType();
+            // ShowSelectRequestBasicForm();
+            
+            ExecuteQueryAndDisplayResult();
 
             Console.ReadLine();
         }

@@ -1,4 +1,5 @@
 ﻿using ORM.Core;
+using ORM.Mappings;
 using ORM.Models;
 
 namespace ORM
@@ -11,9 +12,9 @@ namespace ORM
 
         public IDbSet<Customer> Customers { get; set; }
 
-        protected override void Mappings()
+        protected override void Mappings(IEntityMappingContainer entityMappingContainer)
         {
-
+            entityMappingContainer.AddMapping(new CustomerMapping());
         }
     }
 }

@@ -1,7 +1,11 @@
-﻿namespace ORM.Core
+﻿using System.Collections.Generic;
+
+namespace ORM.Core
 {
     public interface IQueryExecutor
     {
-        void ExecuteSelect(string sqlScript);
+        object ExecuteText(string sqlScript);
+
+        List<TResult> ExecuteText<TResult>(string sqlScript);
     }
 }

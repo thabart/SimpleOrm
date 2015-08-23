@@ -1,4 +1,5 @@
-﻿using ORM.Exceptions;
+﻿using ORM.Core;
+using ORM.Exceptions;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,15 +13,18 @@ namespace ORM.Translators
 
         private readonly WhereTranslator _whereTranslator;
 
+        private readonly IMappingRuleTranslator _mappingRuleTranslator;
+
         private string _translatedSelect;
 
         private string _translatedWhere;
 
         private StringBuilder _builder;
 
-        public QueryTranslator()
+        public QueryTranslator(IMappingRuleTranslator mappingRuleTranslator)
         {
-            _selectTranslator = new SelectTranslator();
+            _mappingRuleTranslator = mappingRuleTranslator;
+            _selectTranslator = new SelectTranslator(mappingRuleTranslator);
 
             _translatedSelect = string.Empty;
             _translatedWhere = string.Empty;

@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using ORM.Core;
+﻿using ORM.Core;
 using ORM.Translators;
 
 using System;
@@ -13,9 +11,14 @@ namespace ORM.LinqToSql
     {
         private readonly IQueryExecutor _queryExecutor;
 
-        public QueryProvider(IQueryExecutor queryExecutor)
+        private readonly IMappingRuleTranslator _mappingRuleTranslator;
+
+        public QueryProvider(
+            IQueryExecutor queryExecutor,
+            IMappingRuleTranslator mappingRuleTranslator)
         {
             _queryExecutor = queryExecutor;
+            _mappingRuleTranslator = mappingRuleTranslator;
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -35,8 +38,11 @@ namespace ORM.LinqToSql
         /// <returns></returns>
         public object Execute(Expression expression)
         {
-            var queryTranslator = new QueryTranslator();
+            var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
+
+            _queryExecutor.ExecuteText(query);
+            Console.WriteLine(query);
             /*
             
             _connectionManager.Open();
@@ -63,8 +69,8 @@ namespace ORM.LinqToSql
         /// <returns></returns>
         public TResult Execute<TResult>(Expression expression)
         {
-            var queryTranslator = new QueryTranslator();
-            throw new NotImplementedException();
+            var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
+            return default(TResult);
         }
 
         /// <summary>
@@ -73,7 +79,7 @@ namespace ORM.LinqToSql
         /// <returns>Sql script</returns>
         public string TranslateToSql(Expression expression)
         {
-            var queryTranslator = new QueryTranslator();
+            var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             return queryTranslator.Translate(expression);
         }
     }

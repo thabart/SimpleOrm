@@ -6,7 +6,7 @@ namespace ORM.Mappings
     {
         public CustomerMapping()
         {
-            ToTable("dbo.CUSTOMERS");
+            ToTable("dbo.Customers");
             Property(t => t.FirstName).HasColumnName("FIRST_NAME");
         }
     }
