@@ -55,7 +55,6 @@ namespace ORM.LinqToSql
             var query = queryTranslator.Translate(expression);
             var mappingDefinition = _mappingRuleTranslator.GetMappingDefinition(genericType);
 
-            // TODO : pass to this function the mapping rule ? or the type?
             return _queryExecutor.ExecuteText(query, mappingDefinition);
         }
 

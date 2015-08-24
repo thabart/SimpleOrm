@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ORM.Mappings;
 
-using ORM.Mappings;
-using System.Data.SqlClient;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Collections;
 
 namespace ORM.Core
 {
@@ -16,6 +16,8 @@ namespace ORM.Core
     public class QueryExecutor : IQueryExecutor, IDisposable
     {
         private readonly ConnectionManager _connectionManager;
+
+        private readonly IRecordReader _recordReader;
 
         private bool _isDisposed;
 
@@ -31,6 +33,7 @@ namespace ORM.Core
         public QueryExecutor(string connectionString)
         {
             _connectionManager = new ConnectionManager(connectionString);
+            _recordReader = new RecordReader();
         }
 
         /// <summary>
@@ -58,37 +61,7 @@ namespace ORM.Core
                 var columnNames = GetColumnNames(reader);
                 while (reader.Read())
                 {
-                    var instance = Activator.CreateInstance(entityMappingDefinition.EntityType);
-                    for (var i = 0; i < columnNames.Count; i++)
-                    {
-                        var columnName = columnNames[i];
-                        var columnDefinition = entityMappingDefinition.ColumnDefinitions.FirstOrDefault(c => c.ColumnName == columnName);
-                        var getPropertyInfoType = GetPropertyInfoType(instance, columnDefinition.PropertyName);
-                        if(getPropertyInfoType == typeof(int))
-                        {
-                            var recordValue = reader.GetInt32(i);
-                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
-                            continue;
-                        }
-                        else if (getPropertyInfoType == typeof(double))
-                        {
-                            var recordValue = reader.GetDouble(i);
-                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
-                            continue;
-                        }
-                        else if(getPropertyInfoType == typeof(Guid))
-                        {
-                            var recordValue = reader.GetGuid(i);
-                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
-                            continue;
-                        }
-                        else
-                        {
-                            var recordValue = reader.GetString(i);
-                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
-                            continue;
-                        }
-                    }
+                    var instance = _recordReader.MapToEntity(reader, entityMappingDefinition, columnNames);
 
                     result.Add(instance);
                 }
@@ -124,30 +97,6 @@ namespace ORM.Core
             }
 
             return columns;
-        }
-
-        private static void SetPropertyValue<TProperty>(object instance, string propertyName, TProperty propertyValue)
-        {
-            var type = instance.GetType();
-            var propertyInfo = type.GetProperty(propertyName,
-                BindingFlags.Instance | BindingFlags.Public);
-            if (propertyInfo != null && propertyInfo.CanWrite)
-            {
-                propertyInfo.SetValue(instance, propertyValue);
-            }
-        }
-
-        private static Type GetPropertyInfoType(object instance, string propertyName)
-        {
-            var type = instance.GetType();
-            var propertyInfo = type.GetProperty(propertyName,
-                BindingFlags.Instance | BindingFlags.Public);
-            if (propertyInfo == null)
-            {
-                // TODO : throw the appropriate exception.
-            }
-
-            return propertyInfo.PropertyType;
         }
     }
 }

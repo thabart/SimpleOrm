@@ -93,8 +93,10 @@
   <ItemGroup>
     <Compile Include="Core\IMappingRuleTranslator.cs" />
     <Compile Include="Core\IQueryExecutor.cs" />
+    <Compile Include="Core\IRecordReader.cs" />
     <Compile Include="Core\MappingRuleTranslator.cs" />
     <Compile Include="Core\QueryExecutor.cs" />
+    <Compile Include="Core\RecordReader.cs" />
     <Compile Include="Mappings\BaseMapping.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\BaseDBContext.cs" />
