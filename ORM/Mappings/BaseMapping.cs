@@ -9,7 +9,7 @@ namespace ORM.Mappings
 
         public BaseMapping()
         {
-            _entityMappingDefinition = new EntityMappingDefinition();
+            _entityMappingDefinition = new EntityMappingDefinition(typeof(TSource));
         }
 
         public EntityMappingDefinition EntityMappingDefinition

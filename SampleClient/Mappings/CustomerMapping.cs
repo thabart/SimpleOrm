@@ -8,6 +8,7 @@ namespace SampleClient.Mappings
         public CustomerMapping()
         {
             ToTable("dbo.Customers");
+            Property(t => t.Id).HasColumnName("ID");
             Property(t => t.FirstName).HasColumnName("FIRST_NAME");
         }
     }

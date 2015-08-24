@@ -49,12 +49,14 @@ namespace ORM.LinqToSql
                 // TODO : throw the appropriate exception.
             }
 
+            var genericType = expression.Type.GetGenericArguments().First();
 
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
+            var mappingDefinition = _mappingRuleTranslator.GetMappingDefinition(genericType);
 
             // TODO : pass to this function the mapping rule ? or the type?
-            return _queryExecutor.ExecuteText(query);
+            return _queryExecutor.ExecuteText(query, mappingDefinition);
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace ORM.LinqToSql
         {
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
-            return (TResult)_queryExecutor.ExecuteText(query);
+            return (TResult)_queryExecutor.ExecuteText(query, null);
         }
 
         /// <summary>

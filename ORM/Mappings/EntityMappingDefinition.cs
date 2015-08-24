@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ORM.Mappings
 {
@@ -6,12 +7,15 @@ namespace ORM.Mappings
     {
         private List<ColumnDefinition> _columnDefinitions;
 
-        public EntityMappingDefinition()
+        public EntityMappingDefinition(Type entityType)
         {
             _columnDefinitions = new List<ColumnDefinition>();
+            EntityType = entityType;
         }
 
         public string TableName { get; set; }
+
+        public Type EntityType { get; private set; }
 
         public List<ColumnDefinition> ColumnDefinitions
         {

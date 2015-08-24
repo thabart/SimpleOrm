@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ORM.Mappings;
+
+using System;
 
 namespace ORM.Core
 {
@@ -7,5 +9,7 @@ namespace ORM.Core
         string GetTableName(Type type);
 
         string GetColumnName(Type type, string propertyName);
+
+        EntityMappingDefinition GetMappingDefinition(Type type);
     }
 }

@@ -29,8 +29,14 @@ namespace SampleClient
                 var result = context.Customers
                     .Select(c => new
                     {
-                        c.FirstName
-                    }).GetEnumerator();
+                        c.FirstName,
+                        c.Id
+                    });
+
+                foreach(var record in result)
+                {
+                    Console.WriteLine(record.Id +" "+ record.FirstName);
+                }
             }
         }
 

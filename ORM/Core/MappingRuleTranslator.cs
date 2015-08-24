@@ -33,5 +33,10 @@ namespace ORM.Core
 
             return propertyName;
         }
+
+        public EntityMappingDefinition GetMappingDefinition(Type type)
+        {
+            return _entityMappingContainer.GetEntityMappingDefinition(type);
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ORM.Mappings;
 
 namespace ORM.Core
 {
     public interface IQueryExecutor
     {
-        object ExecuteText(string sqlScript);
+        object ExecuteText(string sqlScript, EntityMappingDefinition mappingDefinition);
     }
 }

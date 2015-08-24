@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using ORM.Mappings;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
+using System.Reflection;
+using System.Collections;
 
 namespace ORM.Core
 {
@@ -34,11 +37,16 @@ namespace ORM.Core
         /// Execute the sql script and returns the result.
         /// </summary>
         /// <param name="sqlScript"></param>
+        /// <param name="entityMappingDefinition"></param>
         /// <returns></returns>
-        public object ExecuteText(string sqlScript)
+        public object ExecuteText(string sqlScript, EntityMappingDefinition entityMappingDefinition)
         {
             _connectionManager.Open();
 
+            var listType = typeof(List<>);
+            var constructedListType = listType.MakeGenericType(entityMappingDefinition.EntityType);
+            IList result = (IList)Activator.CreateInstance(constructedListType);
+            
             var command = new SqlCommand();
             command.CommandText = sqlScript;
             command.CommandType = CommandType.Text;
@@ -50,14 +58,46 @@ namespace ORM.Core
                 var columnNames = GetColumnNames(reader);
                 while (reader.Read())
                 {
-                    Console.WriteLine(reader.GetString(0));
+                    var instance = Activator.CreateInstance(entityMappingDefinition.EntityType);
+                    for (var i = 0; i < columnNames.Count; i++)
+                    {
+                        var columnName = columnNames[i];
+                        var columnDefinition = entityMappingDefinition.ColumnDefinitions.FirstOrDefault(c => c.ColumnName == columnName);
+                        var getPropertyInfoType = GetPropertyInfoType(instance, columnDefinition.PropertyName);
+                        if(getPropertyInfoType == typeof(int))
+                        {
+                            var recordValue = reader.GetInt32(i);
+                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
+                            continue;
+                        }
+                        else if (getPropertyInfoType == typeof(double))
+                        {
+                            var recordValue = reader.GetDouble(i);
+                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
+                            continue;
+                        }
+                        else if(getPropertyInfoType == typeof(Guid))
+                        {
+                            var recordValue = reader.GetGuid(i);
+                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
+                            continue;
+                        }
+                        else
+                        {
+                            var recordValue = reader.GetString(i);
+                            SetPropertyValue(instance, columnDefinition.PropertyName, recordValue);
+                            continue;
+                        }
+                    }
+
+                    result.Add(instance);
                 }
             }
 
             reader.Close();
             _connectionManager.Close();
 
-            return new List<string>();
+            return result;
         }
 
         public void Dispose()
@@ -84,6 +124,30 @@ namespace ORM.Core
             }
 
             return columns;
+        }
+
+        private static void SetPropertyValue<TProperty>(object instance, string propertyName, TProperty propertyValue)
+        {
+            var type = instance.GetType();
+            var propertyInfo = type.GetProperty(propertyName,
+                BindingFlags.Instance | BindingFlags.Public);
+            if (propertyInfo != null && propertyInfo.CanWrite)
+            {
+                propertyInfo.SetValue(instance, propertyValue);
+            }
+        }
+
+        private static Type GetPropertyInfoType(object instance, string propertyName)
+        {
+            var type = instance.GetType();
+            var propertyInfo = type.GetProperty(propertyName,
+                BindingFlags.Instance | BindingFlags.Public);
+            if (propertyInfo == null)
+            {
+                // TODO : throw the appropriate exception.
+            }
+
+            return propertyInfo.PropertyType;
         }
     }
 }
