@@ -1,6 +1,6 @@
 ﻿using ORM.Core;
 using ORM.Exceptions;
-using System;
+
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -25,6 +25,7 @@ namespace ORM.Translators
         {
             _mappingRuleTranslator = mappingRuleTranslator;
             _selectTranslator = new SelectTranslator(mappingRuleTranslator);
+            _whereTranslator = new WhereTranslator(mappingRuleTranslator);
 
             _translatedSelect = string.Empty;
             _translatedWhere = string.Empty;
@@ -94,11 +95,10 @@ namespace ORM.Translators
             switch(methodName)
             {
                 case "Select":
-                    var translated = _selectTranslator.Translate(expression);
-                    _translatedSelect = translated;
+                    _translatedSelect = _selectTranslator.Translate(expression);
                     break;
                 case "Where":
-
+                    _translatedWhere = _whereTranslator.Translate(expression);
                     break;
             }
 
