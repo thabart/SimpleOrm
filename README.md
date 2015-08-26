@@ -4,8 +4,9 @@
 [![Build Status](https://travis-ci.org/thabart/SimpleOrm.svg?branch=master)](https://travis-ci.org/thabart/SimpleOrm)
 
 This small ORM has a limited set of features :
-1. It supports some basic SQL actions such as "select" & "where" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL sript.
-2. It also allows a project to use the code first-approach. 
+
+* It supports some basic SQL actions such as "select" & "where" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL sript.
+* It also allows a project to use the code first-approach. 
 
 Some snippet-code examples :
 
