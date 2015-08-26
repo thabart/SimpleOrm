@@ -12,7 +12,7 @@ Some snippet-code examples :
 
 ### Select request
 
-The custom linq-to-sql instruction :
+The custom select linq-to-sql instruction :
 
 ```
 var result = context.Customers
@@ -30,7 +30,7 @@ SELECT ID,FIRST_NAME FROM dbo.Customers
 
 ### Where request
 
-The custom linq-to-sql instruction :
+The custom where linq-to-sql instruction :
 
 ```
 var result = context.Customers.Where(c => c.FirstName == "Thierry");
