@@ -120,6 +120,7 @@
     <Compile Include="Translators\SelectTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Translators\QueryTranslator.cs" />
+    <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="Translators\WhereTranslator.cs" />
   </ItemGroup>
   <ItemGroup>

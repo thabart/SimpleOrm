@@ -28,8 +28,13 @@ namespace SampleClient
         {
             using (var context = new CustomDbContext())
             {
-                var result = context.Customers.Where(c => c.FirstName == "Deviiittt").ToString();
-                Console.WriteLine(string.Empty);
+                var result = context.Customers.Where(c => c.FirstName == "Thierry");
+                foreach (var record in result)
+                {
+                    Console.WriteLine(record.FirstName);
+                }
+
+                Console.WriteLine(result.ToString());
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using ORM.Core;
+using ORM.Helpers;
 using ORM.Translators;
 
 using System;
@@ -38,18 +39,7 @@ namespace ORM.LinqToSql
         /// <returns></returns>
         public object Execute(Expression expression)
         {
-            if (!expression.Type.IsGenericType)
-            {
-                // TODO : throw the appropriate exception.
-            }
-
-
-            if (!typeof(IQueryable).IsAssignableFrom(expression.Type))
-            {
-                // TODO : throw the appropriate exception.
-            }
-
-            var genericType = expression.Type.GetGenericArguments().First();
+            var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
 
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);

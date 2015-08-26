@@ -1,5 +1,5 @@
 ﻿using ORM.Core;
-using ORM.Exceptions;
+using ORM.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,23 +52,7 @@ namespace ORM.Translators
 
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
-            var declaringType = expression.Type;
-            if (!typeof(IQueryable).IsAssignableFrom(declaringType))
-            {
-                throw new OrmInternalException("The type of the query is not IQueryable");
-            }
-            
-            if (!declaringType.IsGenericType)
-            {
-                throw new OrmInternalException("The type of the query is not generic");
-            }
-
-            if (declaringType.GetGenericArguments().Count() > 1)
-            {
-                throw new OrmInternalException("The type of the query is generic but contains more than one argument");
-            }
-
-            _genericType = declaringType.GetGenericArguments().First();
+            _genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
 
             _builder.Append("SELECT ");
             var secondArgument = expression.Arguments[1];

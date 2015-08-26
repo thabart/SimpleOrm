@@ -1,6 +1,6 @@
 ﻿using ORM.Core;
 using ORM.Exceptions;
-
+using ORM.Helpers;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -39,7 +39,7 @@ namespace ORM.Translators
         public string Translate(Expression expression)
         {
             Visit(expression);
-            return GenerateSql();
+            return GenerateSql(expression);
         }
 
         /// <summary>
@@ -106,11 +106,20 @@ namespace ORM.Translators
         }
 
         /// <summary>
-        /// When the class has finished to read the expression tree this function is called to generate the corresponding sql script.
+        /// When the class has finished to read the expression tree 
+        /// The function is called to generate the corresponding sql script.
         /// </summary>
+        /// <param name="expression"></param>
         /// <returns></returns>
-        private string GenerateSql()
+        private string GenerateSql(Expression expression)
         {
+            if (string.IsNullOrWhiteSpace(_translatedSelect) && !string.IsNullOrWhiteSpace(_translatedWhere))
+            {
+                var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
+                var tableName = _mappingRuleTranslator.GetTableName(genericType);
+                return "SELECT * FROM " + tableName + " " + _translatedWhere;
+            }
+
             return _translatedSelect;
         }
     }

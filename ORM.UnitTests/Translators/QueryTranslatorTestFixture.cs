@@ -121,5 +121,47 @@ namespace ORM.UnitTests.Translators
                 _sqlScript = QueryTranslator.Translate(_selectExpression);
             }
         } 
+
+        [TestFixture]
+        public sealed class WhenTranslatingWhereInstructionWithOnlyOneConditionIntoSqlScript : GivenQueryTranslator
+        {
+            private Expression _selectExpression;
+
+            private string _sqlScript;
+
+            [Test]
+            public void ThenSqlScriptIsGenerated()
+            {
+                Assert.IsNotNullOrEmpty(_sqlScript);
+            }
+
+            [Test]
+            public void ThenSqlScriptIsCorrect()
+            {
+                var expectedResult = string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", TableName, ColumnName, "Thierry");
+                Assert.That(_sqlScript, Is.EqualTo(expectedResult));
+            }
+
+            public override void Arrange()
+            {
+                base.Arrange();
+                var customers = new List<Customer>
+                {
+                    new Customer
+                    {
+                        FirstName = "Thierry",
+                        LastName = "Habart"
+                    }
+                };
+
+                var queryableCustomers = customers.AsQueryable();
+                _selectExpression = queryableCustomers.Where(q => q.FirstName == "Thierry").Expression;
+            }
+
+            public override void Act()
+            {
+                _sqlScript = QueryTranslator.Translate(_selectExpression);
+            }
+        }
     }
 }
