@@ -69,6 +69,7 @@ namespace ORM.Translators
                 case ExpressionType.GreaterThan:
                 case ExpressionType.AndAlso:
                 case ExpressionType.Or:
+                case ExpressionType.OrElse:
                     VisitBinary((BinaryExpression)expression);
                     break;
                 case ExpressionType.Constant:
@@ -120,6 +121,10 @@ namespace ORM.Translators
                     break;
                 case ExpressionType.AndAlso:
                     _builder.Append(" AND ");
+                    break;
+                case ExpressionType.Or:
+                case ExpressionType.OrElse:
+                    _builder.Append(" OR ");
                     break;
             }
 

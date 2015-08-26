@@ -120,6 +120,11 @@ namespace ORM.Translators
                 return "SELECT * FROM " + tableName + " " + _translatedWhere;
             }
 
+            if (!string.IsNullOrWhiteSpace(_translatedSelect) && !string.IsNullOrWhiteSpace(_translatedWhere))
+            {
+                return _translatedSelect + " " + _translatedWhere;
+            }
+
             return _translatedSelect;
         }
     }

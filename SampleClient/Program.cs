@@ -24,7 +24,7 @@ namespace SampleClient
             }
         }
 
-        private static void ExecuteSelectQueryWithConditionAndDisplayResult()
+        private static void ExecuteWhereQueryWithConditionsAndDisplayResult()
         {
             using (var context = new CustomDbContext())
             {
@@ -38,10 +38,25 @@ namespace SampleClient
             }
         }
 
+        private static void ExecuteSelectWhereQueriesAndDisplayResult()
+        {
+            using (var context = new CustomDbContext())
+            {
+                var result = context.Customers.Where(c => c.FirstName == "Thierry" || c.FirstName == "Loki").Select(c => c.FirstName);
+                foreach (var record in result)
+                {
+                    Console.WriteLine(record.FirstName);
+                }
+
+                Console.WriteLine(result.ToString());
+            }
+        }
+
         static void Main(string[] args)
         {
             // ExecuteQueryAndDisplayResult();
-            ExecuteSelectQueryWithConditionAndDisplayResult();
+            // ExecuteWhereQueryWithConditionsAndDisplayResult();
+            ExecuteSelectWhereQueriesAndDisplayResult();
 
             Console.ReadLine();
         }
