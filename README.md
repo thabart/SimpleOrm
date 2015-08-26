@@ -5,7 +5,7 @@
 
 This small ORM has a limited set of features :
 
-* It supports some basic SQL actions such as "select" & "where" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL sript.
+* It supports some basic SQL actions such as "select" & "where" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL script.
 * It also allows a project to use the code first-approach. 
 
 Some snippet-code examples :
