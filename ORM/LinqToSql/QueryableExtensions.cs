@@ -39,5 +39,35 @@ namespace ORM.LinqToSql
                 });
             return source.Provider.CreateQuery<TSource>(expressionTree);
         }
+
+        public static object Add<TSource>(this IQueryable<TSource> source, TSource record)
+        {
+            var expressionTree = Expression.Call(
+                null,
+                ((MethodInfo) MethodBase.GetCurrentMethod()).MakeGenericMethod(new Type[]
+                {
+                    typeof (TSource)
+                }),
+                new Expression[]
+                {
+                    Expression.Constant(record)
+                });
+            return source.Provider.Execute(expressionTree);
+        }
+
+        public static object Remove<TSource>(this IQueryable<TSource> source, TSource record)
+        {
+            var expressionTree = Expression.Call(
+                null,
+                ((MethodInfo)MethodBase.GetCurrentMethod()).MakeGenericMethod(new Type[]
+                {
+                    typeof (TSource)
+                }),
+                new Expression[]
+                {
+                    Expression.Constant(record)
+                });
+            return source.Provider.Execute(expressionTree);
+        }
     }
 }

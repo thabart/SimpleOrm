@@ -56,7 +56,7 @@ namespace SampleClient
         {
             // ExecuteQueryAndDisplayResult();
             // ExecuteWhereQueryWithConditionsAndDisplayResult();
-            ExecuteSelectWhereQueriesAndDisplayResult();
+            // ExecuteSelectWhereQueriesAndDisplayResult();
 
             Console.ReadLine();
         }
