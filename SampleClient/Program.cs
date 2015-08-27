@@ -1,5 +1,5 @@
 ﻿using ORM.LinqToSql;
-
+using SampleClient.Models;
 using System;
 
 namespace SampleClient
@@ -52,12 +52,27 @@ namespace SampleClient
             }
         }
 
+        private static void ExecuteInsertQueryAndDisplayResult()
+        {
+            using (var context = new CustomDbContext())
+            {
+                var record = new Customer
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "temp",
+                    LastName = "temp"
+                };
+
+                context.Customers.Add(record);
+            }
+        }
+
         static void Main(string[] args)
         {
             // ExecuteQueryAndDisplayResult();
             // ExecuteWhereQueryWithConditionsAndDisplayResult();
             // ExecuteSelectWhereQueriesAndDisplayResult();
-
+            ExecuteInsertQueryAndDisplayResult();
             Console.ReadLine();
         }
     }

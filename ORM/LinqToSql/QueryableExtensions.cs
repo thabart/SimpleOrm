@@ -42,6 +42,7 @@ namespace ORM.LinqToSql
 
         public static object Add<TSource>(this IQueryable<TSource> source, TSource record)
         {
+            var t = typeof(TSource);
             var expressionTree = Expression.Call(
                 null,
                 ((MethodInfo) MethodBase.GetCurrentMethod()).MakeGenericMethod(new Type[]
@@ -50,6 +51,7 @@ namespace ORM.LinqToSql
                 }),
                 new Expression[]
                 {
+                    source.Expression,
                     Expression.Constant(record)
                 });
             return source.Provider.Execute(expressionTree);

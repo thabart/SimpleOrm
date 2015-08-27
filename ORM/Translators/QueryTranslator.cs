@@ -14,12 +14,16 @@ namespace ORM.Translators
 
         private readonly WhereTranslator _whereTranslator;
 
+        private readonly InsertTranslator _insertTranslator;
+
         private readonly IMappingRuleTranslator _mappingRuleTranslator;
 
         private string _translatedSelect;
 
         private string _translatedWhere;
 
+        private string _translatedInsert;
+        
         private StringBuilder _builder;
 
         public QueryTranslator(IMappingRuleTranslator mappingRuleTranslator)
@@ -27,6 +31,7 @@ namespace ORM.Translators
             _mappingRuleTranslator = mappingRuleTranslator;
             _selectTranslator = new SelectTranslator(mappingRuleTranslator);
             _whereTranslator = new WhereTranslator(mappingRuleTranslator);
+            _insertTranslator = new InsertTranslator(mappingRuleTranslator);
 
             _translatedSelect = string.Empty;
             _translatedWhere = string.Empty;
@@ -100,6 +105,9 @@ namespace ORM.Translators
                     break;
                 case "Where":
                     _translatedWhere = _whereTranslator.Translate(expression);
+                    break;
+                case "Add":
+                    _translatedInsert = _insertTranslator.Translate(expression);
                     break;
             }
 

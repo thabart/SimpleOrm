@@ -45,7 +45,7 @@ namespace ORM.LinqToSql
             var query = queryTranslator.Translate(expression);
             var mappingDefinition = _mappingRuleTranslator.GetMappingDefinition(genericType);
 
-            return _queryExecutor.ExecuteText(query, mappingDefinition);
+            return null;
         }
 
         /// <summary>

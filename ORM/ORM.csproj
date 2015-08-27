@@ -116,6 +116,7 @@
     <Compile Include="Mappings\EntityMappingContainer.cs" />
     <Compile Include="Mappings\EntityMappingDefinition.cs" />
     <Compile Include="Mappings\IEntityMappingContainer.cs" />
+    <Compile Include="Translators\InsertTranslator.cs" />
     <Compile Include="Translators\QueryHelper.cs" />
     <Compile Include="Translators\SelectTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
