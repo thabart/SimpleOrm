@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM", "ORM\ORM.csproj", "{E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.UnitTests", "ORM.UnitTests\ORM.UnitTests.csproj", "{EC11AF3D-F150-4A71-A6DE-9D1973CE3FCA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Tests", "03. Tests", "{94B9BB94-D5FD-4226-B72F-CC6AF6C2B801}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04. Tests", "04. Tests", "{94B9BB94-D5FD-4226-B72F-CC6AF6C2B801}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Core", "01. Core", "{9A2CDEC3-DF46-4370-95DE-AE812526D998}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient", "SampleClient\SampleClient.csproj", "{D599A4BF-5E43-481D-8068-734E8BA5D097}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Sample client", "02. Sample client", "{685B914D-F5B8-47EE-861B-724133A28C36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Visual Studio Extension", "03. Visual Studio Extension", "{AB771175-EC92-4B23-8164-417038E279FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
