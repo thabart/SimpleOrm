@@ -14,12 +14,16 @@ namespace ORM.LinqToSql
 
         private readonly IMappingRuleTranslator _mappingRuleTranslator;
 
+        private readonly IQueryTracker _queryTracker;
+
         public QueryProvider(
             IQueryExecutor queryExecutor,
-            IMappingRuleTranslator mappingRuleTranslator)
+            IMappingRuleTranslator mappingRuleTranslator,
+            IQueryTracker queryTracker)
         {
             _queryExecutor = queryExecutor;
             _mappingRuleTranslator = mappingRuleTranslator;
+            _queryTracker = queryTracker;
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -48,7 +52,8 @@ namespace ORM.LinqToSql
             object result = null;
             if (isACommand)
             {
-                result = _queryExecutor.ExecuteCommandAndReturnObject(query, mappingDefinition);
+                result = query;
+                _queryTracker.AddQuery(() => _queryExecutor.ExecuteCommandAndReturnObject(query));
             }
             else
             {

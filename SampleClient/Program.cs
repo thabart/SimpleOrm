@@ -56,14 +56,35 @@ namespace SampleClient
         {
             using (var context = new CustomDbContext())
             {
-                var record = new Customer
+                var firstRecord = new Customer
                 {
                     Id = Guid.NewGuid(),
-                    FirstName = "temp",
-                    LastName = "temp"
+                    FirstName = "temp 3",
+                    LastName = "temp 3"
                 };
 
-                context.Customers.Add(record);
+                var sql = context.Customers.Add(firstRecord);
+                var secondRecord = new Customer
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "temp 4",
+                    LastName = "temp 4"
+                };
+
+                var secondSql = context.Customers.Add(secondRecord);
+                Console.WriteLine(sql);
+                Console.WriteLine(secondSql);
+                context.SaveChanges();
+
+                var thirdRecord = new Customer
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "temp5",
+                    LastName = "temp5"
+                };
+                var thirdSql = context.Customers.Add(thirdRecord);
+                Console.WriteLine(thirdSql);
+                context.SaveChanges();
             }
         }
 

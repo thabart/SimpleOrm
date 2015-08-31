@@ -14,6 +14,8 @@ namespace ORM.Core
         private QueryExecutor _queryExecutor;
 
         private IMappingRuleTranslator _mappingRuleTranslator;
+
+        private IQueryTracker _queryTracker;
         
         private bool _isDisposed;
         
@@ -54,6 +56,11 @@ namespace ORM.Core
             _isDisposed = true;
         }
 
+        public void SaveChanges()
+        {
+            _queryTracker.ExecuteQueries();
+        }
+
         /// <summary>
         /// Initialize the DbContext and initialize the mapping roles.
         /// </summary>
@@ -61,6 +68,7 @@ namespace ORM.Core
         private void InitializeDbContext(string connectionString)
         {
             _queryExecutor = new QueryExecutor(connectionString);
+            _queryTracker = new QueryTracker();
             var entityMappingContainer = new EntityMappingContainer();
             _mappingRuleTranslator = new MappingRuleTranslator(entityMappingContainer);
 
@@ -92,7 +100,7 @@ namespace ORM.Core
             {
                 foreach(var property in properties)
                 {
-                    var queryProvider = new QueryProvider(_queryExecutor, _mappingRuleTranslator);
+                    var queryProvider = new QueryProvider(_queryExecutor, _mappingRuleTranslator, _queryTracker);
                     var genericArguments = property.p.PropertyType.GetGenericArguments();
                     var constructedType = dbSetType.MakeGenericType(genericArguments);
                     var dbSet = Activator.CreateInstance(constructedType, new[] { queryProvider });

@@ -6,6 +6,6 @@ namespace ORM.Core
     {
         object ExecuteReaderAndReturnList(string sqlScript, EntityMappingDefinition mappingDefinition);
 
-        object ExecuteCommandAndReturnObject(string sqlScript, EntityMappingDefinition mappingDefinition);
+        object ExecuteCommandAndReturnObject(string sqlScript);
     }
 }

@@ -19,7 +19,7 @@ namespace ORM.LinqToSql
         public IQueryable<TSource> GetTable<TSource>()
         {
             var type = typeof(Queryable<TSource>);
-            var queryProvider = new QueryProvider(null, null);
+            var queryProvider = new QueryProvider(null, null, null);
             var instance = (IQueryable<TSource>)Activator.CreateInstance(type, queryProvider);
             return instance;
         }

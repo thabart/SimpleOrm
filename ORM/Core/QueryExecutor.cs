@@ -77,18 +77,18 @@ namespace ORM.Core
         /// <param name="sqlScript"></param>
         /// <param name="entityMappingDefinition"></param>
         /// <returns></returns>
-        public object ExecuteCommandAndReturnObject(string sqlScript, EntityMappingDefinition entityMappingDefinition)
+        public object ExecuteCommandAndReturnObject(string sqlScript)
         {
             _connectionManager.Open();
-            
-            var result = Activator.CreateInstance(entityMappingDefinition.EntityType);
 
             var command = new SqlCommand();
             command.CommandText = sqlScript;
             command.CommandType = CommandType.Text;
             command.Connection = _connectionManager.Connection;
 
-            return command.ExecuteNonQuery();
+            var result = command.ExecuteNonQuery();
+            _connectionManager.Close();
+            return result;
         }
         
         public void Dispose()
