@@ -5,8 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
 
 namespace ORM.Core
 {
@@ -37,12 +35,12 @@ namespace ORM.Core
         }
 
         /// <summary>
-        /// Execute the sql script and returns the result.
+        /// Execute the sql script and returns the list
         /// </summary>
         /// <param name="sqlScript"></param>
         /// <param name="entityMappingDefinition"></param>
         /// <returns></returns>
-        public object ExecuteText(string sqlScript, EntityMappingDefinition entityMappingDefinition)
+        public object ExecuteReaderAndReturnList(string sqlScript, EntityMappingDefinition entityMappingDefinition)
         {
             _connectionManager.Open();
 
@@ -73,6 +71,26 @@ namespace ORM.Core
             return result;
         }
 
+        /// <summary>
+        /// Execute the sql script and returns the object.
+        /// </summary>
+        /// <param name="sqlScript"></param>
+        /// <param name="entityMappingDefinition"></param>
+        /// <returns></returns>
+        public object ExecuteCommandAndReturnObject(string sqlScript, EntityMappingDefinition entityMappingDefinition)
+        {
+            _connectionManager.Open();
+            
+            var result = Activator.CreateInstance(entityMappingDefinition.EntityType);
+
+            var command = new SqlCommand();
+            command.CommandText = sqlScript;
+            command.CommandType = CommandType.Text;
+            command.Connection = _connectionManager.Connection;
+
+            return command.ExecuteNonQuery();
+        }
+        
         public void Dispose()
         {
             Dispose(_isDisposed);

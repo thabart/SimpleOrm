@@ -4,6 +4,8 @@ namespace ORM.Core
 {
     public interface IQueryExecutor
     {
-        object ExecuteText(string sqlScript, EntityMappingDefinition mappingDefinition);
+        object ExecuteReaderAndReturnList(string sqlScript, EntityMappingDefinition mappingDefinition);
+
+        object ExecuteCommandAndReturnObject(string sqlScript, EntityMappingDefinition mappingDefinition);
     }
 }

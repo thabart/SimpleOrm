@@ -21,11 +21,6 @@ namespace ORM.Helpers
                 throw new OrmInternalException("The type of the query is not generic");
             }
 
-            if (methodInfo.GetGenericArguments().Count() > 1)
-            {
-                throw new OrmInternalException("The type of the query is generic but contains more than one argument");
-            }
-
             return methodInfo.GetGenericArguments().First();
         }
     }

@@ -3,6 +3,7 @@
 using NUnit.Framework;
 
 using ORM.Core;
+using ORM.Mappings;
 using ORM.Translators;
 using ORM.UnitTests.Models;
 
@@ -23,13 +24,17 @@ namespace ORM.UnitTests.Translators
 
             protected string TableName;
 
+            protected ColumnDefinition ColumnDefinition;
+
             public override void Arrange()
             {
                 var mappingRuleTranslatorStub = new Mock<IMappingRuleTranslator>();
                 ColumnName = "COLUMN_NAME";
                 TableName = "TABLE_NAME";
+                ColumnDefinition = new ColumnDefinition("COLUMN_NAME", typeof(string));
                 mappingRuleTranslatorStub.Setup(m => m.GetTableName(It.IsAny<Type>())).Returns(TableName);
                 mappingRuleTranslatorStub.Setup(m => m.GetColumnName(It.IsAny<Type>(), It.IsAny<string>())).Returns(ColumnName);
+                mappingRuleTranslatorStub.Setup(m => m.GetColumnDefinition(It.IsAny<Type>(), It.IsAny<string>())).Returns(ColumnDefinition);
                 QueryTranslator = new QueryTranslator(mappingRuleTranslatorStub.Object);
             }
         }
@@ -205,6 +210,68 @@ namespace ORM.UnitTests.Translators
             public override void Act()
             {
                 _sqlScript = QueryTranslator.Translate(_selectExpression);
+            }
+        }
+        
+        [TestFixture]
+        public sealed class WhenTranslatingInsertInstruction : GivenQueryTranslator
+        {
+            private Expression _insertExpression;
+
+            private string _sqlScript;
+
+            private readonly string _firstName = "Laetitia";
+
+            private readonly string _lastName = "Buyse";
+
+            [Test]
+            public void ThenSqlScriptIsGenerated()
+            {
+                Assert.IsNotNullOrEmpty(_sqlScript);
+            }
+
+            [Test]
+            public void ThenSqlScriptIsCorrect()
+            {
+                var expectedResult = string.Format("INSERT INTO TABLE_NAME ({0},{0}) VALUES ('{1}','{2}')", ColumnName, _firstName, _lastName);
+                Assert.That(_sqlScript, Is.EqualTo(expectedResult));
+            }
+
+            public override void Arrange()
+            {
+                base.Arrange();
+                var customers = new List<Customer>
+                {
+                    new Customer
+                    {
+                        FirstName = "Thierry",
+                        LastName = "Habart"
+                    }
+                };
+                var customer = new Customer
+                {
+                    FirstName = _firstName,
+                    LastName = _lastName
+                };
+
+                var type = typeof(Customer);
+                var addMethodInfo = typeof(LinqToSql.QueryableExtensions).GetMethod("Add");
+                _insertExpression = Expression.Call(
+                    null,
+                    (addMethodInfo).MakeGenericMethod(new Type[]
+                    {
+                        type
+                    }),
+                    new Expression[]
+                    {
+                        customers.AsQueryable().Expression,
+                        Expression.Constant(customer)
+                    });
+            }
+
+            public override void Act()
+            {
+                _sqlScript = QueryTranslator.Translate(_insertExpression);
             }
         }
     }
