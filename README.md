@@ -1,7 +1,7 @@
 # Simple ORM
 
-### Build status on Travis CI
-[![Build Status](https://travis-ci.org/thabart/SimpleOrm.svg?branch=master)](https://travis-ci.org/thabart/SimpleOrm)
+### Build status on AppVeyor
+[![Build status](https://ci.appveyor.com/api/projects/status/usrcqqyotittcu9t?svg=true)](https://ci.appveyor.com/project/thabart/simpleorm)
 
 This small ORM has a limited set of features :
 
