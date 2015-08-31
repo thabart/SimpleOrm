@@ -39,13 +39,12 @@ namespace ORM.LinqToSql
         /// <returns></returns>
         public object Execute(Expression expression)
         {
-            var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
-
+            var methodExpression = (MethodCallExpression)expression;
+            var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfType(methodExpression.Method);
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
             var mappingDefinition = _mappingRuleTranslator.GetMappingDefinition(genericType);
-
-            return null;
+            return _queryExecutor.ExecuteText(query, mappingDefinition);
         }
 
         /// <summary>
@@ -56,11 +55,12 @@ namespace ORM.LinqToSql
         /// <returns></returns>
         public TResult Execute<TResult>(Expression expression)
         {
-            // TODO : Track the changes for insert & remove & update.
-
+            var methodExpression = (MethodCallExpression)expression;
+            var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfType(methodExpression.Method);
             var queryTranslator = new QueryTranslator(_mappingRuleTranslator);
             var query = queryTranslator.Translate(expression);
-            return (TResult)_queryExecutor.ExecuteText(query, null);
+            var mappingDefinition = _mappingRuleTranslator.GetMappingDefinition(genericType);
+            return (TResult)_queryExecutor.ExecuteText(query, mappingDefinition);
         }
 
         /// <summary>

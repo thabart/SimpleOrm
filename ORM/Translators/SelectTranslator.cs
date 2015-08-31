@@ -52,7 +52,7 @@ namespace ORM.Translators
 
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
-            _genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
+            _genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfType(expression.Method);
 
             _builder.Append("SELECT ");
             var secondArgument = expression.Arguments[1];

@@ -38,5 +38,20 @@ namespace ORM.Core
         {
             return _entityMappingContainer.GetEntityMappingDefinition(type);
         }
+
+        public ColumnDefinition GetColumnDefinition(Type type, string columnName)
+        {
+            var entityMapping = _entityMappingContainer.GetEntityMappingDefinition(type);
+            foreach (var columnDefinition in entityMapping.ColumnDefinitions)
+            {
+                var sameProperty = columnName.Equals(columnDefinition.PropertyName, StringComparison.OrdinalIgnoreCase);
+                if (sameProperty)
+                {
+                    return columnDefinition;
+                }
+            }
+
+            return null;
+        }
     }
 }

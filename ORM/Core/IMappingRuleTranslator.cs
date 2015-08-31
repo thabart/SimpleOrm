@@ -11,5 +11,7 @@ namespace ORM.Core
         string GetColumnName(Type type, string propertyName);
 
         EntityMappingDefinition GetMappingDefinition(Type type);
+
+        ColumnDefinition GetColumnDefinition(Type type, string columnName);
     }
 }

@@ -3,35 +3,30 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ORM.Helpers
 {
     public static class ExpressionHelper
     {
         /// <summary>
-        /// Returns first generic type argument of a method call expression.
+        /// Returns first generic type argument of a type.
         /// </summary>
-        /// <param name="node">Method call expression.</param>
+        /// <param name="type"></param>
         /// <returns>First generic type argument.</returns>
-        public static Type GetFirstGenericTypeArgumentOfMethodCallExpression(Expression node)
+        public static Type GetFirstGenericTypeArgumentOfType(MethodInfo methodInfo)
         {
-            var declaringType = node.Type;
-            if (!typeof(IQueryable).IsAssignableFrom(declaringType))
-            {
-                throw new OrmInternalException("The type of the query is not IQueryable");
-            }
-
-            if (!declaringType.IsGenericType)
+            if (!methodInfo.IsGenericMethod)
             {
                 throw new OrmInternalException("The type of the query is not generic");
             }
 
-            if (declaringType.GetGenericArguments().Count() > 1)
+            if (methodInfo.GetGenericArguments().Count() > 1)
             {
                 throw new OrmInternalException("The type of the query is generic but contains more than one argument");
             }
 
-            return declaringType.GetGenericArguments().First();
+            return methodInfo.GetGenericArguments().First();
         }
     }
 }

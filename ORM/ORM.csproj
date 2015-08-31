@@ -98,6 +98,7 @@
     <Compile Include="Core\MappingRuleTranslator.cs" />
     <Compile Include="Core\QueryExecutor.cs" />
     <Compile Include="Core\RecordReader.cs" />
+    <Compile Include="Helpers\GenerateSqlScriptHelper.cs" />
     <Compile Include="Mappings\BaseMapping.cs" />
     <Compile Include="Core\ConnectionManager.cs" />
     <Compile Include="Core\BaseDBContext.cs" />

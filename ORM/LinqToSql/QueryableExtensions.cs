@@ -40,7 +40,7 @@ namespace ORM.LinqToSql
             return source.Provider.CreateQuery<TSource>(expressionTree);
         }
 
-        public static object Add<TSource>(this IQueryable<TSource> source, TSource record)
+        public static TSource Add<TSource>(this IQueryable<TSource> source, TSource record)
         {
             var t = typeof(TSource);
             var expressionTree = Expression.Call(
@@ -54,7 +54,7 @@ namespace ORM.LinqToSql
                     source.Expression,
                     Expression.Constant(record)
                 });
-            return source.Provider.Execute(expressionTree);
+            return source.Provider.Execute<TSource>(expressionTree);
         }
 
         public static object Remove<TSource>(this IQueryable<TSource> source, TSource record)

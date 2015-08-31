@@ -81,13 +81,7 @@ namespace ORM.Translators
         /// <param name="expression"></param>   
         /// <returns></returns>
         protected override Expression VisitMethodCall(MethodCallExpression expression)
-        {
-            var declaringType = expression.Type;
-            if (!typeof(IQueryable).IsAssignableFrom(declaringType))
-            {
-                throw new OrmInternalException("The type of the query is not IQueryable");
-            }
-            
+        {            
             var arguments = expression.Arguments;
             foreach (var argument in arguments)
             {
@@ -122,9 +116,15 @@ namespace ORM.Translators
         /// <returns></returns>
         private string GenerateSql(Expression expression)
         {
+            if (!string.IsNullOrWhiteSpace(_translatedInsert))
+            {
+                return _translatedInsert;
+            }
+
             if (string.IsNullOrWhiteSpace(_translatedSelect) && !string.IsNullOrWhiteSpace(_translatedWhere))
             {
-                var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
+                var methodExpression = (MethodCallExpression)expression;
+                var genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfType(methodExpression.Method);
                 var tableName = _mappingRuleTranslator.GetTableName(genericType);
                 return "SELECT * FROM " + tableName + " " + _translatedWhere;
             }

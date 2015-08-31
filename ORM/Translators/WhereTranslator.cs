@@ -15,8 +15,6 @@ namespace ORM.Translators
     {
         private readonly IMappingRuleTranslator _mappingRuleTranslator;
 
-        private readonly List<Type> _listOfTypesWithQuotes;
-
         private StringBuilder _builder;
 
         private Type _genericType;
@@ -28,12 +26,6 @@ namespace ORM.Translators
         public WhereTranslator(IMappingRuleTranslator mappingRuleTranslator)
         {
             _mappingRuleTranslator = mappingRuleTranslator;
-            _listOfTypesWithQuotes = new List<Type>()
-            {
-                typeof(string),
-                typeof(Guid),
-                typeof(char)
-            };
         }
 
         /// <summary>
@@ -90,7 +82,7 @@ namespace ORM.Translators
         /// <returns></returns>
         protected override Expression VisitMethodCall(MethodCallExpression expression)
         {
-            _genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfMethodCallExpression(expression);
+            _genericType = ExpressionHelper.GetFirstGenericTypeArgumentOfType(expression.Method);
 
             _builder.Append("WHERE ");
 
@@ -139,13 +131,8 @@ namespace ORM.Translators
         /// <returns></returns>
         protected override Expression VisitConstant(ConstantExpression expression)
         {
-            var result = "{0}";
-            if (_listOfTypesWithQuotes.Contains(expression.Type))
-            {
-                result = "'{0}'";
-            }
-            
-            _builder.Append(string.Format(result, expression.Value));
+            var sql = GenerateSqlScriptHelper.ConvertConstantIntoSqlScript(expression.Type, expression.Value);
+            _builder.Append(sql);
             return expression;
         }
 

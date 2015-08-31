@@ -6,13 +6,16 @@ namespace ORM.Mappings
     {
         private readonly string _propertyName;
 
+        private readonly Type _type;
+
         private string _columnName;
 
         private int _maxLength;
 
-        public ColumnDefinition(string propertyName)
+        public ColumnDefinition(string propertyName, Type type)
         {
             _propertyName = propertyName;
+            _type = type;
         }
 
         public string ColumnName
@@ -37,6 +40,14 @@ namespace ORM.Mappings
             {
                 return _propertyName;
             }        
+        }
+
+        public Type Type
+        {
+            get
+            {
+                return _type;
+            }
         }
 
         public ColumnDefinition HasColumnName(string columnName)

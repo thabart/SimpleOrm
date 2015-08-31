@@ -28,7 +28,7 @@ namespace ORM.Mappings
         protected ColumnDefinition Property<TProperty>(Expression<Func<TSource, TProperty>> expression)
         {
             var propertyName = GetPropertyName(expression);
-            var columnDefinition = new ColumnDefinition(propertyName);
+            var columnDefinition = new ColumnDefinition(propertyName, typeof(TProperty));
             _entityMappingDefinition.ColumnDefinitions.Add(columnDefinition);
             return columnDefinition;
         }
