@@ -41,3 +41,28 @@ The generated sql script :
 ```
 SELECT * FROM dbo.Customers WHERE FIRST_NAME = 'Thierry'
 ```
+
+### Insert request
+
+The custom insert linq-to-sql instruction :
+
+```
+using (var context = new CustomDbContext())
+{
+    var firstRecord = new Customer
+    {
+        Id = Guid.NewGuid(),
+        FirstName = "temp 3",
+        LastName = "temp 3"
+    };
+
+    var sql = context.Customers.Add(firstRecord);
+    context.SaveChanges();
+}
+```
+
+The generated sql script :
+
+```
+INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'temp 3')
+```
