@@ -1,3 +1,4 @@
 before_build:
   - appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
   - nuget-restore
+configuration: Release
