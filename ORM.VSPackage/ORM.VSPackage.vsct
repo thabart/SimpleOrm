@@ -66,7 +66,7 @@
         <Parent guid="guidORM_VSPackageCmdSet" id="ormMenuGroup"/>
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Generate classes (code-first approach)</ButtonText>
+          <ButtonText>Generate classes (database-first approach)</ButtonText>
         </Strings>
       </Button>
 

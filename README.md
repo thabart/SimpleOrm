@@ -8,6 +8,8 @@ This small ORM has a limited set of features :
 * It supports some basic SQL actions such as "select" & "where" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL script.
 * It also allows a project to use the code first-approach. 
 
+## Code-First approach
+
 Some snippet-code examples :
 
 ### Select request
@@ -66,3 +68,8 @@ The generated sql script :
 ```
 INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'temp 3')
 ```
+
+
+## Model-First approach
+
+A VSPackage is available (not released yet). It enables a developer to connect to a SQL-Server database, select the catalog & tables, and generate the entities in the selected project.
