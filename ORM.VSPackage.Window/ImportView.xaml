@@ -1,15 +1,18 @@
-﻿<Window x:Class="ORM.VSPackage.ImportWindowSqlServer.MainWindow"
+﻿<Window x:Class="ORM.VSPackage.ImportWindowSqlServer.ImportView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ORM.VSPackage.Window"
+        xmlns:local="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.ViewModels"
+        xmlns:converters="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.Converters"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ImportViewModel}"
         Title="Import from sql-server database" Height="350" Width="525">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="footerButton">
             <Setter Property="Height" Value="20"></Setter>
         </Style>
+        <converters:BooleanToNotBooleanConverter x:Key="BooleanToNotBooleanConverter" />
     </Window.Resources>
     
     <Grid>
@@ -40,10 +43,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Data source:</Label>
                 <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
-                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2">
+                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5">
                     <Grid Margin="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -54,13 +58,15 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.ColumnSpan="2">Enable Windows authentication</CheckBox>
+                        <CheckBox Grid.ColumnSpan="2" Command="{Binding EnableWindowsAuthenticationCommand}">Enable Windows authentication</CheckBox>
                         <Label Grid.Row="1" Grid.Column="0">User name:</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"></TextBox>
                         <Label Grid.Row="2" Grid.Column="0">Password:</Label>
-                        <PasswordBox Grid.Row="2" Grid.Column="1"></PasswordBox>
+                        <PasswordBox Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"></PasswordBox>
                     </Grid>
                 </GroupBox>
+                <Label Grid.Row="2" Grid.Column="0">Select catalog</Label>
+                <ListBox Grid.Row="2" Grid.Column="1"></ListBox>
             </Grid>
         </Grid>
         
