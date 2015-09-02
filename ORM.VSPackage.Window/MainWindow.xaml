@@ -1,0 +1,73 @@
+﻿<Window x:Class="ORM.VSPackage.ImportWindowSqlServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ORM.VSPackage.Window"
+        mc:Ignorable="d"
+        Title="Import from sql-server database" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="footerButton">
+            <Setter Property="Height" Value="20"></Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!-- BODY -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                
+            </Grid>
+            
+            <GridSplitter Grid.Column="1" Width="5" />
+            
+            <Grid Grid.Column="2" Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0">Data source:</Label>
+                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid Margin="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.ColumnSpan="2">Enable Windows authentication</CheckBox>
+                        <Label Grid.Row="1" Grid.Column="0">User name:</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                        <Label Grid.Row="2" Grid.Column="0">Password:</Label>
+                        <PasswordBox Grid.Row="2" Grid.Column="1"></PasswordBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        
+        <!-- FOOTER -->
+        <Grid Grid.Row="1" Background="#FFB9BBBD">
+            <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}">Test connection</Button>
+            <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}">Connect</Button>
+        </Grid>
+    </Grid>
+</Window>
