@@ -6,6 +6,7 @@ using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 using ORM.VSPackage.Identifiers;
+using ORM.VSPackage.ImportWindowSqlServer;
 
 namespace ORM.VSPackage
 {
@@ -99,6 +100,9 @@ namespace ORM.VSPackage
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            var importView = new ImportView();
+            importView.Show();
+            /*
             // Show a Message Box to prove we were here
             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
             Guid clsid = Guid.Empty;
@@ -114,7 +118,7 @@ namespace ORM.VSPackage
                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
                        OLEMSGICON.OLEMSGICON_INFO,
                        0,        // false
-                       out result));
+                       out result));*/
         }
 
     }
