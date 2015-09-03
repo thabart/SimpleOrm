@@ -73,6 +73,7 @@
         <!-- FOOTER -->
         <Grid Grid.Row="1" Background="#FFB9BBBD">
             <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}">Test connection</Button>
+            <Button Style="{StaticResource footerButton}" Command="{Binding TestCommand}">Generate</Button>
             <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}">Connect</Button>
         </Grid>
     </Grid>

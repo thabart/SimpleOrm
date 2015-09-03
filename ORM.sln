@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.VSPackage", "ORM.VSPack
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.VSPackage.ImportWindowSqlServer", "ORM.VSPackage.Window\ORM.VSPackage.ImportWindowSqlServer.csproj", "{E9594E16-6FB6-44BE-BEFD-FFF5E6D3676D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{77F9EBF5-793F-4C16-9D06-E2A40D76A356}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

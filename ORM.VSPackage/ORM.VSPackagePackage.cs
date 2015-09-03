@@ -3,10 +3,17 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
+
 using ORM.VSPackage.Identifiers;
 using ORM.VSPackage.ImportWindowSqlServer;
+
+using EnvDTE;
+
+using Microsoft.VisualStudio;
+using EnvDTE80;
 
 namespace ORM.VSPackage
 {
@@ -100,26 +107,68 @@ namespace ORM.VSPackage
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            Project project = GetSelectedProject();
+            Solution2 solution = (Solution2)project.DTE.Solution;
+            string templatePath = solution.GetProjectItemTemplate("Class", "CSharp");
+            ProjectItem modelProjectItem = project.ProjectItems.AddFolder("Models");
+            ProjectItem dbContextProjectItem = project.ProjectItems.AddFolder("DbContext");
+            modelProjectItem.ProjectItems.AddFromTemplate(templatePath, "model1.cs");
+            foreach(ProjectItem projectItem in modelProjectItem.ProjectItems)
+            {
+                Trace.WriteLine(projectItem.Name);
+                CodeElements codeElements = projectItem.FileCodeModel.CodeElements;
+                foreach (CodeElement codeElement in codeElements)
+                {
+                    if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
+                    {
+                        var children = codeElement.Children;
+                        foreach (CodeElement childCodeElement in children)
+                        {
+                            if (childCodeElement.Kind == vsCMElement.vsCMElementClass)
+                            {
+                                CodeClass cls = (CodeClass)childCodeElement;
+                                cls.Access = vsCMAccess.vsCMAccessPublic;
+                                cls.AddProperty("TestProperty", "TestProperty", vsCMTypeRef.vsCMTypeRefInt, -1,
+                                    vsCMAccess.vsCMAccessPublic, null);
+                            }
+                        }
+                    }
+                }
+            }
+
             var importView = new ImportView();
             importView.Show();
-            /*
-            // Show a Message Box to prove we were here
-            IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-            Guid clsid = Guid.Empty;
-            int result;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-                       0,
-                       ref clsid,
-                       "ORM.VSPackage",
-                       string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-                       string.Empty,
-                       0,
-                       OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-                       OLEMSGICON.OLEMSGICON_INFO,
-                       0,        // false
-                       out result));*/
         }
 
+        /// <summary>
+        /// Get the selected project
+        /// </summary>
+        /// <returns>EnvDTE project</returns>
+        private static Project GetSelectedProject()
+        {
+            IntPtr hierarchyPointer, selectionContainerPointer;
+            Object selectedObject = null;
+            IVsMultiItemSelect multiItemSelect;
+            uint projectItemId;
+            var monitorSelection = (IVsMonitorSelection)GetGlobalService(typeof(SVsShellMonitorSelection));
+            monitorSelection.GetCurrentSelection(
+                out hierarchyPointer,
+                out projectItemId, 
+                out multiItemSelect,
+                out selectionContainerPointer);
+            IVsHierarchy selectedHierarchy = Marshal.GetTypedObjectForIUnknown(
+                                     hierarchyPointer,
+                                     typeof(IVsHierarchy)) as IVsHierarchy;
+
+            if (selectedHierarchy != null)
+            {
+                ErrorHandler.ThrowOnFailure(selectedHierarchy.GetProperty(
+                                                  projectItemId,
+                                                  (int)__VSHPROPID.VSHPROPID_ExtObject,
+                                                  out selectedObject));
+            }
+
+            return selectedObject as Project;
+        }
     }
 }
