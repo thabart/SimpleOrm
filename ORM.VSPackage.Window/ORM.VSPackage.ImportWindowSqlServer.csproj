@@ -77,8 +77,10 @@
     <Compile Include="Converters\BooleanToNotBooleanConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="DependencyProperties\PasswordBoxDependencyProperties.cs" />
+    <Compile Include="Models\ColumnDefinition.cs" />
+    <Compile Include="Models\SelectedTable.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
-    <Compile Include="ViewModels\SelectedTable.cs" />
+    <Compile Include="Models\TableDefinition.cs" />
     <Page Include="ImportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

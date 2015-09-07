@@ -41,7 +41,7 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Grid.Column="0" />
-                                <Label Content="{Binding TableName}" Grid.Column="1"></Label>
+                                <Label Content="{Binding TableDefinition.TableName}" Grid.Column="1"></Label>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

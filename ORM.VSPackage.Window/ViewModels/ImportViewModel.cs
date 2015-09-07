@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-
+using ORM.VSPackage.ImportWindowSqlServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -137,11 +137,19 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
                 {
                     var record = new SelectedTable
                     {
-                        IsSelected = true,
-                        TableSchema = reader.GetString(0),
-                        TableName = reader.GetString(1)
+                        IsSelected = true
                     };
 
+                    var tableDefinition = new TableDefinition
+                    {
+                        TableSchema = reader.GetString(0),
+                        TableName = reader.GetString(1),
+                        ColumnDefinitions = new List<ColumnDefinition>()
+                    };
+
+                    await GetColumnDefinitions(tableDefinition.TableName, connectionString, tableDefinition.ColumnDefinitions);
+
+                    record.TableDefinition = tableDefinition;
                     result.Add(record);
                 }
 
@@ -150,6 +158,29 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             }
 
             return result;
+        }
+
+        private async Task GetColumnDefinitions(string tableName, string connectionString, List<ColumnDefinition> columnDefinitions)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                var tableStructureCommand = new SqlCommand(string.Format("SELECT COLUMN_NAME,DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}'", tableName), connection);
+                var tableStructureReader = await tableStructureCommand.ExecuteReaderAsync();
+                while (tableStructureReader.Read())
+                {
+                    var columnDefinition = new ColumnDefinition
+                    {
+                        ColumnName = tableStructureReader.GetString(0),
+                        ColumnType = tableStructureReader.GetString(1)
+                    };
+
+                    columnDefinitions.Add(columnDefinition);
+                }
+
+                tableStructureReader.Close();
+                connection.Close();
+            }
         }
     }
 }
