@@ -2,7 +2,11 @@
 using Microsoft.Practices.Prism.Mvvm;
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
@@ -11,9 +15,14 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
     {
         private bool _isWindowsAuthenticationEnabled;
 
+        private bool _isConnectionSuccessful;
+
         public ImportViewModel()
         {
             _isWindowsAuthenticationEnabled = false;
+            _isConnectionSuccessful = false;
+            Tables = new ObservableCollection<SelectedTable>();
+
             RegisterCommands();
         }
 
@@ -34,11 +43,26 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             get
             {
                 return _isWindowsAuthenticationEnabled;
-            } set
+            }
+            set
             {
                 SetProperty(ref _isWindowsAuthenticationEnabled, value);
             }
         }
+
+        public bool IsConnectionSuccessful
+        {
+            get
+            {
+                return _isConnectionSuccessful;
+            } 
+            set
+            {
+                SetProperty(ref _isConnectionSuccessful, value);
+            }
+        }
+
+        public ObservableCollection<SelectedTable> Tables { get; set; }
 
         private void RegisterCommands()
         {
@@ -51,16 +75,28 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             IsWindowsAuthenticationEnabled = !IsWindowsAuthenticationEnabled;
         }
 
-        private void TestConnectionExecute()
+        private async void TestConnectionExecute()
         {
+            Tables.Clear();
             var connectionString = CreateConnectionString();
-            var connectionStringValid = IsConnectionStringValid(connectionString);
+            var connectionStringValid = await IsConnectionStringValid(connectionString);
+            if (!connectionStringValid) {
+                MessageBox.Show("Cannot establish the connection");
+                return;
+            }
 
+            MessageBox.Show("Connection successful");
+            IsConnectionSuccessful = connectionStringValid;
+            var tables = await GetTables(connectionString);
+            foreach(var table in  tables)
+            {
+                Tables.Add(table);
+            }
         }
 
         private string CreateConnectionString()
         {
-            var connectionString = string.Format("Data Srouce={0};Initial Catalog={1};", DataSource, Catalog);
+            var connectionString = string.Format("Data Source={0};Initial Catalog={1};", DataSource, Catalog);
             if (IsWindowsAuthenticationEnabled)
             {
                 connectionString += "Integrated Security=True;";
@@ -73,13 +109,13 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             return connectionString;
         }
 
-        private bool IsConnectionStringValid(string connectionString)
+        private async Task<bool> IsConnectionStringValid(string connectionString)
         {
             try
             {
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     return true;
                 }
             }
@@ -87,6 +123,33 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             {
                 return false;
             }
+        }
+
+        private async Task<List<SelectedTable>> GetTables(string connectionString)
+        {
+            var result = new List<SelectedTable>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                var command = new SqlCommand("SELECT TABLE_SCHEMA,TABLE_NAME FROM information_schema.tables", connection);
+                var reader = await command.ExecuteReaderAsync();
+                while(reader.Read())
+                {
+                    var record = new SelectedTable
+                    {
+                        IsSelected = true,
+                        TableSchema = reader.GetString(0),
+                        TableName = reader.GetString(1)
+                    };
+
+                    result.Add(record);
+                }
+
+
+                reader.Close();
+            }
+
+            return result;
         }
     }
 }

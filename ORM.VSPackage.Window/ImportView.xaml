@@ -31,7 +31,21 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                
+                <ListView ItemsSource="{Binding Tables}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Grid.Column="0" />
+                                <Label Content="{Binding TableName}" Grid.Column="1"></Label>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
             
             <GridSplitter Grid.Column="1" Width="5" />
@@ -68,15 +82,15 @@
                                      dependencyProperties:PasswordBoxDependencyProperties.BoundPassword="{Binding Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
                     </Grid>
                 </GroupBox>
-                <Label Grid.Row="2" Grid.Column="0">Catalog</Label>
-                <TextBox Text="{Binding Catalog, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
+                <Label Grid.Row="2" Grid.Column="0">Catalog :</Label>
+                <TextBox Text="{Binding Catalog, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="2" Grid.Column="1"></TextBox>
             </Grid>
         </Grid>
         
         <!-- FOOTER -->
         <Grid Grid.Row="1" Background="#FFB9BBBD">
-            <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}">Test connection</Button>
-            <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}">Connect</Button>
+            <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}" Command="{Binding TestConnectionCommand}">Test connection</Button>
+            <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}" IsEnabled="{Binding Path=IsConnectionSuccessful}">Generate tables</Button>
         </Grid>
     </Grid>
 </Window>
