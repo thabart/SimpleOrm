@@ -90,7 +90,7 @@
         <!-- FOOTER -->
         <Grid Grid.Row="1" Background="#FFB9BBBD">
             <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}" Command="{Binding TestConnectionCommand}">Test connection</Button>
-            <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}" IsEnabled="{Binding Path=IsConnectionSuccessful}">Generate tables</Button>
+            <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}" IsEnabled="{Binding Path=IsConnectionSuccessful}" Command="{Binding GenerateTablesCommand}">Generate tables</Button>
         </Grid>
     </Grid>
 </Window>

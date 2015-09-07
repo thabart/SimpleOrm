@@ -10,12 +10,18 @@ namespace ORM.VSPackage.ImportWindowSqlServer
         public ImportView()
         {
             InitializeComponent();
+
             Loaded += ImportView_Loaded;
+        }
+
+        public ImportViewModel GetViewModel()
+        {
+            return (ImportViewModel)DataContext;
         }
 
         private void ImportView_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             DataContext = new ImportViewModel();
-        }
+        }        
     }
 }

@@ -14,6 +14,7 @@ using EnvDTE;
 
 using Microsoft.VisualStudio;
 using EnvDTE80;
+using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
 
 namespace ORM.VSPackage
 {
@@ -107,37 +108,10 @@ namespace ORM.VSPackage
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            Project project = GetSelectedProject();
-            Solution2 solution = (Solution2)project.DTE.Solution;
-            string templatePath = solution.GetProjectItemTemplate("Class", "CSharp");
-            ProjectItem modelProjectItem = project.ProjectItems.AddFolder("Models");
-            ProjectItem dbContextProjectItem = project.ProjectItems.AddFolder("DbContext");
-            modelProjectItem.ProjectItems.AddFromTemplate(templatePath, "model1.cs");
-            foreach(ProjectItem projectItem in modelProjectItem.ProjectItems)
-            {
-                Trace.WriteLine(projectItem.Name);
-                CodeElements codeElements = projectItem.FileCodeModel.CodeElements;
-                foreach (CodeElement codeElement in codeElements)
-                {
-                    if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
-                    {
-                        var children = codeElement.Children;
-                        foreach (CodeElement childCodeElement in children)
-                        {
-                            if (childCodeElement.Kind == vsCMElement.vsCMElementClass)
-                            {
-                                CodeClass cls = (CodeClass)childCodeElement;
-                                cls.Access = vsCMAccess.vsCMAccessPublic;
-                                cls.AddProperty("TestProperty", "TestProperty", vsCMTypeRef.vsCMTypeRefInt, -1,
-                                    vsCMAccess.vsCMAccessPublic, null);
-                            }
-                        }
-                    }
-                }
-            }
-
             var importView = new ImportView();
             importView.Show();
+            var viewModel = importView.GetViewModel();
+            viewModel.ImportTablesEvent += ImportTablesEventCallback;
         }
 
         /// <summary>
@@ -169,6 +143,81 @@ namespace ORM.VSPackage
             }
 
             return selectedObject as Project;
+        }
+
+        private void ImportTablesEventCallback(object sender, ImportTablesEventArgs args)
+        {
+            var tableDefinitions = args.TableDefinitions;
+            Project project = GetSelectedProject();
+            Solution2 solution = (Solution2)project.DTE.Solution;
+            string templatePath = solution.GetProjectItemTemplate("Class", "CSharp");
+            ProjectItem modelProjectItem = project.ProjectItems.AddFolder("Models");
+            ProjectItem dbContextProjectItem = project.ProjectItems.AddFolder("DbContext");
+
+            // For each table definition we create a class
+            var index = 1;
+            foreach (var tableDefinition in tableDefinitions)
+            {
+                modelProjectItem.ProjectItems.AddFromTemplate(templatePath, string.Format("{0}.cs", tableDefinition.TableName));
+                var projectItem = modelProjectItem.ProjectItems.Item(index);
+                var codeElements = projectItem.FileCodeModel.CodeElements;
+                foreach(CodeElement codeElement in codeElements)
+                {
+                    if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
+                    {
+                        var children = codeElement.Children;
+                        foreach (CodeElement childCodeElement in children)
+                        {
+                            if (childCodeElement.Kind == vsCMElement.vsCMElementClass)
+                            {
+                                CodeClass cls = (CodeClass)childCodeElement;
+                                cls.Access = vsCMAccess.vsCMAccessPublic;
+
+                                // For each column definitions we create a property
+                                foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
+                                {
+                                    vsCMTypeRef type = vsCMTypeRef.vsCMTypeRefString;
+                                    switch(columnDefinition.ColumnType)
+                                    {
+                                        case "varchar":
+                                        case "uniqueidentifier":
+                                            type = vsCMTypeRef.vsCMTypeRefString;
+                                            break;
+                                    }
+
+                                    var fieldName = "_" + columnDefinition.ColumnName.ToLower();
+                                    var field = cls.AddVariable(
+                                        "_" + columnDefinition.ColumnName.ToLower(),
+                                        type,
+                                        -1,
+                                        vsCMAccess.vsCMAccessPrivate);
+
+                                    CodeProperty property = cls.AddProperty(columnDefinition.ColumnName,
+                                        columnDefinition.ColumnName, 
+                                        type, -1,
+                                        vsCMAccess.vsCMAccessPublic,
+                                        null);
+
+                                    // Google book : https://books.google.be/books?id=wWyFCeTpruYC&pg=PT448&lpg=PT448&dq=CodeFunction+CodeProperty&source=bl&ots=48eftHvfhZ&sig=vCgupSXTjipmX_sOc52UsR4fj_o&hl=fr&sa=X&ved=0CB4Q6AEwADgKahUKEwiKmJqX3eXHAhXkadsKHc54ADs#v=onepage&q=CodeFunction%20CodeProperty&f=false
+                                    var epGetter = property.Getter.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                                    epGetter.Delete(property.Getter.GetEndPoint(vsCMPart.vsCMPartBody));
+                                    epGetter.Insert(string.Format("return {0};", fieldName));
+
+
+                                    // var epSetter = property.Setter.GetStartPoint(vsCMPart.vsCMPartBodyWithDelimiter).CreateEditPoint();
+                                    // epSetter.Delete(property.Setter.GetEndPoint(vsCMPart.vsCMPartBodyWithDelimiter));
+                                }
+                                /*
+                                cls.AddProperty("TestProperty", "TestProperty", vsCMTypeRef.vsCMTypeRefInt, -1,
+                                    vsCMAccess.vsCMAccessPublic, null);
+                                */
+                            }
+                        }
+                    }
+                }
+
+                index++;
+            }
         }
     }
 }

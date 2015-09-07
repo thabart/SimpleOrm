@@ -1,10 +1,12 @@
 ﻿using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
 using ORM.VSPackage.ImportWindowSqlServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -26,9 +28,15 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             RegisterCommands();
         }
 
+        public delegate void ImportTablesHandler(object sender, ImportTablesEventArgs args);
+
+        public event ImportTablesHandler ImportTablesEvent;
+
         public ICommand EnableWindowsAuthenticationCommand { get; private set; }
 
         public ICommand TestConnectionCommand { get; private set; }
+
+        public ICommand GenerateTablesCommand { get; private set; }
 
         public string DataSource { private get; set; }
 
@@ -68,6 +76,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
         {
             EnableWindowsAuthenticationCommand = new DelegateCommand(EnableWindowsAuthenticationExecute);
             TestConnectionCommand = new DelegateCommand(TestConnectionExecute);
+            GenerateTablesCommand = new DelegateCommand(GenerateTablesCommandExecute);
         }
 
         private void EnableWindowsAuthenticationExecute()
@@ -91,6 +100,16 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             foreach(var table in  tables)
             {
                 Tables.Add(table);
+            }
+        }
+
+        private void GenerateTablesCommandExecute()
+        {
+            if (ImportTablesEvent != null)
+            {
+                var selectedTables = Tables.Where(t => t.IsSelected).Select(t => t.TableDefinition).ToList();
+                var argument = new ImportTablesEventArgs(selectedTables);
+                ImportTablesEvent(this, argument);
             }
         }
 
