@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.ViewModels"
         xmlns:converters="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.Converters"
+        xmlns:dependencyProperties="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.DependencyProperties"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ImportViewModel}"
         Title="Import from sql-server database" Height="350" Width="525">
@@ -46,7 +47,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Data source:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataSource, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
                 <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5">
                     <Grid Margin="2">
                         <Grid.RowDefinitions>
@@ -60,20 +61,21 @@
                         </Grid.ColumnDefinitions>
                         <CheckBox Grid.ColumnSpan="2" Command="{Binding EnableWindowsAuthenticationCommand}">Enable Windows authentication</CheckBox>
                         <Label Grid.Row="1" Grid.Column="0">User name:</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
                         <Label Grid.Row="2" Grid.Column="0">Password:</Label>
-                        <PasswordBox Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"></PasswordBox>
+                        <PasswordBox Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"
+                                     dependencyProperties:PasswordBoxDependencyProperties.BindPassword="True"
+                                     dependencyProperties:PasswordBoxDependencyProperties.BoundPassword="{Binding Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
                     </Grid>
                 </GroupBox>
-                <Label Grid.Row="2" Grid.Column="0">Select catalog</Label>
-                <ListBox Grid.Row="2" Grid.Column="1"></ListBox>
+                <Label Grid.Row="2" Grid.Column="0">Catalog</Label>
+                <TextBox Text="{Binding Catalog, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
             </Grid>
         </Grid>
         
         <!-- FOOTER -->
         <Grid Grid.Row="1" Background="#FFB9BBBD">
             <Button HorizontalAlignment="Left"  Style="{StaticResource footerButton}">Test connection</Button>
-            <Button Style="{StaticResource footerButton}" Command="{Binding TestCommand}">Generate</Button>
             <Button HorizontalAlignment="Right" Style="{StaticResource footerButton}">Connect</Button>
         </Grid>
     </Grid>

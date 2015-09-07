@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BooleanToNotBooleanConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="DependencyProperties\PasswordBoxDependencyProperties.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
     <Page Include="ImportView.xaml">
       <Generator>MSBuild:Compile</Generator>

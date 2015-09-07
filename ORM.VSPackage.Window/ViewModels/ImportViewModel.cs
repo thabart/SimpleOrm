@@ -1,13 +1,9 @@
 ﻿using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using System.Windows.Input;
 
-using EnvDTE;
-using EnvDTE80;
-using System.Diagnostics;
-using System.IO;
-using System.Collections.Generic;
 using System;
+using System.Data.SqlClient;
+using System.Windows.Input;
 
 namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 {
@@ -23,7 +19,15 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 
         public ICommand EnableWindowsAuthenticationCommand { get; private set; }
 
-        public ICommand TestCommand { get; private set; }
+        public ICommand TestConnectionCommand { get; private set; }
+
+        public string DataSource { private get; set; }
+
+        public string UserName { private get; set; }
+
+        public string Password { private get; set; }
+
+        public string Catalog { private get; set; }
 
         public bool IsWindowsAuthenticationEnabled
         {
@@ -39,7 +43,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
         private void RegisterCommands()
         {
             EnableWindowsAuthenticationCommand = new DelegateCommand(EnableWindowsAuthenticationExecute);
-            TestCommand = new DelegateCommand(TestCommandExecute);
+            TestConnectionCommand = new DelegateCommand(TestConnectionExecute);
         }
 
         private void EnableWindowsAuthenticationExecute()
@@ -47,39 +51,42 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             IsWindowsAuthenticationEnabled = !IsWindowsAuthenticationEnabled;
         }
 
-        private void TestCommandExecute()
+        private void TestConnectionExecute()
         {
-            DTE2 dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE.14.0");
-            Solution2 solution = (Solution2)dte2.Solution;
-            Solution solution1 = dte2.Solution;
+            var connectionString = CreateConnectionString();
+            var connectionStringValid = IsConnectionStringValid(connectionString);
 
-            var projectItemTemplate = solution.GetProjectItemTemplate("Class", "CSharp");
-            Project project = null;
-            foreach(Project proj in solution1.Projects)
+        }
+
+        private string CreateConnectionString()
+        {
+            var connectionString = string.Format("Data Srouce={0};Initial Catalog={1};", DataSource, Catalog);
+            if (IsWindowsAuthenticationEnabled)
             {
-                if (proj.Name == "test")
+                connectionString += "Integrated Security=True;";
+            }
+            else
+            {
+                connectionString += string.Format("User Id={0};Password={1};", UserName, Password);
+            }
+
+            return connectionString;
+        }
+
+        private bool IsConnectionStringValid(string connectionString)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    project = proj;
+                    connection.Open();
+                    return true;
                 }
             }
-            
-            var projectItem = project.ProjectItems.AddFromTemplate(projectItemTemplate, "NewClassInProj.cs");
-            projectItem.Save();
-            // project.ProjectItems.AddFolder("My folder");
-            Trace.WriteLine("test");
-
-            /*
-            foreach (string kind in colKinds)
+            catch (Exception ex)
             {
-                try
-                {
-                    // Add a solution folder "test"
-                    project.ProjectItems.AddFolder(@"C:\Project\ORM\ORM.VSPackage.Window\Bingo", kind);
-                } catch (Exception ex)
-                {
-                    Trace.WriteLine("coucou");
-                }
-            }*/
+                return false;
+            }
         }
     }
 }
