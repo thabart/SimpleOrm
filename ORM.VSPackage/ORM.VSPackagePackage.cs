@@ -15,6 +15,8 @@ using EnvDTE;
 using Microsoft.VisualStudio;
 using EnvDTE80;
 using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
+using System.Collections.Generic;
+using ORM.VSPackage.ImportWindowSqlServer.Models;
 
 namespace ORM.VSPackage
 {
@@ -153,7 +155,17 @@ namespace ORM.VSPackage
             string templatePath = solution.GetProjectItemTemplate("Class", "CSharp");
             ProjectItem modelProjectItem = project.ProjectItems.AddFolder("Models");
             ProjectItem dbContextProjectItem = project.ProjectItems.AddFolder("DbContext");
+            ProjectItem mappingsProjectItem = project.ProjectItems.AddFolder("Mappings");
 
+            GenerateModels(tableDefinitions, modelProjectItem, templatePath);
+
+        }
+
+        private void GenerateModels(
+            List<TableDefinition> tableDefinitions, 
+            ProjectItem modelProjectItem,
+            string templatePath)
+        {
             // For each table definition we create a class
             var index = 1;
             foreach (var tableDefinition in tableDefinitions)
@@ -161,7 +173,7 @@ namespace ORM.VSPackage
                 modelProjectItem.ProjectItems.AddFromTemplate(templatePath, string.Format("{0}.cs", tableDefinition.TableName));
                 var projectItem = modelProjectItem.ProjectItems.Item(index);
                 var codeElements = projectItem.FileCodeModel.CodeElements;
-                foreach(CodeElement codeElement in codeElements)
+                foreach (CodeElement codeElement in codeElements)
                 {
                     if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
                     {
@@ -177,7 +189,7 @@ namespace ORM.VSPackage
                                 foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
                                 {
                                     vsCMTypeRef type = vsCMTypeRef.vsCMTypeRefString;
-                                    switch(columnDefinition.ColumnType)
+                                    switch (columnDefinition.ColumnType)
                                     {
                                         case "varchar":
                                         case "uniqueidentifier":
@@ -193,7 +205,7 @@ namespace ORM.VSPackage
                                         vsCMAccess.vsCMAccessPrivate);
 
                                     CodeProperty property = cls.AddProperty(columnDefinition.ColumnName,
-                                        columnDefinition.ColumnName, 
+                                        columnDefinition.ColumnName,
                                         type, -1,
                                         vsCMAccess.vsCMAccessPublic,
                                         null);
@@ -203,14 +215,10 @@ namespace ORM.VSPackage
                                     epGetter.Delete(property.Getter.GetEndPoint(vsCMPart.vsCMPartBody));
                                     epGetter.Insert(string.Format("return {0};", fieldName));
 
-
-                                    // var epSetter = property.Setter.GetStartPoint(vsCMPart.vsCMPartBodyWithDelimiter).CreateEditPoint();
-                                    // epSetter.Delete(property.Setter.GetEndPoint(vsCMPart.vsCMPartBodyWithDelimiter));
+                                    var epSetter = property.Setter.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
+                                    epSetter.Delete(property.Setter.GetEndPoint(vsCMPart.vsCMPartBody));
+                                    epSetter.Insert(string.Format("{0} = value;", fieldName));
                                 }
-                                /*
-                                cls.AddProperty("TestProperty", "TestProperty", vsCMTypeRef.vsCMTypeRefInt, -1,
-                                    vsCMAccess.vsCMAccessPublic, null);
-                                */
                             }
                         }
                     }
@@ -218,6 +226,13 @@ namespace ORM.VSPackage
 
                 index++;
             }
+        }
+
+        private void GenerateMappings(
+            List<TableDefinition> tableDefinitions,
+            ProjectItem mappingsProjectItem)
+        {
+
         }
     }
 }

@@ -4,7 +4,18 @@ namespace SampleClient.Models
 {
     public class Customer
     {
-        public Guid Id { get; set; }
+        private Guid _id { get; set; }
+
+        public Guid Id
+        {
+            get
+            {
+                return _id;
+            } set
+            {
+                _id = value;
+            }
+        }
 
         public string FirstName { get; set; }
 
