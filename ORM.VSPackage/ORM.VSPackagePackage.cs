@@ -142,6 +142,10 @@ namespace ORM.VSPackage
             var dbContextProjectItem = project.ProjectItems.AddFolder("DbContext");
             var mappingsProjectItem = project.ProjectItems.AddFolder("Mappings");
 
+            // 1. Add nuget package : http://tylerhughes.info/post/installing-a-nuget-package-programmatically
+            // 2. Modify the configuration file (add the connection string)
+            // 3. Release the nuget package & fix release appveyor
+
             GenerateModels(tableDefinitions, modelProjectItem, templatePath);
             GenerateMappings(tableDefinitions, mappingsProjectItem, templatePath);
             GenerateDbContext(tableDefinitions, dbContextProjectItem, templatePath);
