@@ -90,10 +90,11 @@ namespace SampleClient
 
         static void Main(string[] args)
         {
-            // ExecuteQueryAndDisplayResult();
+            ExecuteQueryAndDisplayResult();
             // ExecuteWhereQueryWithConditionsAndDisplayResult();
             // ExecuteSelectWhereQueriesAndDisplayResult();
-            ExecuteInsertQueryAndDisplayResult();
+            // ExecuteInsertQueryAndDisplayResult();
+            
             Console.ReadLine();
         }
     }

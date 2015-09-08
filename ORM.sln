@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM", "ORM\ORM.csproj", "{E28B033F-4D0C-4BFB-B515-115A80B644E1}"
 EndProject
@@ -22,8 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.VSPackage", "ORM.VSPackage\ORM.VSPackage.csproj", "{034FFE0B-C988-4A4D-B121-8F31169739A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORM.VSPackage.ImportWindowSqlServer", "ORM.VSPackage.Window\ORM.VSPackage.ImportWindowSqlServer.csproj", "{E9594E16-6FB6-44BE-BEFD-FFF5E6D3676D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{77F9EBF5-793F-4C16-9D06-E2A40D76A356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

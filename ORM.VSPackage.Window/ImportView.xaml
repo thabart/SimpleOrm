@@ -27,7 +27,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -48,7 +48,7 @@
                 </ListView>
             </Grid>
             
-            <GridSplitter Grid.Column="1" Width="5" />
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
             
             <Grid Grid.Column="2" Margin="4">
                 <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Data source:</Label>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataSource, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
-                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5">
+                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5" Grid.Column="0">
                     <Grid Margin="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
