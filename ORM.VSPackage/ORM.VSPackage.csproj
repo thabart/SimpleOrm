@@ -128,10 +128,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyControl.xaml.cs">
-      <DependentUpon>MyControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyToolWindow.cs" />
     <Content Include="Templates\MyExtFile.vspackage">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -184,12 +180,6 @@
   <ItemGroup>
     <Content Include="Resources\File.ico" />
     <Content Include="Resources\Package.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="MyControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ORM.VSPackage.Window\ORM.VSPackage.ImportWindowSqlServer.csproj">

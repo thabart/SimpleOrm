@@ -168,17 +168,11 @@ namespace ORM.VSPackage
                 var cls = GetCodeClassFromFileCode(projectItem.FileCodeModel);
 
                 cls.Access = vsCMAccess.vsCMAccessPublic;
-                // For each column definitions we create a property
+
+                // For each column definition we create a field
                 foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
                 {
-                    var type = vsCMTypeRef.vsCMTypeRefString;
-                    switch (columnDefinition.ColumnType)
-                    {
-                        case "varchar":
-                        case "uniqueidentifier":
-                            type = vsCMTypeRef.vsCMTypeRefString;
-                            break;
-                    }
+                    var type = GetRefTypeOfColumnDefinition(columnDefinition);
 
                     var fieldName = "_" + columnDefinition.ColumnName.ToLower();
                     cls.AddVariable(
@@ -186,7 +180,13 @@ namespace ORM.VSPackage
                         type,
                         -1,
                         vsCMAccess.vsCMAccessPrivate);
+                }
 
+                // For each column definitions we create a property
+                foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
+                {
+                    var fieldName = "_" + columnDefinition.ColumnName.ToLower();
+                    var type = GetRefTypeOfColumnDefinition(columnDefinition);
                     CodeProperty property = cls.AddProperty(columnDefinition.ColumnName,
                         columnDefinition.ColumnName,
                         type, -1,
@@ -199,14 +199,15 @@ namespace ORM.VSPackage
                         property.Getter.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
                     epGetter.Delete(property.Getter.GetEndPoint(vsCMPart.vsCMPartBody));
                     epGetter.Indent();
-                    epGetter.Insert(string.Format("return {0};", fieldName));
+                    epGetter.Insert(string.Format("return {0}; \n", fieldName));
+                    epGetter.Indent(Count: 3);
 
                     var epSetter =
                         property.Setter.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
                     epSetter.Delete(property.Setter.GetEndPoint(vsCMPart.vsCMPartBody));
                     epSetter.Indent();
                     epSetter.Insert(string.Format("{0} = value; \n", fieldName));
-                    epSetter.Indent(Count : 3);
+                    epSetter.Indent(Count: 3);
                 }
             }
         }
@@ -246,20 +247,27 @@ namespace ORM.VSPackage
                 cls.AddBase(fullyQualifiedName);
                 
                 // Modify the constructor
-                var constructor = cls.AddFunction(tableDefinition.TableName,
+                cls.AddFunction(tableDefinition.TableName + "Mapping",
                     vsCMFunction.vsCMFunctionConstructor,
                     null,
                     -1,
                     vsCMAccess.vsCMAccessPublic, null);
+                var constructor = (CodeFunction)cls.Children.Item(1);
                 var startPoint = constructor.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
-                startPoint.Insert("ToTable(\"" + tableDefinition.TableSchema + "." + tableDefinition.TableName + "\");");
+                startPoint.StartOfLine();
+                startPoint.Indent();
+                startPoint.Insert("ToTable(\"" + tableDefinition.TableSchema + "." + tableDefinition.TableName + "\"); \n");
+                
                 foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
                 {
-                    var statement = "\n Property(t => t." + columnDefinition.ColumnName + ").HasColumnName(\"" +
-                                    columnDefinition.ColumnName + "\");";
-                    startPoint.Indent(Count :  2);
+                    var statement = "Property(t => t." + columnDefinition.ColumnName + ").HasColumnName(\"" +
+                                    columnDefinition.ColumnName + "\"); \n";
+                    startPoint.Indent(Count: 3);
                     startPoint.Insert(statement);
                 }
+
+                startPoint.EndOfLine();
+                startPoint.Indent(Count: 2);
             }
         }
 
@@ -298,6 +306,20 @@ namespace ORM.VSPackage
             }
 
             return null;
+        }
+
+        private static vsCMTypeRef GetRefTypeOfColumnDefinition(ColumnDefinition columnDefinition)
+        {
+            var type = vsCMTypeRef.vsCMTypeRefString;
+            switch (columnDefinition.ColumnType)
+            {
+                case "varchar":
+                case "uniqueidentifier":
+                    type = vsCMTypeRef.vsCMTypeRefString;
+                    break;
+            }
+
+            return type;
         }
     }
 }
