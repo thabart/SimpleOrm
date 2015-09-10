@@ -153,6 +153,14 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Generator\GenerateDbContext.cs" />
+    <Compile Include="Generator\GenerateEntities.cs" />
+    <Compile Include="Generator\GenerateMappings.cs" />
+    <Compile Include="Generator\ModelFirstApproachGenerator.cs" />
+    <Compile Include="Generator\NamespaceValues.cs" />
+    <Compile Include="Helper\CodeModelHelper.cs" />
+    <Compile Include="Helper\ColumnDefinitionHelper.cs" />
+    <Compile Include="Helper\TableDefinitionHelper.cs" />
     <Compile Include="Identifiers\Guids.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ORM.VSPackage.cs" />
