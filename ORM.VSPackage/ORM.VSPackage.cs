@@ -1,25 +1,21 @@
-﻿using System;
-using System.CodeDom;
+﻿using EnvDTE;
+using EnvDTE80;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using NuGet.VisualStudio;
+using ORM.VSPackage.Identifiers;
+using ORM.VSPackage.ImportWindowSqlServer;
+using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
+using ORM.VSPackage.ImportWindowSqlServer.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.ComponentModel.Design;
-
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Shell;
-
-using ORM.VSPackage.Identifiers;
-using ORM.VSPackage.ImportWindowSqlServer;
-
-using EnvDTE;
-
-using Microsoft.VisualStudio;
-using EnvDTE80;
-using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
-using System.Collections.Generic;
-using ORM.VSPackage.ImportWindowSqlServer.Models;
 using CodeNamespace = EnvDTE.CodeNamespace;
 
 namespace ORM.VSPackage
@@ -150,6 +146,9 @@ namespace ORM.VSPackage
             GenerateModels(tableDefinitions, modelProjectItem, templatePath);
             GenerateMappings(tableDefinitions, mappingsProjectItem, templatePath);
             GenerateDbContext(tableDefinitions, dbContextProjectItem, templatePath);
+
+            // Install the nuget package
+            InstallNugetPackage(project, "SimpleOrm");
         }
 
         private static void GenerateModels(
@@ -356,6 +355,22 @@ namespace ORM.VSPackage
 
             mappingEndPoint.Indent(Count: 2);
             mappingEndPoint.Insert("} \n");
+        }
+
+        private static void InstallNugetPackage(
+            Project project, 
+            string package)
+        {
+            var dte = GetGlobalService(typeof(DTE)) as DTE;
+            var componentModel = (IComponentModel)GetGlobalService(typeof(SComponentModel));
+            var vsPackageInstallerServices = componentModel.GetService<IVsPackageInstallerServices>();
+            if (!vsPackageInstallerServices.IsPackageInstalled(project, package))
+            {
+                dte.StatusBar.Text = "Installing " + package + " Nuget package, this may takes a minute ...";
+                var vsPackageInstaller = componentModel.GetService<IVsPackageInstaller>();
+                vsPackageInstaller.InstallPackage(null, project, package, (System.Version)null, false);
+                dte.StatusBar.Text = @"Finished installing the " + package + " Nuget package";
+            }
         }
 
         /// <summary>
