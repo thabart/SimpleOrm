@@ -13,6 +13,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Xml;
 
 namespace ORM.VSPackage
 {
@@ -131,6 +132,21 @@ namespace ORM.VSPackage
         {
             var tableDefinitions = args.TableDefinitions;
             var project = GetSelectedProject();
+
+            foreach(ProjectItem projectItem in project.ProjectItems)
+            {
+                if (projectItem.Name.Equals("App.config", StringComparison.InvariantCultureIgnoreCase) ||
+                    projectItem.Name.Equals("Web.config", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var fileInfo = new System.IO.FileInfo(project.FullName);
+                    var configurationFullPath = fileInfo.FullName + "\\" + projectItem.Name;
+
+                    var document = new XmlDocument();
+                    document.Load(configurationFullPath);
+                    var nodes = document.DocumentElement.SelectNodes(string.Format("connectionStrings/add[@name='{0}']", "CustomConnectionString"));
+                    // http://www.aspsnippets.com/Articles/Programmatically-Add-or-Update-Connection-String-in-ASPNet-WebConfig-File.aspx
+                }
+            }
             
             // 1. Modify the configuration file (add the connection string)
             // 2. Release the nuget package & fix release appveyor
