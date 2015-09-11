@@ -6,10 +6,5 @@ after_build:
 configuration: Release
 deploy:
   - provider: GitHub
-    artifact: ORM.zip
     auth_token:
-	   secure: LEpRiorEnE0JEQ3AfQytlf3dBQ8rNYG/QWkbuzlTq20NhZQG91/o/sCp5er5JPdY
-    prerelease: false
-    on:
-      branch: master                # release from master branch only
-      appveyor_repo_tag: true       # deploy on tag push only
+     secure: LEpRiorEnE0JEQ3AfQytlf3dBQ8rNYG/QWkbuzlTq20NhZQG91/o/sCp5er5JPdY
