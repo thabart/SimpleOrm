@@ -4,6 +4,9 @@ before_build:
 after_build:
   - 7z a ORM.zip %APPVEYOR_BUILD_FOLDER%\ORM\bin\%CONFIGURATION%\*.dll
 configuration: Release
+artifacts:
+  - path: ORM.zip
+    name: ORM
 deploy:
   - provider: GitHub
     release: SimpleOrm-v$(appveyor_build_version)
