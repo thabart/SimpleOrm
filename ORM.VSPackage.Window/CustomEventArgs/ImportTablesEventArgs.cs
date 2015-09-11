@@ -8,9 +8,14 @@ namespace ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs
     {
         private readonly List<TableDefinition> _tableDefinitions;
 
-        public ImportTablesEventArgs(List<TableDefinition> tableDefinition)
+        private readonly string _connectionString;
+
+        public ImportTablesEventArgs(
+            List<TableDefinition> tableDefinition, 
+            string connectionString)
         {
             _tableDefinitions = tableDefinition;
+            _connectionString = connectionString;
         }
 
         public List<TableDefinition> TableDefinitions
@@ -19,6 +24,11 @@ namespace ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs
             {
                 return _tableDefinitions;
             }
+        }
+
+        public string ConnectionString
+        {
+            get { return _connectionString; }
         }
     }
 }

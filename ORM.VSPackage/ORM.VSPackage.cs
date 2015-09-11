@@ -44,6 +44,8 @@ namespace ORM.VSPackage
     {
         private readonly IModelFirstApproachGenerator _modelFirstApproachGenerator;
 
+        private readonly IManipulateConfigurationFile _manipulateConfigurationFile;
+
         /// <summary>
         /// Default constructor of the package.
         /// Inside this method you can place any initialization code that does not require 
@@ -55,6 +57,7 @@ namespace ORM.VSPackage
         {
             Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
             _modelFirstApproachGenerator = new ModelFirstApproachGenerator();
+            _manipulateConfigurationFile = new ManipulateConfigurationFile();
         }
 
 
@@ -131,30 +134,18 @@ namespace ORM.VSPackage
         private async void ImportTablesEventCallback(object sender, ImportTablesEventArgs args)
         {
             var tableDefinitions = args.TableDefinitions;
+            var connectionString = args.ConnectionString;
             var project = GetSelectedProject();
 
-            foreach(ProjectItem projectItem in project.ProjectItems)
-            {
-                if (projectItem.Name.Equals("App.config", StringComparison.InvariantCultureIgnoreCase) ||
-                    projectItem.Name.Equals("Web.config", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var fileInfo = new System.IO.FileInfo(project.FullName);
-                    var configurationFullPath = fileInfo.DirectoryName + "\\" + projectItem.Name;
-
-                    var document = new XmlDocument();
-                    document.Load(configurationFullPath);
-                    var nodes = document.DocumentElement.SelectNodes(string.Format("connectionStrings/add[@name='{0}']", "CustomConnectionString"));
-                    // http://www.aspsnippets.com/Articles/Programmatically-Add-or-Update-Connection-String-in-ASPNet-WebConfig-File.aspx
-                }
-            }
-            
-            // 1. Modify the configuration file (add the connection string)
-            // 2. Release the nuget package & fix release appveyor
+            // 1. Modify appveyor configuration to automatically create a release : contains the ORM dll & VSIX extension.
 
             await _modelFirstApproachGenerator.Execute(project, tableDefinitions);
 
             // Install the nuget package
             InstallNugetPackage(project, "SimpleOrm");
+
+            // Modify the configuration file
+            await _manipulateConfigurationFile.AddConnectionString(project, connectionString);
         }
         
         private static void InstallNugetPackage(

@@ -107,8 +107,9 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
         {
             if (ImportTablesEvent != null)
             {
+                var connectionString = CreateConnectionString();
                 var selectedTables = Tables.Where(t => t.IsSelected).Select(t => t.TableDefinition).ToList();
-                var argument = new ImportTablesEventArgs(selectedTables);
+                var argument = new ImportTablesEventArgs(selectedTables, connectionString);
                 ImportTablesEvent(this, argument);
             }
         }

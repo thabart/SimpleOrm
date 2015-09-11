@@ -50,7 +50,6 @@
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.SharedInterfaces">
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.ComponentModelHost" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
@@ -161,6 +160,7 @@
     <Compile Include="Helper\TableDefinitionHelper.cs" />
     <Compile Include="Identifiers\Guids.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ManipulateConfigurationFile.cs" />
     <Compile Include="ORM.VSPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Identifiers\PkgCmdID.cs" />
