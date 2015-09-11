@@ -7,7 +7,7 @@ namespace SampleClient.Mappings
     {
         public CustomerMapping()
         {
-            ToTable("dbo.Customers");
+            ToTable("dbo.CUSTOMERS");
             Property(t => t.Id).HasColumnName("ID");
             Property(t => t.FirstName).HasColumnName("FIRST_NAME");
             Property(t => t.LastName).HasColumnName("LAST_NAME");

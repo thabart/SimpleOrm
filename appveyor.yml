@@ -5,7 +5,10 @@ after_build:
   - 7z a ORM.zip %APPVEYOR_BUILD_FOLDER%\ORM\bin\%CONFIGURATION%\*.dll
 configuration: Release
 deploy:
-  provider: GitHub
+  - provider: GitHub
   auth_token:
 	secure: vrxh7vJweRL/34g0V+jS1BWX7b5hPVqpRIqkVTXf0ZvpRnc4mvoiFys+AlVNjmVT
   artifact: ORM.zip
+  on:
+      branch: master                # release from master branch only
+      appveyor_repo_tag: true       # deploy on tag push only
