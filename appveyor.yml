@@ -7,5 +7,5 @@ configuration: Release
 deploy:
   provider: GitHub
   auth_token:
-	secure: e7232f62479a73653d7d37bd3032b91290f9eeb4
+	secure: vrxh7vJweRL/34g0V+jS1BWX7b5hPVqpRIqkVTXf0ZvpRnc4mvoiFys+AlVNjmVT
   artifact: ORM.zip
