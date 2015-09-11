@@ -73,3 +73,7 @@ INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'tem
 ## Model-First approach
 
 A VSPackage is available (not released yet). It enables a developer to connect to a SQL-Server database, select the catalog & tables, and generate the entities in the selected project.
+
+### Release process
+
+Each time a label is pushed to the remote repository. A new release is created on GITHUB with the artifacts.
