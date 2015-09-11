@@ -10,7 +10,7 @@ artifacts:
 deploy:
   - provider: GitHub
     description: 'Simple Orm'
-    artifact: ORM\bin\Release\*dll
+    artifact: ORM
     auth_token:
      secure: LEpRiorEnE0JEQ3AfQytlf3dBQ8rNYG/QWkbuzlTq20NhZQG91/o/sCp5er5JPdY
     prerelease: false
