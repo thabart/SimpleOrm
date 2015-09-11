@@ -139,7 +139,7 @@ namespace ORM.VSPackage
                     projectItem.Name.Equals("Web.config", StringComparison.InvariantCultureIgnoreCase))
                 {
                     var fileInfo = new System.IO.FileInfo(project.FullName);
-                    var configurationFullPath = fileInfo.FullName + "\\" + projectItem.Name;
+                    var configurationFullPath = fileInfo.DirectoryName + "\\" + projectItem.Name;
 
                     var document = new XmlDocument();
                     document.Load(configurationFullPath);
