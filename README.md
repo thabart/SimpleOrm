@@ -79,7 +79,7 @@ Pre-requisites to use the SimpleOrm Visual studio extension:
 
 A VSPackage is available at this URL. It enables a developer to connect to a SQL-Server database, select the tables and generate the entities in the selected project.
 Follow those steps, if you want to use the extension :
-* In the Visual Studio Extension Gallery (the only you've added) download the "SimpleOrm" VSIX package and install it.
+* In the Visual Studio Extension Gallery (the one you've added) download the "SimpleOrm" VSIX package and install it.
 * Once the extension is installed, open a .NET solution (ASP.NET MVC or WPF) and select a c# project.
 * Right click on the "c# project" and click on the item "Generate classes (database-first approach")
 
