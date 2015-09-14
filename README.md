@@ -75,10 +75,11 @@ INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'tem
 Pre-requisites to use the SimpleOrm Visual studio extension:
 * Visual Studio version 2013 & 2015 are supported
 * The extension can work only on c# project (WPF or ASP.NET MVC)
+* Add this feed (http://vsixgallery.com/feed/extension/8fb8f658-e088-4b06-bd4a-87d34fbf8c80) to Visual Studio's extension manager from tools : Tools -> Options -> Environment -> Extension and updates.
 
 A VSPackage is available at this URL. It enables a developer to connect to a SQL-Server database, select the tables and generate the entities in the selected project.
 Follow those steps, if you want to use the extension :
-* In the Visual Studio Online Extension Gallery download the "SimpleOrm" VSIX package and install it.
+* In the Visual Studio Extension Gallery (the only you've added) download the "SimpleOrm" VSIX package and install it.
 * Once the extension is installed, open a .NET solution (ASP.NET MVC or WPF) and select a c# project.
 * Right click on the "c# project" and click on the item "Generate classes (database-first approach")
 
