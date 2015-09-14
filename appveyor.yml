@@ -23,7 +23,7 @@ deploy:
   description: Simple ORM
   auth_token:
     secure: lQ8ijoj6dfshLfFWRKFUrphgt4LkIz1YduZU+S6xuF33ewz1WcySLNJURJysTF11
-  artifact: ORM
+  artifact: ORM,Nuget,VSPackage
   on:
     branch: master
     appveyor_repo_tag: true
