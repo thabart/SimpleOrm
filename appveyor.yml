@@ -1,19 +1,38 @@
-before_build:
-  - appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
-  - nuget-restore
-after_build:
-  - 7z a ORM.zip %APPVEYOR_BUILD_FOLDER%\ORM\bin\%CONFIGURATION%\*.dll
+version: 1.0.{build}
 configuration: Release
+platform: Any CPU
+install:
+- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+before_build:
+- appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/v3.2.0-rc/nuget.exe
+- appveyor DownloadFile https://raw.githubusercontent.com/appveyor/ci/master/scripts/nuget-restore.cmd
+- nuget-restore
+build:
+  verbosity: minimal
+after_build:
+- nuget pack SimpleOrm.nuspec -Prop Configuration=%CONFIGURATION% -Prop version=%APPVEYOR_BUILD_VERSION%
 artifacts:
-  - path: ORM.zip
-    name: ORM
+- path: ORM\bin\$(configuration)
+  name: ORM
+- path: SimpleOrm.*.nupkg
+  name: Nuget
+- path: ORM.VSPackage\bin\$(configuration)
+  name: VSPackage
 deploy:
-  - provider: GitHub
-    description: 'Simple Orm'
-    artifact: ORM
-    auth_token:
-     secure: LEpRiorEnE0JEQ3AfQytlf3dBQ8rNYG/QWkbuzlTq20NhZQG91/o/sCp5er5JPdY
-    prerelease: false
-    on:
-     branch: master      
-     appveyor_repo_tag: true
+- provider: GitHub
+  description: Simple ORM
+  auth_token:
+    secure: lQ8ijoj6dfshLfFWRKFUrphgt4LkIz1YduZU+S6xuF33ewz1WcySLNJURJysTF11
+  artifact: ORM
+  on:
+    branch: master
+    appveyor_repo_tag: true
+- provider: NuGet
+  api_key:
+    secure: pziM2WPIuSTwZLLV+APtqvUB5JqK0bpFIW/DfuYBmD7YjyKoO21px5aHY/qMTQef
+  artifact: Nuget
+  on:
+    branch: master
+    appveyor_repo_tag: true
+after_deploy:
+  - ps: Vsix-PublishToGallery ORM.VSPackage\bin\%APPVEYOR_BUILD_VERSION%\*.vsix
