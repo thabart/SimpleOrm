@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>SimpleOrm</id>
-        <version>1.0</version>
+        <version>$version$</version>
         <authors>Habart Thierry</authors>
         <owners>Habart Thierry</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,6 +10,6 @@
         <tags>ORM</tags>
     </metadata>
     <files>
-        <file src="ORM\bin\Debug\ORM.dll" target="lib\net45\ORM.dll" />
+        <file src="ORM\bin\$Configuration$\ORM.dll" target="lib\net45\ORM.dll" />
     </files>
 </package>
