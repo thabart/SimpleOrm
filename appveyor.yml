@@ -20,4 +20,4 @@ artifacts:
   name: VSPackage
 deploy:
 after_deploy:
-  - ps: Vsix-PublishToGallery ORM.VSPackage\bin\$env:APPVEYOR_BUILD_VERSION\*.vsix
+  - ps: Vsix-PublishToGallery ORM.VSPackage\bin\$env:CONFIGURATION\*.vsix
