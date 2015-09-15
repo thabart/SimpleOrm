@@ -13,10 +13,15 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="{x:Type Button}" x:Key="footerButton">
-            <Setter Property="Height" Value="20"></Setter>
-        </Style>
-        <converters:BooleanToNotBooleanConverter x:Key="BooleanToNotBooleanConverter" />
+        <ResourceDictionary>
+            <converters:BooleanToNotBooleanConverter x:Key="BooleanToNotBooleanConverter" />
+            <Style TargetType="{x:Type Button}" x:Key="footerButton">
+                <Setter Property="Height" Value="20"></Setter>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ORM.VSPackage.ImportWindowSqlServer;component/Styles/GlobalStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     
     <Grid>
@@ -33,23 +38,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <ListView ItemsSource="{Binding Tables}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                
-                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Grid.Column="0" />
-                                <Label Content="{Binding TableDefinition.TableName}" Grid.Column="1"></Label>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+            <ListBox ItemsSource="{Binding SelectedTables}" 
+                     Grid.Column="0"
+                     DisplayMemberPath="TableDefinition.TableName" 
+                     SelectionMode="Extended"
+                     BorderBrush="Transparent">
+            </ListBox>
             
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
             
@@ -105,7 +99,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0">Select or enter a database name</Label>
-                        <ComboBox Grid.Row="1" ItemsSource="{Binding Catalogs}">
+                        <ComboBox Grid.Row="1" ItemsSource="{Binding Catalogs}" SelectedItem="{Binding Catalog, Mode=OneWayToSource}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="DropDownOpened">
                                     <i:InvokeCommandAction Command="{Binding DeployCatalogCommand}"/>

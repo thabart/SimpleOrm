@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Text;
-using System.Threading;
-using System.Windows.Threading;
+﻿using System.Text;
+
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 
@@ -25,14 +23,15 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 
         private bool _isConnectionSuccessful;
 
-        private bool _databasesAreRetrieved;
+        private bool _taskRetrieveDataBasesIsLaunched;
 
         public ImportViewModel()
         {
             _isWindowsAuthenticationEnabled = false;
             _isConnectionSuccessful = false;
-            _databasesAreRetrieved = false;
-            Tables = new ObservableCollection<SelectedTable>();
+            _taskRetrieveDataBasesIsLaunched = false;
+
+            SelectedTables = new ObservableCollection<SelectedTable>();
             Catalogs = new ObservableCollection<string>();
 
             RegisterCommands();
@@ -82,7 +81,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             }
         }
 
-        public ObservableCollection<SelectedTable> Tables { get; set; }
+        public ObservableCollection<SelectedTable> SelectedTables { get; set; }
 
         private void RegisterCommands()
         {
@@ -96,7 +95,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
         /// </summary>
         private async void TestConnectionCommandExecute()
         {
-            Tables.Clear();
+            SelectedTables.Clear();
             var connectionString = CreateConnectionString();
             var connectionStringValid = await IsConnectionStringValid(connectionString);
             if (!connectionStringValid) {
@@ -107,10 +106,8 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             MessageBox.Show("Connection successful");
             IsConnectionSuccessful = connectionStringValid;
             var tables = await GetTables(connectionString);
-            foreach(var table in  tables)
-            {
-                Tables.Add(table);
-            }
+                        
+            tables.ForEach(t => SelectedTables.Add(t));
         }
 
         private void GenerateTablesCommandExecute()
@@ -118,7 +115,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             if (ImportTablesEvent != null)
             {
                 var connectionString = CreateConnectionString();
-                var selectedTables = Tables.Where(t => t.IsSelected).Select(t => t.TableDefinition).ToList();
+                var selectedTables = SelectedTables.Where(t => t.IsSelected).Select(t => t.TableDefinition).ToList();
                 var argument = new ImportTablesEventArgs(selectedTables, connectionString);
                 ImportTablesEvent(this, argument);
             }
@@ -129,7 +126,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
         /// </summary>
         private void DeployCatalogCommandExecute()
         {
-            if (_databasesAreRetrieved)
+            if (_taskRetrieveDataBasesIsLaunched)
             {
                 return;
             }
@@ -137,21 +134,21 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             var context = TaskScheduler.FromCurrentSynchronizationContext();
             Catalogs.Clear();
             Catalogs.Add("(loading databases ...)");
-            try
+            var connectionString = CreateConnectionStringWithoutCatalog();
+            _taskRetrieveDataBasesIsLaunched = true;
+            GetDatabases(connectionString).ContinueWith(taskResult =>
             {
-                var connectionString = CreateConnectionStringWithoutCatalog();
-                GetDatabases(connectionString).ContinueWith(taskResult =>
+                try
                 {
                     var databases = taskResult.Result;
                     Catalogs.Clear();
                     databases.ForEach(s => Catalogs.Add(s));
-                    _databasesAreRetrieved = true;
-                }, context);
-            }
-            catch (Exception)
-            {
-                Trace.WriteLine("Cannot retrieve the databases");
-            }
+                }
+                finally
+                {
+                    _taskRetrieveDataBasesIsLaunched = false;
+                }
+            }, context);
         }
 
         /// <summary>
@@ -215,7 +212,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
                 var reader = await command.ExecuteReaderAsync();
                 while(reader.Read())
                 {
-                    var record = new SelectedTable
+                    var selectedTable = new SelectedTable
                     {
                         IsSelected = true
                     };
@@ -227,10 +224,9 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
                         ColumnDefinitions = new List<ColumnDefinition>()
                     };
 
+                    selectedTable.TableDefinition = tableDefinition;
                     await GetColumnDefinitions(tableDefinition.TableName, connectionString, tableDefinition.ColumnDefinitions);
-
-                    record.TableDefinition = tableDefinition;
-                    result.Add(record);
+                    result.Add(selectedTable);
                 }
 
 
