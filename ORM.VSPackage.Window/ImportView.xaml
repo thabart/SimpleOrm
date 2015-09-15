@@ -8,7 +8,9 @@
         xmlns:dependencyProperties="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.DependencyProperties"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ImportViewModel}"
-        Title="Import from sql-server database" Height="350" Width="525">
+        Title="Import from sql-server database" Height="350" Width="525"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="{x:Type Button}" x:Key="footerButton">
             <Setter Property="Height" Value="20"></Setter>
