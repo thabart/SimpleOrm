@@ -1,7 +1,13 @@
-﻿using Microsoft.Practices.Prism.Commands;
+﻿using System.Diagnostics;
+using System.Text;
+using System.Threading;
+using System.Windows.Threading;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+
 using ORM.VSPackage.ImportWindowSqlServer.CustomEventArgs;
 using ORM.VSPackage.ImportWindowSqlServer.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,11 +25,15 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 
         private bool _isConnectionSuccessful;
 
+        private bool _databasesAreRetrieved;
+
         public ImportViewModel()
         {
             _isWindowsAuthenticationEnabled = false;
             _isConnectionSuccessful = false;
+            _databasesAreRetrieved = false;
             Tables = new ObservableCollection<SelectedTable>();
+            Catalogs = new ObservableCollection<string>();
 
             RegisterCommands();
         }
@@ -32,11 +42,13 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 
         public event ImportTablesHandler ImportTablesEvent;
 
-        public ICommand EnableWindowsAuthenticationCommand { get; private set; }
-
         public ICommand TestConnectionCommand { get; private set; }
 
         public ICommand GenerateTablesCommand { get; private set; }
+
+        public ICommand DeployCatalogCommand { get; private set; }
+
+        public ObservableCollection<string> Catalogs { get; private set; } 
 
         public string DataSource { private get; set; }
 
@@ -74,17 +86,15 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
 
         private void RegisterCommands()
         {
-            EnableWindowsAuthenticationCommand = new DelegateCommand(EnableWindowsAuthenticationExecute);
-            TestConnectionCommand = new DelegateCommand(TestConnectionExecute);
+            TestConnectionCommand = new DelegateCommand(TestConnectionCommandExecute);
             GenerateTablesCommand = new DelegateCommand(GenerateTablesCommandExecute);
+            DeployCatalogCommand = new DelegateCommand(DeployCatalogCommandExecute);
         }
 
-        private void EnableWindowsAuthenticationExecute()
-        {
-            IsWindowsAuthenticationEnabled = !IsWindowsAuthenticationEnabled;
-        }
-
-        private async void TestConnectionExecute()
+        /// <summary>
+        /// Check the connection string is correct.
+        /// </summary>
+        private async void TestConnectionCommandExecute()
         {
             Tables.Clear();
             var connectionString = CreateConnectionString();
@@ -114,19 +124,69 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
             }
         }
 
+        /// <summary>
+        /// This callback is called when the catalog combobox is deployed.
+        /// </summary>
+        private void DeployCatalogCommandExecute()
+        {
+            if (_databasesAreRetrieved)
+            {
+                return;
+            }
+
+            var context = TaskScheduler.FromCurrentSynchronizationContext();
+            Catalogs.Clear();
+            Catalogs.Add("(loading databases ...)");
+            try
+            {
+                var connectionString = CreateConnectionStringWithoutCatalog();
+                GetDatabases(connectionString).ContinueWith(taskResult =>
+                {
+                    var databases = taskResult.Result;
+                    Catalogs.Clear();
+                    databases.ForEach(s => Catalogs.Add(s));
+                    _databasesAreRetrieved = true;
+                }, context);
+            }
+            catch (Exception)
+            {
+                Trace.WriteLine("Cannot retrieve the databases");
+            }
+        }
+
+        /// <summary>
+        /// Create and returns the connection string.
+        /// </summary>
+        /// <returns></returns>
         private string CreateConnectionString()
         {
-            var connectionString = string.Format("Data Source={0};Initial Catalog={1};", DataSource, Catalog);
+            var connectionString = new StringBuilder(CreateConnectionStringWithoutCatalog());
+
+            if (!string.IsNullOrWhiteSpace(Catalog))
+            {
+                connectionString.Append(string.Format("Initial Catalog={0};", Catalog));
+            }
+
+            return connectionString.ToString();
+        }
+
+        /// <summary>
+        /// Create and returns the connection string without catalog name.
+        /// </summary>
+        /// <returns></returns>
+        private string CreateConnectionStringWithoutCatalog()
+        {
+            var connectionString = new StringBuilder(string.Format("Data Source={0};", DataSource));
             if (IsWindowsAuthenticationEnabled)
             {
-                connectionString += "Integrated Security=True;";
+                connectionString.Append("Integrated Security=True;");
             }
             else
             {
-                connectionString += string.Format("User Id={0};Password={1};", UserName, Password);
+                connectionString.Append(string.Format("User Id={0};Password={1};", UserName, Password));
             }
 
-            return connectionString;
+            return connectionString.ToString();
         }
 
         private async Task<bool> IsConnectionStringValid(string connectionString)
@@ -139,7 +199,7 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -173,6 +233,31 @@ namespace ORM.VSPackage.ImportWindowSqlServer.ViewModels
                     result.Add(record);
                 }
 
+
+                reader.Close();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the databases name.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns></returns>
+        private async Task<List<string>> GetDatabases(string connectionString)
+        {
+            var result = new List<string>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                var command = new SqlCommand("SELECT name FROM sys.databases", connection);
+                var reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    var databaseName = reader.GetString(0);
+                    result.Add(databaseName);
+                }
 
                 reader.Close();
             }

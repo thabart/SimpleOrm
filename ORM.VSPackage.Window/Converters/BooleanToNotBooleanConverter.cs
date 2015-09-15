@@ -20,7 +20,13 @@ namespace ORM.VSPackage.ImportWindowSqlServer.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            var isVisible = false;
+            if (!bool.TryParse(value.ToString(), out isVisible))
+            {
+                return false;
+            }
+
+            return !isVisible;
         }
     }
 }

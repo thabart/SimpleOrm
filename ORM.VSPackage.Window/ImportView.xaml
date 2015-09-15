@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.ViewModels"
         xmlns:converters="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.Converters"
         xmlns:dependencyProperties="clr-namespace:ORM.VSPackage.ImportWindowSqlServer.DependencyProperties"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ImportViewModel}"
         Title="Import from sql-server database" Height="350" Width="525"
@@ -64,28 +65,55 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Data source:</Label>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataSource, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
-                <GroupBox Header="Credentials:" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5" Grid.Column="0">
+                
+                <!-- Log on to the server -->
+                <GroupBox Header="Log on to the server" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0, 5" Grid.Column="0">
                     <Grid Margin="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Grid.ColumnSpan="2" Command="{Binding EnableWindowsAuthenticationCommand}">Enable Windows authentication</CheckBox>
-                        <Label Grid.Row="1" Grid.Column="0">User name:</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
-                        <Label Grid.Row="2" Grid.Column="0">Password:</Label>
-                        <PasswordBox Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"
+                        <RadioButton Grid.Row="0" GroupName="WindowsAuthentication" IsChecked="{Binding IsWindowsAuthenticationEnabled, Mode=TwoWay}">Use Windows Authentication</RadioButton>
+                        <RadioButton Grid.Row="1" GroupName="WindowsAuthentication" IsChecked="{Binding IsWindowsAuthenticationEnabled, Mode=OneWay, Converter={StaticResource BooleanToNotBooleanConverter}}">Use SQL Server Authentication</RadioButton>
+                        <Grid IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}" Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="1" Grid.Column="0">User name:</Label>
+                            <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
+                            <Label Grid.Row="2" Grid.Column="0">Password:</Label>
+                            <PasswordBox Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=IsWindowsAuthenticationEnabled, Converter={StaticResource BooleanToNotBooleanConverter}}"
                                      dependencyProperties:PasswordBoxDependencyProperties.BindPassword="True"
                                      dependencyProperties:PasswordBoxDependencyProperties.BoundPassword="{Binding Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
+                        </Grid>
                     </Grid>
                 </GroupBox>
-                <Label Grid.Row="2" Grid.Column="0">Catalog :</Label>
-                <TextBox Text="{Binding Catalog, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Grid.Row="2" Grid.Column="1"></TextBox>
+                
+                <!-- Connect to database -->
+                <GroupBox Header="Connect to a database" Grid.Row="2" Grid.ColumnSpan="2" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0">Select or enter a database name</Label>
+                        <ComboBox Grid.Row="1" ItemsSource="{Binding Catalogs}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="DropDownOpened">
+                                    <i:InvokeCommandAction Command="{Binding DeployCatalogCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
             </Grid>
         </Grid>
         
