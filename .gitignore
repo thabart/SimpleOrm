@@ -39,3 +39,4 @@ buildartifacts/QuickTestClient/
 us.stackdump
 Pms.MobiGuider.UI\Output
 *.sln.GhostDoc.xml
+.vs/
