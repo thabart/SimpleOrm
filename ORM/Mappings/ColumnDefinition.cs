@@ -50,7 +50,7 @@ namespace ORM.Mappings
             }
         }
 
-        public ColumnDefinition HasColumnName(string columnName)
+        public ColumnDefinition ToColumn(string columnName)
         {
             _columnName = columnName;
             return this;

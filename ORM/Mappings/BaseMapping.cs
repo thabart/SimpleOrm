@@ -20,12 +20,12 @@ namespace ORM.Mappings
             }
         }
 
-        protected void ToTable(string tableName)
+        protected void MapClassToTable(string tableName)
         {
             _entityMappingDefinition.TableName = tableName;
         }
 
-        protected ColumnDefinition Property<TProperty>(Expression<Func<TSource, TProperty>> expression)
+        protected ColumnDefinition MapProperty<TProperty>(Expression<Func<TSource, TProperty>> expression)
         {
             var propertyName = GetPropertyName(expression);
             var columnDefinition = new ColumnDefinition(propertyName, typeof(TProperty));
