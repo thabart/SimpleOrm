@@ -8,6 +8,8 @@
         mc:Ignorable="d"
         Title="ModelViewer" Height="300" Width="300">
     <Grid>
-        <components:TableDefinitionControl TableName="coucou" />
+        <components:TableDefinitionControl 
+            TableName="coucou"
+            Columns="{Binding ColumnDefinitions}"/>
     </Grid>
 </Window>
