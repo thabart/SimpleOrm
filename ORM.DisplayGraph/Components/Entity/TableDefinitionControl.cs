@@ -29,26 +29,26 @@ namespace ORM.DisplayGraph.Components.Entity
 
         #region Properties
 
-        public string TableName
+        public string EntityName
         {
             get
             {
-                return (string)GetValue(TableNameProperty);
+                return (string)GetValue(EntityNameProperty);
             }
             set
             {
-                SetValue(TableNameProperty, value);
+                SetValue(EntityNameProperty, value);
             }
         }
         
-        public List<VM.ColumnDefinition> Columns
+        public List<VM.PropertyDefinition> Properties
         {
             get
             {
-                return (List<VM.ColumnDefinition>)GetValue(ColumnsProperty);
+                return (List<VM.PropertyDefinition>)GetValue(PropertiesProperty);
             } set
             {
-                SetValue(ColumnsProperty, value);
+                SetValue(PropertiesProperty, value);
             }
         }
 
@@ -67,8 +67,8 @@ namespace ORM.DisplayGraph.Components.Entity
 
         #region Dependency properties
 
-        public static readonly DependencyProperty TableNameProperty = DependencyProperty.Register(
-            "TableName",
+        public static readonly DependencyProperty EntityNameProperty = DependencyProperty.Register(
+            "EntityName",
             typeof(string),
             typeof(TableDefinitionControl),
             new PropertyMetadata(string.Empty));
@@ -79,11 +79,11 @@ namespace ORM.DisplayGraph.Components.Entity
             typeof(TableDefinitionControl),
             new PropertyMetadata(true, IsExpandChanged));
 
-        public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register(
-            "Columns",
-            typeof(List<VM.ColumnDefinition>),
+        public static readonly DependencyProperty PropertiesProperty = DependencyProperty.Register(
+            "Properties",
+            typeof(List<VM.PropertyDefinition>),
             typeof(TableDefinitionControl),
-            new PropertyMetadata(new List<VM.ColumnDefinition>()));
+            new PropertyMetadata(new List<VM.PropertyDefinition>()));
 
         #endregion
 

@@ -1,0 +1,36 @@
+﻿<Window x:Class="ORM.DisplayGraph.TestModelViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ORM.DisplayGraph"
+        xmlns:components="clr-namespace:ORM.DisplayGraph.Components.ModelViewer"
+        xmlns:table="clr-namespace:ORM.DisplayGraph.Components.Entity"
+        mc:Ignorable="d"
+        Title="ModelViewer" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <components:ModelViewerControl Background="AliceBlue" Grid.Row="0" TableDefinitions="{Binding TableDefinitions}" />
+
+        <!--<table:TableDefinitionControl EntityName="coucou" />-->
+        
+        <StackPanel Grid.Row="1">
+            <Button Command="{Binding AddEntityCommand}">Add entity</Button>
+            <Button Command="{Binding ClearEntitiesCommand}">Clear entity</Button>
+        </StackPanel>
+            <!--
+        <StackPanel>
+            <components:TableDefinitionControl 
+            EntityName="Table1"
+            Properties="{Binding ColumnDefinitions}"/>
+            <components:TableDefinitionControl 
+            EntityName="Table2"
+            Properties="{Binding ColumnDefinitions}"/>
+
+        </StackPanel>-->
+    </Grid>
+</Window>

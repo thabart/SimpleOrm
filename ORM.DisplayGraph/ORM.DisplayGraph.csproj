@@ -61,7 +61,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\TestModelViewerViewModel.cs" />
     <Page Include="Components\Entity\Styles\TableDefinitionControl.Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ModelViewer\Styles\ModelViewerControl.Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,12 +80,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components\Entity\TableDefinitionControl.cs" />
-    <Compile Include="Components\Entity\ViewModel\ColumnDefinition.cs" />
+    <Compile Include="Components\Entity\ViewModel\PropertyDefinition.cs" />
+    <Compile Include="Components\ModelViewer\ModelViewerControl.cs" />
+    <Compile Include="Components\ModelViewer\ViewModels\ColumnDefinition.cs" />
+    <Compile Include="Components\ModelViewer\ViewModels\Link.cs" />
+    <Compile Include="Components\ModelViewer\ViewModels\TableDefinition.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ModelViewer.xaml">
+    <Page Include="TestModelViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,8 +99,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelViewer.xaml.cs">
-      <DependentUpon>ModelViewer.xaml</DependentUpon>
+    <Compile Include="TestModelViewer.xaml.cs">
+      <DependentUpon>TestModelViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
