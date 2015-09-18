@@ -62,6 +62,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Components\ModelViewer\DragAndDropTableDefinitionControl.cs" />
+    <Compile Include="Components\ModelViewer\UpdateRelationShips.cs" />
+    <Compile Include="Components\ModelViewer\ViewModels\EndPointDefinition.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\TestModelViewerViewModel.cs" />
     <Page Include="Components\Entity\Styles\TableDefinitionControl.Generic.xaml">
@@ -84,7 +86,7 @@
     <Compile Include="Components\Entity\ViewModel\PropertyDefinition.cs" />
     <Compile Include="Components\ModelViewer\ModelViewerControl.cs" />
     <Compile Include="Components\ModelViewer\ViewModels\ColumnDefinition.cs" />
-    <Compile Include="Components\ModelViewer\ViewModels\Link.cs" />
+    <Compile Include="Components\ModelViewer\ViewModels\LinkDefinition.cs" />
     <Compile Include="Components\ModelViewer\ViewModels\TableDefinition.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

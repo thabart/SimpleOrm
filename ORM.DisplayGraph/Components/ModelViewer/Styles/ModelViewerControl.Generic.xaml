@@ -11,7 +11,11 @@
                         Background="{TemplateBinding Background}"
                         x:Name="PART_ModelViewerContainer">
                         <Canvas.RenderTransform>
-                            <MatrixTransform />
+                            <MatrixTransform>
+                                <MatrixTransform.Matrix>
+                                    <Matrix M11="1" M22="1"></Matrix>
+                                </MatrixTransform.Matrix>
+                            </MatrixTransform>
                         </Canvas.RenderTransform>
                     </Canvas>
                 </ControlTemplate>

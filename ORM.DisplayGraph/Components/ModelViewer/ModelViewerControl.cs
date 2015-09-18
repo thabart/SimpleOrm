@@ -1,7 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using ORM.DisplayGraph.Components.Entity;
+using ORM.DisplayGraph.Components.Entity.ViewModel;
 using ORM.DisplayGraph.Components.ModelViewer.ViewModels;
 
 using System.Collections.ObjectModel;
@@ -17,6 +19,10 @@ namespace ORM.DisplayGraph.Components.ModelViewer
 
         private Canvas _modelViewerContainer;
 
+        private readonly Dictionary<TableDefinition, TableDefinitionControl> _tableDefinitionControls;
+
+        private readonly Dictionary<LinkDefinition, Line> _linkDefinitionControls; 
+
         #endregion
 
         #region Constructor
@@ -24,6 +30,12 @@ namespace ORM.DisplayGraph.Components.ModelViewer
         static ModelViewerControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ModelViewerControl), new FrameworkPropertyMetadata(typeof(ModelViewerControl)));
+        }
+
+        public ModelViewerControl()
+        {
+            _tableDefinitionControls = new Dictionary<TableDefinition, TableDefinitionControl>();
+            _linkDefinitionControls = new Dictionary<LinkDefinition, Line>();
         }
 
         #endregion
@@ -42,14 +54,14 @@ namespace ORM.DisplayGraph.Components.ModelViewer
             }
         }
 
-        public ObservableCollection<Link> Links
+        public ObservableCollection<LinkDefinition> LinkDefinitions
         {
             get
             {
-                return (ObservableCollection<Link>)GetValue(LinksProperty);
+                return (ObservableCollection<LinkDefinition>)GetValue(LinkDefinitionsProperty);
             } set
             {
-                SetValue(LinksProperty, value);
+                SetValue(LinkDefinitionsProperty, value);
             }
         }
 
@@ -63,11 +75,11 @@ namespace ORM.DisplayGraph.Components.ModelViewer
             typeof(ModelViewerControl),
             new FrameworkPropertyMetadata(null, OnTableDefinitionsChanged));
 
-        public static readonly DependencyProperty LinksProperty = DependencyProperty.Register(
-            "Links",
-            typeof(ObservableCollection<Link>),
+        public static readonly DependencyProperty LinkDefinitionsProperty = DependencyProperty.Register(
+            "LinkDefinitions",
+            typeof(ObservableCollection<LinkDefinition>),
             typeof(ModelViewerControl),
-            new FrameworkPropertyMetadata(null, OnTableDefinitionsChanged));
+            new FrameworkPropertyMetadata(null, OnLinkDefinitionsChanged));
 
         #endregion
 
@@ -100,35 +112,59 @@ namespace ORM.DisplayGraph.Components.ModelViewer
 
                     var control = CreateTableDefinitionControl(tableDefinition);
                     control.Loaded +=
-                        (obj, args) =>
-                            DragAndDropTableDefinitionControl.InitializeDragAndDrop(control, _modelViewerContainer);
+                        (obj, args) => DragAndDropTableDefinitionControl.InitializeDragAndDrop(control, _tableDefinitionControls, LinkDefinitions, _modelViewerContainer, _linkDefinitionControls);
                     _modelViewerContainer.Children.Add(control);
                     Canvas.SetLeft(control, 0);
                     Canvas.SetTop(control, 0);
+
+                    _tableDefinitionControls.Add(tableDefinition, control);
+                }
+            }
+        }
+
+        private void OnLinkDefinitionsChanged(object sender,
+            NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                var addedItems = e.NewItems;
+                foreach (var addedItem in addedItems)
+                {
+                    var linkDefinition = addedItem as LinkDefinition;
+                    if (linkDefinition == null)
+                    {
+                        continue;
+                    }
+
+                    var line = new Line
+                    {
+                        StrokeThickness = 2,
+                        Stroke = Brushes.Black
+                    };
+
+                    _modelViewerContainer.Children.Add(line);
+
+                    _linkDefinitionControls.Add(linkDefinition, line);
+                    UpdateRelationShips.RefreshRelationShipPosition(
+                        linkDefinition, 
+                        _tableDefinitionControls,
+                        _modelViewerContainer,
+                        line);
                 }
             }
         }
 
         private void OnModelViewerContainerSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var oldfit = e.PreviousSize;
-
+            var oldSize = e.PreviousSize;
+            var newSize = e.NewSize;
+            var diffWidth = newSize.Width - oldSize.Width;
+            // Trace.WriteLine(diffWidth);
         }
 
-        private double GetCurrentXOffset()
+        private Matrix GetMatrixTransform()
         {
-            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.OffsetX;
-        }
-
-
-        private double GetCurrentYOffset()
-        {
-            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.OffsetY;
-        }
-
-        private double GetCurrentScale()
-        {
-            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.M11;
+            return ((MatrixTransform) _modelViewerContainer.RenderTransform).Matrix;
         }
 
         #endregion
@@ -153,15 +189,46 @@ namespace ORM.DisplayGraph.Components.ModelViewer
             }
         }
 
-        private static void OnLinksChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        private static void OnLinkDefinitionsChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
+            var oldLinkDefinitions = args.OldValue;
+            var newLinkDefinitions = args.NewValue;
+            var modelViewer = (ModelViewerControl) obj;
+            if (oldLinkDefinitions != null)
+            {
+                var oldCastedLinkDefinitions = (ObservableCollection<LinkDefinition>) oldLinkDefinitions;
+                oldCastedLinkDefinitions.CollectionChanged -= modelViewer.OnLinkDefinitionsChanged;
+            }
 
+            if (newLinkDefinitions != null)
+            {
+                var newCastedLinkDefinitions = (ObservableCollection<LinkDefinition>) newLinkDefinitions;
+                newCastedLinkDefinitions.CollectionChanged += modelViewer.OnLinkDefinitionsChanged;
+            }
         }
 
         private static TableDefinitionControl CreateTableDefinitionControl(TableDefinition tableDefinition)
         {
-            var control = new TableDefinitionControl();
-            control.EntityName = tableDefinition.TableName;
+            var control = new TableDefinitionControl
+            {
+                EntityName = tableDefinition.TableName
+            };
+
+            if (tableDefinition.ColumnDefinitions != null && tableDefinition.ColumnDefinitions.Any())
+            {
+                foreach (var columnDefinition in tableDefinition.ColumnDefinitions)
+                {
+                    var property = new PropertyDefinition
+                    {
+                        Name = columnDefinition.Name,
+                        Type = columnDefinition.Type,
+                        IsPrimaryKey = columnDefinition.IsPrimaryKey
+                    };
+
+                    control.Properties.Add(property);
+                }
+            }
+
             return control;
         }
 

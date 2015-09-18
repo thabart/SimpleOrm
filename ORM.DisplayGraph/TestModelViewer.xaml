@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ORM.DisplayGraph"
         xmlns:components="clr-namespace:ORM.DisplayGraph.Components.ModelViewer"
-        xmlns:table="clr-namespace:ORM.DisplayGraph.Components.Entity"
         mc:Ignorable="d"
         Title="ModelViewer" Height="300" Width="300">
     <Grid>
@@ -14,12 +12,16 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <components:ModelViewerControl Background="AliceBlue" Grid.Row="0" TableDefinitions="{Binding TableDefinitions}" />
+        <components:ModelViewerControl Background="AliceBlue"
+                                       Grid.Row="0" 
+                                       TableDefinitions="{Binding TableDefinitions}"
+                                       LinkDefinitions="{Binding LinkDefinitions}"/>
 
         <!--<table:TableDefinitionControl EntityName="coucou" />-->
         
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Command="{Binding AddEntityCommand}">Add entity</Button>
+            <Button Command="{Binding AddLinkCommand}">Add link</Button>
             <Button Command="{Binding ClearEntitiesCommand}">Clear entity</Button>
         </StackPanel>
             <!--
