@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using System.Windows.Media;
 using ORM.DisplayGraph.Components.Entity;
 using ORM.DisplayGraph.Components.ModelViewer.ViewModels;
 
@@ -74,7 +76,7 @@ namespace ORM.DisplayGraph.Components.ModelViewer
         public override void OnApplyTemplate()
         {
             _modelViewerContainer = Template.FindName("PART_ModelViewerContainer", this) as Canvas;
-
+            _modelViewerContainer.SizeChanged += OnModelViewerContainerSizeChanged;
             base.OnApplyTemplate();
         }
 
@@ -105,6 +107,28 @@ namespace ORM.DisplayGraph.Components.ModelViewer
                     Canvas.SetTop(control, 0);
                 }
             }
+        }
+
+        private void OnModelViewerContainerSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var oldfit = e.PreviousSize;
+
+        }
+
+        private double GetCurrentXOffset()
+        {
+            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.OffsetX;
+        }
+
+
+        private double GetCurrentYOffset()
+        {
+            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.OffsetY;
+        }
+
+        private double GetCurrentScale()
+        {
+            return ((MatrixTransform)_modelViewerContainer.RenderTransform).Matrix.M11;
         }
 
         #endregion

@@ -10,7 +10,9 @@
                         Height="{TemplateBinding Height}" 
                         Background="{TemplateBinding Background}"
                         x:Name="PART_ModelViewerContainer">
-                        
+                        <Canvas.RenderTransform>
+                            <MatrixTransform />
+                        </Canvas.RenderTransform>
                     </Canvas>
                 </ControlTemplate>
             </Setter.Value>            

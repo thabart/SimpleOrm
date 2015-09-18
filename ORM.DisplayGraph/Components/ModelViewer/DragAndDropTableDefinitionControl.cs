@@ -68,8 +68,7 @@ namespace ORM.DisplayGraph.Components.ModelViewer
             }
 
             _currentPoint = e.GetPosition(_modelViewerContainer);
-            // var currentXCoordinate = Canvas.GetLeft(_tableDefinitionControl);
-            // var currentYCoordinate = Canvas.GetTop(_tableDefinitionControl);
+
             var xCoordinate = _originalLeft + _currentPoint.X - _anchorPoint.X;
             var yCoordinate = _originalTop + _currentPoint.Y - _anchorPoint.Y;
             Canvas.SetLeft(_tableDefinitionControl, xCoordinate);
