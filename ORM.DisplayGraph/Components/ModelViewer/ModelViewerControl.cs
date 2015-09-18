@@ -114,9 +114,10 @@ namespace ORM.DisplayGraph.Components.ModelViewer
                     control.Loaded +=
                         (obj, args) => DragAndDropTableDefinitionControl.InitializeDragAndDrop(control, _tableDefinitionControls, LinkDefinitions, _modelViewerContainer, _linkDefinitionControls);
                     _modelViewerContainer.Children.Add(control);
+                    Canvas.SetZIndex(control, 2);
                     Canvas.SetLeft(control, 0);
                     Canvas.SetTop(control, 0);
-
+                    
                     _tableDefinitionControls.Add(tableDefinition, control);
                 }
             }
@@ -143,6 +144,7 @@ namespace ORM.DisplayGraph.Components.ModelViewer
                     };
 
                     _modelViewerContainer.Children.Add(line);
+                    Canvas.SetZIndex(line, 1);
 
                     _linkDefinitionControls.Add(linkDefinition, line);
                     UpdateRelationShips.RefreshRelationShipPosition(
@@ -211,7 +213,8 @@ namespace ORM.DisplayGraph.Components.ModelViewer
         {
             var control = new TableDefinitionControl
             {
-                EntityName = tableDefinition.TableName
+                EntityName = tableDefinition.TableName,
+                Properties = new List<PropertyDefinition>()
             };
 
             if (tableDefinition.ColumnDefinitions != null && tableDefinition.ColumnDefinitions.Any())
