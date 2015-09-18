@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\ModelViewer\DragAndDropTableDefinitionControl.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\TestModelViewerViewModel.cs" />
     <Page Include="Components\Entity\Styles\TableDefinitionControl.Generic.xaml">

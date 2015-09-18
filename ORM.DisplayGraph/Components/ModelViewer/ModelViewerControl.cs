@@ -1,4 +1,5 @@
-﻿using ORM.DisplayGraph.Components.Entity;
+﻿using System.Windows.Forms;
+using ORM.DisplayGraph.Components.Entity;
 using ORM.DisplayGraph.Components.ModelViewer.ViewModels;
 
 using System.Collections.ObjectModel;
@@ -77,13 +78,17 @@ namespace ORM.DisplayGraph.Components.ModelViewer
             base.OnApplyTemplate();
         }
 
-        private void OnTableDefinitionsChanged(object sender, 
+        #endregion
+
+        #region Private methods
+
+        private void OnTableDefinitionsChanged(object sender,
             NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 var addedItems = e.NewItems;
-                foreach(var addItem in addedItems)
+                foreach (var addItem in addedItems)
                 {
                     var tableDefinition = addItem as TableDefinition;
                     if (tableDefinition == null)
@@ -92,16 +97,14 @@ namespace ORM.DisplayGraph.Components.ModelViewer
                     }
 
                     var control = CreateTableDefinitionControl(tableDefinition);
+                    control.Loaded +=
+                        (obj, args) =>
+                            DragAndDropTableDefinitionControl.InitializeDragAndDrop(control, _modelViewerContainer);
                     _modelViewerContainer.Children.Add(control);
+                    Canvas.SetLeft(control, 0);
+                    Canvas.SetTop(control, 0);
                 }
             }
-        }
-
-        private TableDefinitionControl CreateTableDefinitionControl(TableDefinition tableDefinition)
-        {
-            var control = new TableDefinitionControl();
-            control.EntityName = tableDefinition.TableName;
-            return control;
         }
 
         #endregion
@@ -129,6 +132,13 @@ namespace ORM.DisplayGraph.Components.ModelViewer
         private static void OnLinksChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
 
+        }
+
+        private static TableDefinitionControl CreateTableDefinitionControl(TableDefinition tableDefinition)
+        {
+            var control = new TableDefinitionControl();
+            control.EntityName = tableDefinition.TableName;
+            return control;
         }
 
         #endregion

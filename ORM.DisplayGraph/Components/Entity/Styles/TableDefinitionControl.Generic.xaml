@@ -46,7 +46,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Style="{StaticResource TableHeader}">
+                            <Grid Grid.Row="0" Style="{StaticResource TableHeader}" x:Name="PART_TableDefinitionHeader">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
