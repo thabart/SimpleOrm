@@ -34,5 +34,5 @@ deploy:
   on:
     branch: master
     appveyor_repo_tag: true
-after_deploy:
-  - ps: Vsix-PublishToGallery ORM.VSPackage\bin\$env:CONFIGURATION\*.vsix
+#after_deploy:
+# - ps: Vsix-PublishToGallery ORM.VSPackage\bin\$env:CONFIGURATION\*.vsix

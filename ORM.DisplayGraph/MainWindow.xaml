@@ -1,0 +1,61 @@
+﻿<Window x:Class="ORM.DisplayGraph.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="http://schemas.microsoft.com/VisualStudio/2010/diagrams/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Canvas x:Name="Canvas">
+        <Grid x:Name="Table">
+            <Grid.RenderTransform>
+                <TranslateTransform X="{Binding XCoordinate}" Y="{Binding YCoordinate}" />
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Rectangle StrokeThickness="2" Stroke="#3399FF" Grid.RowSpan="2" />
+            <!-- Content of the table -->
+            <Grid Margin="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" 
+                            Background="#A0A0A0" Orientation="Horizontal" 
+                            MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown"
+                            MouseMove="UIElement_OnMouseMove"
+                            MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
+                    <Label>Database</Label>
+                    <Label Foreground="White" FontWeight="Bold">Datatable</Label>
+                </StackPanel>
+                <ListBox Grid.Row="1">
+                    <ListBoxItem>coucou</ListBoxItem>
+                </ListBox>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Table2">
+            <Grid.RenderTransform>
+                <TranslateTransform X="150" Y="0" />
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Rectangle StrokeThickness="2" Stroke="#3399FF" Grid.RowSpan="2" />
+            <!-- Content of the table -->
+            <Grid Margin="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" 
+                            Background="#A0A0A0" Orientation="Horizontal" >
+                    <Label>Database</Label>
+                    <Label Foreground="White" FontWeight="Bold">Datatable</Label>
+                </StackPanel>
+                <ListBox Grid.Row="1">
+                    <ListBoxItem>coucou</ListBoxItem>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </Canvas>
+</Window>

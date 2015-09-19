@@ -142,6 +142,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\GenerateFile.png" />
     <Content Include="Templates\MyExtFile.vspackage">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -186,9 +187,6 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Images.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="RichEditObjectModel">

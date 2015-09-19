@@ -7,10 +7,10 @@ namespace SampleClient.Mappings
     {
         public CustomerMapping()
         {
-            ToTable("dbo.CUSTOMERS");
-            Property(t => t.Id).HasColumnName("ID");
-            Property(t => t.FirstName).HasColumnName("FIRST_NAME");
-            Property(t => t.LastName).HasColumnName("LAST_NAME");
+            MapClassToTable("dbo.CUSTOMERS");
+            MapProperty(t => t.Id).ToColumn("ID");
+            MapProperty(t => t.FirstName).ToColumn("FIRST_NAME");
+            MapProperty(t => t.LastName).ToColumn("LAST_NAME");
         }
     }
 }
