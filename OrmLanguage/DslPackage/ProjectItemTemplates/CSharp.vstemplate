@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{f72e43f8-08b4-4d6c-b3d2-5dd3e6b83325}</TemplateID>
+		<Name Package="{673435e5-6a48-4569-b3b6-7a7ca61bb1d2}" ID="103"/>
+		<Description Package="{673435e5-6a48-4569-b3b6-7a7ca61bb1d2}" ID="102"/>
+		<Icon Package="{673435e5-6a48-4569-b3b6-7a7ca61bb1d2}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>OrmLanguage.simpleorm</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.simpleorm">simpleorm.simpleorm</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.simpleorm.diagram">simpleorm.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+
