@@ -295,6 +295,25 @@ namespace Company.OrmLanguage
 		protected override void InitializeShapeFields(global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields)
 		{
 			base.InitializeShapeFields(shapeFields);
+			global::Company.OrmLanguage.EntityShape.DecoratorsInitialized += EntityShapeDecoratorMap.OnDecoratorsInitialized;
+		}
+		
+		/// <summary>
+		/// Class containing decorator path traversal methods for EntityShape.
+		/// </summary>
+		internal static partial class EntityShapeDecoratorMap
+		{
+			/// <summary>
+			/// Event handler called when decorator initialization is complete for EntityShape.  Adds decorator mappings for this shape or connector.
+			/// </summary>
+			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+			{
+				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+				DslDiagrams::AssociatedPropertyInfo propertyInfo;
+				
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Company.OrmLanguage.EntityElement.NameDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
+			}
 		}
 		
 		#endregion

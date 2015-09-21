@@ -16,7 +16,7 @@
     </DomainClass>
     <DomainClass Id="10f6f6a8-e10f-47b5-b83e-153c8cfb0322" Description="Elements embedded in the model. Appear as boxes on the diagram." Name="EntityElement" DisplayName="Entity Element" Namespace="Company.OrmLanguage">
       <Properties>
-        <DomainProperty Id="3d2a9e27-1fbf-4b35-82f5-aaab3979ccec" Description="Description for Company.OrmLanguage.EntityElement.Name" Name="Name" DisplayName="Name">
+        <DomainProperty Id="3d2a9e27-1fbf-4b35-82f5-aaab3979ccec" Description="Description for Company.OrmLanguage.EntityElement.Name" Name="Name" DisplayName="Name" DefaultValue="New Entity">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -65,22 +65,6 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="ef55e520-4922-4085-832c-d9e4aec366a5" Description="Reference relationship between Elements." Name="EntityElementReferencesTargets" DisplayName="Entity Element References Targets" Namespace="Company.OrmLanguage">
-      <Source>
-        <DomainRole Id="6ac99220-2b94-49ae-b584-5486e59b16e0" Description="Description for Company.OrmLanguage.ExampleRelationship.Target" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
-          <RolePlayer>
-            <DomainClassMoniker Name="EntityElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="7eac9a85-47b3-48a1-9cdc-e148df4e567e" Description="Description for Company.OrmLanguage.ExampleRelationship.Source" Name="Target" DisplayName="Target" PropertyName="Sources" PropertyDisplayName="Sources">
-          <RolePlayer>
-            <DomainClassMoniker Name="EntityElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
     <DomainRelationship Id="bde149c0-a73b-4848-848e-fe0ee2178c3b" Description="Description for Company.OrmLanguage.EntityHasProperties" Name="EntityHasProperties" DisplayName="Entity Has Properties" Namespace="Company.OrmLanguage" IsEmbedding="true">
       <Source>
         <DomainRole Id="2debbe78-c609-44af-b513-f283c93d6d2f" Description="Description for Company.OrmLanguage.EntityHasProperties.EntityElement" Name="EntityElement" DisplayName="Entity Element" PropertyName="Properties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Properties">
@@ -93,6 +77,22 @@
         <DomainRole Id="1a9b2d73-c741-43a6-b451-d5a99fd9c470" Description="Description for Company.OrmLanguage.EntityHasProperties.EntityProperty" Name="EntityProperty" DisplayName="Entity Property" PropertyName="EntityElement" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Element">
           <RolePlayer>
             <DomainClassMoniker Name="EntityProperty" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="33832f8d-6221-4dd5-a704-ceaa7c397002" Description="Description for Company.OrmLanguage.EntityHasRelationShips" Name="EntityHasRelationShips" DisplayName="Entity Has Relation Ships" Namespace="Company.OrmLanguage">
+      <Source>
+        <DomainRole Id="abe224f7-799d-4ffe-b68b-f6d51c0e2409" Description="Description for Company.OrmLanguage.EntityHasRelationShips.SourceEntityElement" Name="SourceEntityElement" DisplayName="Source Entity Element" PropertyName="EntityElements" PropertyDisplayName="Entity Elements">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityElement" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="41ce1527-7ae6-4c4a-a392-6cc58e7b5f3f" Description="Description for Company.OrmLanguage.EntityHasRelationShips.TargetEntityElement" Name="TargetEntityElement" DisplayName="Target Entity Element" PropertyName="SourceEntityElement" Multiplicity="ZeroOne" PropertyDisplayName="Source Entity Element">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityElement" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -116,12 +116,15 @@
     <ExternalType Name="Char" Namespace="System" />
   </Types>
   <Shapes>
-    <CompartmentShape Id="c4e83e27-330b-483c-9a73-b40e9dbef110" Description="Description for Company.OrmLanguage.EntityShape" Name="EntityShape" DisplayName="Entity Shape" Namespace="Company.OrmLanguage" FixedTooltipText="Entity Shape" InitialHeight="1" Geometry="Rectangle">
+    <CompartmentShape Id="c4e83e27-330b-483c-9a73-b40e9dbef110" Description="Description for Company.OrmLanguage.EntityShape" Name="EntityShape" DisplayName="Entity Shape" Namespace="Company.OrmLanguage" FixedTooltipText="Entity Shape" InitialHeight="1" Geometry="RoundedRectangle">
+      <ShapeHasDecorators Position="InnerTopCenter" HorizontalOffset="0" VerticalOffset="0">
+        <TextDecorator Name="Name" DisplayName="Name" DefaultText="Name" />
+      </ShapeHasDecorators>
       <Compartment Name="Properties" Title="Properties" />
     </CompartmentShape>
   </Shapes>
   <Connectors>
-    <Connector Id="7b03930b-fe2d-46a7-b047-e4fc98e06f41" Description="Connector between the ExampleShapes. Represents ExampleRelationships on the Diagram." Name="ExampleConnector" DisplayName="Example Connector" Namespace="Company.OrmLanguage" FixedTooltipText="Example Connector" Color="113, 111, 110" TargetEndStyle="EmptyArrow" Thickness="0.01" />
+    <Connector Id="f6e2759d-26b8-4d8b-81d3-f33fd8d3086f" Description="Description for Company.OrmLanguage.EntityHasRelationShipsConnector" Name="EntityHasRelationShipsConnector" DisplayName="Entity Has Relation Ships Connector" Namespace="Company.OrmLanguage" FixedTooltipText="Entity Has Relation Ships Connector" DashStyle="Dash" TargetEndStyle="HollowArrow" />
   </Connectors>
   <XmlSerializationBehavior Name="OrmLanguageSerializationBehavior" Namespace="Company.OrmLanguage">
     <ClassData>
@@ -136,25 +139,19 @@
       <XmlClassData TypeName="EntityElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityElementMoniker" ElementName="entityElement" MonikerTypeName="EntityElementMoniker">
         <DomainClassMoniker Name="EntityElement" />
         <ElementData>
-          <XmlRelationshipData RoleElementName="targets">
-            <DomainRelationshipMoniker Name="EntityElementReferencesTargets" />
-          </XmlRelationshipData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="properties">
             <DomainRelationshipMoniker Name="EntityHasProperties" />
           </XmlRelationshipData>
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="EntityElement/Name" />
           </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="entityElements">
+            <DomainRelationshipMoniker Name="EntityHasRelationShips" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="SampleOrmModelHasElements" MonikerAttributeName="" SerializeId="true" MonikerElementName="sampleOrmModelHasElementsMoniker" ElementName="sampleOrmModelHasElements" MonikerTypeName="SampleOrmModelHasElementsMoniker">
         <DomainRelationshipMoniker Name="SampleOrmModelHasElements" />
-      </XmlClassData>
-      <XmlClassData TypeName="EntityElementReferencesTargets" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityElementReferencesTargetsMoniker" ElementName="entityElementReferencesTargets" MonikerTypeName="EntityElementReferencesTargetsMoniker">
-        <DomainRelationshipMoniker Name="EntityElementReferencesTargets" />
-      </XmlClassData>
-      <XmlClassData TypeName="ExampleConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="exampleConnectorMoniker" ElementName="exampleConnector" MonikerTypeName="ExampleConnectorMoniker">
-        <ConnectorMoniker Name="ExampleConnector" />
       </XmlClassData>
       <XmlClassData TypeName="OrmLanguageDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="ormLanguageDiagramMoniker" ElementName="ormLanguageDiagram" MonikerTypeName="OrmLanguageDiagramMoniker">
         <DiagramMoniker Name="OrmLanguageDiagram" />
@@ -176,14 +173,19 @@
       <XmlClassData TypeName="EntityHasProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasPropertiesMoniker" ElementName="entityHasProperties" MonikerTypeName="EntityHasPropertiesMoniker">
         <DomainRelationshipMoniker Name="EntityHasProperties" />
       </XmlClassData>
+      <XmlClassData TypeName="EntityHasRelationShips" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasRelationShipsMoniker" ElementName="entityHasRelationShips" MonikerTypeName="EntityHasRelationShipsMoniker">
+        <DomainRelationshipMoniker Name="EntityHasRelationShips" />
+      </XmlClassData>
+      <XmlClassData TypeName="EntityHasRelationShipsConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasRelationShipsConnectorMoniker" ElementName="entityHasRelationShipsConnector" MonikerTypeName="EntityHasRelationShipsConnectorMoniker">
+        <ConnectorMoniker Name="EntityHasRelationShipsConnector" />
+      </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
   <ExplorerBehavior Name="OrmLanguageExplorer" />
   <ConnectionBuilders>
-    <ConnectionBuilder Name="EntityElementReferencesTargetsBuilder">
-      <Notes>Provides for the creation of an ExampleRelationship by pointing at two ExampleElements.</Notes>
+    <ConnectionBuilder Name="EntityHasRelationShipsBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="EntityElementReferencesTargets" />
+        <DomainRelationshipMoniker Name="EntityHasRelationShips" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -211,6 +213,14 @@
         <ParentElementPath>
           <DomainPath>SampleOrmModelHasElements.SampleOrmModel/!SampleOrmModel</DomainPath>
         </ParentElementPath>
+        <DecoratorMap>
+          <TextDecoratorMoniker Name="EntityShape/Name" />
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="EntityElement/Name" />
+            </PropertyPath>
+          </PropertyDisplayed>
+        </DecoratorMap>
         <CompartmentShapeMoniker Name="EntityShape" />
         <CompartmentMap>
           <CompartmentMoniker Name="EntityShape/Properties" />
@@ -227,8 +237,8 @@
     </ShapeMaps>
     <ConnectorMaps>
       <ConnectorMap>
-        <ConnectorMoniker Name="ExampleConnector" />
-        <DomainRelationshipMoniker Name="EntityElementReferencesTargets" />
+        <ConnectorMoniker Name="EntityHasRelationShipsConnector" />
+        <DomainRelationshipMoniker Name="EntityHasRelationShips" />
       </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
@@ -240,11 +250,11 @@
       <XmlSerializationBehaviorMoniker Name="OrmLanguageSerializationBehavior" />
     </XmlSerializationDefinition>
     <ToolboxTab TabText="OrmLanguage">
-      <ElementTool Name="ExampleElement" ToolboxIcon="resources\exampleshapetoolbitmap.bmp" Caption="ExampleElement" Tooltip="Create an ExampleElement" HelpKeyword="CreateExampleClassF1Keyword">
+      <ElementTool Name="Entity" ToolboxIcon="resources\exampleshapetoolbitmap.bmp" Caption="Entity" Tooltip="Create an ExampleElement" HelpKeyword="CreateExampleClassF1Keyword">
         <DomainClassMoniker Name="EntityElement" />
       </ElementTool>
-      <ConnectionTool Name="ExampleRelationship" ToolboxIcon="resources\exampleconnectortoolbitmap.bmp" Caption="ExampleRelationship" Tooltip="Drag between ExampleElements to create an ExampleRelationship" HelpKeyword="ConnectExampleRelationF1Keyword">
-        <ConnectionBuilderMoniker Name="OrmLanguage/EntityElementReferencesTargetsBuilder" />
+      <ConnectionTool Name="EntityRelationShip" ToolboxIcon="resources\exampleconnectortoolbitmap.bmp" Caption="EntityRelationShip" Tooltip="Entity Relation Ship" HelpKeyword="EntityRelationShip">
+        <ConnectionBuilderMoniker Name="OrmLanguage/EntityHasRelationShipsBuilder" />
       </ConnectionTool>
     </ToolboxTab>
     <Validation UsesMenu="false" UsesOpen="false" UsesSave="false" UsesLoad="false" />
