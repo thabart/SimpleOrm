@@ -3457,9 +3457,10 @@ namespace Company.OrmLanguage
 				global::System.String propValue = instanceOfEntry.Name;
 				if (!serializationContext.Result.Failed)
 				{
-					if (!string.IsNullOrEmpty(propValue))
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "New Property") != 0))
+					{	// No need to write the value out if it's the same as default value.
 						OrmLanguageSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "name", propValue);
-	
+					}
 				}
 			}
 			// Guid

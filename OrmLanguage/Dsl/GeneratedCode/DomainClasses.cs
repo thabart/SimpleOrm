@@ -638,7 +638,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Storage for Name
 		/// </summary>
-		private global::System.String namePropertyStorage = string.Empty;
+		private global::System.String namePropertyStorage = "New Property";
 		
 		/// <summary>
 		/// Gets or sets the value of Name domain property.
@@ -646,6 +646,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Name.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Name.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("New Property")]
 		[DslModeling::DomainObjectId("d9d4256b-da15-420a-8a1a-152cc074b61b")]
 		public global::System.String Name
 		{

@@ -45,7 +45,7 @@
     </DomainClass>
     <DomainClass Id="003edb12-1ee2-400d-8723-7b6c57d9a42c" Description="Description for Company.OrmLanguage.Entry" Name="Entry" DisplayName="Entry" Namespace="Company.OrmLanguage">
       <Properties>
-        <DomainProperty Id="d9d4256b-da15-420a-8a1a-152cc074b61b" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name">
+        <DomainProperty Id="d9d4256b-da15-420a-8a1a-152cc074b61b" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name" DefaultValue="New Property">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -159,6 +159,7 @@
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="Name" />
       </ShapeHasDecorators>
       <Compartment Name="Properties" Title="Properties" />
+      <Compartment Name="References" Title="References" />
     </CompartmentShape>
   </Shapes>
   <Connectors>
@@ -303,6 +304,17 @@
           <CompartmentMoniker Name="EntityShape/Properties" />
           <ElementsDisplayed>
             <DomainPath>EntityHasProperties.Properties/!Property</DomainPath>
+          </ElementsDisplayed>
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="Entry/Name" />
+            </PropertyPath>
+          </PropertyDisplayed>
+        </CompartmentMap>
+        <CompartmentMap>
+          <CompartmentMoniker Name="EntityShape/References" />
+          <ElementsDisplayed>
+            <DomainPath>EntityHasReferences.References/!Reference</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>

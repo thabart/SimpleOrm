@@ -594,6 +594,7 @@ namespace Company.OrmLanguage
 		/// Rule to update compartments when an item is added to the list
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasReferences), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
 		{
 			/// <summary>
@@ -615,6 +616,11 @@ namespace Company.OrmLanguage
 					global::System.Collections.IEnumerable elements = GetEntityElementForEntityShapePropertiesFromLastLink((global::Company.OrmLanguage.EntityHasProperties)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 				}
+				if(e.ModelElement is global::Company.OrmLanguage.EntityHasReferences)
+				{
+					global::System.Collections.IEnumerable elements = GetEntityElementForEntityShapeReferencesFromLastLink((global::Company.OrmLanguage.EntityHasReferences)e.ModelElement);
+					UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
+				}
 			}
 			
 			#region static DomainPath traversal methods to get the list of compartments to update
@@ -626,6 +632,20 @@ namespace Company.OrmLanguage
 				return new DslModeling::ModelElement[] {result};
 			}
 			internal static global::System.Collections.ICollection GetEntityElementForEntityShapeProperties(global::Company.OrmLanguage.Property root)
+			{
+				// Segments 1 and 0
+				global::Company.OrmLanguage.EntityElement result = root.EntityElement;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetEntityElementForEntityShapeReferencesFromLastLink(global::Company.OrmLanguage.EntityHasReferences root)
+			{
+				// Segment 0
+				global::Company.OrmLanguage.EntityElement result = root.EntityElement;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetEntityElementForEntityShapeReferences(global::Company.OrmLanguage.Reference root)
 			{
 				// Segments 1 and 0
 				global::Company.OrmLanguage.EntityElement result = root.EntityElement;
@@ -678,6 +698,7 @@ namespace Company.OrmLanguage
 		/// Rule to update compartments when an items is removed from the list
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasReferences), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
 		{
 			/// <summary>
@@ -697,6 +718,11 @@ namespace Company.OrmLanguage
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityElementForEntityShapePropertiesFromLastLink((global::Company.OrmLanguage.EntityHasProperties)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 				}
+				if(e.ModelElement is global::Company.OrmLanguage.EntityHasReferences)
+				{
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferencesFromLastLink((global::Company.OrmLanguage.EntityHasReferences)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
+				}
 			}
 		}
 		
@@ -704,6 +730,7 @@ namespace Company.OrmLanguage
 		/// Rule to update compartments when the property on an item being displayed changes.
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.Property), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.Reference), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
 		{
 			/// <summary>
@@ -723,6 +750,11 @@ namespace Company.OrmLanguage
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.Property)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 				}
+				if(e.ModelElement is global::Company.OrmLanguage.Reference && e.DomainProperty.Id == global::Company.OrmLanguage.Reference.NameDomainPropertyId)
+				{
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferences((global::Company.OrmLanguage.Reference)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
+				}
 			}
 		}
 		
@@ -730,6 +762,7 @@ namespace Company.OrmLanguage
 		/// Rule to update compartments when a roleplayer change happens
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasReferences), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
 		{
 			/// <summary>
@@ -771,6 +804,33 @@ namespace Company.OrmLanguage
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 					}
 				}
+				if(typeof(global::Company.OrmLanguage.EntityHasReferences).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(e.DomainRole.IsSource)
+					{
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferencesFromLastLink((global::Company.OrmLanguage.Reference)e.OldRolePlayer);
+						//foreach(DslModeling::ModelElement element in oldElements)
+						//{
+						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+						//	foreach(DslDiagrams::PresentationElement pel in pels)
+						//	{
+						//		global::Company.OrmLanguage.EntityShape compartmentShape = pel as global::Company.OrmLanguage.EntityShape;
+						//		if(compartmentShape != null)
+						//		{
+						//			compartmentShape.GetCompartmentMappings()[1].InitializeCompartmentShape(compartmentShape);
+						//		}
+						//	}
+						//}
+						
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferencesFromLastLink((global::Company.OrmLanguage.EntityHasReferences)e.ElementLink);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
+					}
+					else 
+					{
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferences((global::Company.OrmLanguage.Reference)e.NewRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
+					}
+				}
 			}
 		}
 	
@@ -778,6 +838,7 @@ namespace Company.OrmLanguage
 		/// Rule to update compartments when the order of items in the list changes.
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasReferences), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
 		{
 			/// <summary>
@@ -798,6 +859,14 @@ namespace Company.OrmLanguage
 					{
 						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.Property)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
+					}
+				}
+				if(typeof(global::Company.OrmLanguage.EntityHasReferences).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(!e.CounterpartDomainRole.IsSource)
+					{
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeReferences((global::Company.OrmLanguage.Reference)e.CounterpartRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "References", repaintOnly);
 					}
 				}
 			}

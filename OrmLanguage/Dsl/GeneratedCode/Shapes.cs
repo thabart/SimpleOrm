@@ -243,7 +243,7 @@ namespace Company.OrmLanguage
 				{
 					localCompartmentsOffset = baseCompartmentDescriptions.Length;
 				}
-				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[1+localCompartmentsOffset];
+				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[2+localCompartmentsOffset];
 				
 				if(baseCompartmentDescriptions!=null)
 				{
@@ -257,6 +257,15 @@ namespace Company.OrmLanguage
 						null, null,
 						false);
 					compartmentDescriptions[localCompartmentsOffset+0] = descriptor;
+				}
+				{
+					string title = global::Company.OrmLanguage.OrmLanguageDomainModel.SingletonResourceManager.GetString("EntityShapeReferencesTitle");
+					DslDiagrams::ElementListCompartmentDescription descriptor = new DslDiagrams::ElementListCompartmentDescription("References", title, 
+						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.LightGray), false, 
+						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
+						null, null,
+						false);
+					compartmentDescriptions[localCompartmentsOffset+1] = descriptor;
 				}
 			}
 			
@@ -290,7 +299,7 @@ namespace Company.OrmLanguage
 					{
 						localCompartmentMappingsOffset = baseMappings.Length;
 					}
-					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[1+localCompartmentMappingsOffset];
+					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[2+localCompartmentMappingsOffset];
 					
 					if(baseMappings!=null)
 					{
@@ -301,6 +310,14 @@ namespace Company.OrmLanguage
 																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
 																				global::Company.OrmLanguage.Property.DomainClassId, 
 																				GetElementsFromEntityElementForProperties,
+																				null,
+																				null,
+																				null);
+					mappings[localCompartmentMappingsOffset+1] = new DslDiagrams::ElementListCompartmentMapping(
+																				"References", 
+																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
+																				global::Company.OrmLanguage.Reference.DomainClassId, 
+																				GetElementsFromEntityElementForReferences,
 																				null,
 																				null,
 																				null);
@@ -338,6 +355,13 @@ namespace Company.OrmLanguage
 				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Property> result = root.Properties;
+				return result;
+			}
+			internal static global::System.Collections.IList GetElementsFromEntityElementForReferences(DslModeling::ModelElement rootElement)
+			{
+				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
+					// Segments 0 and 1
+					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Reference> result = root.References;
 				return result;
 			}
 			#endregion
