@@ -306,18 +306,18 @@ namespace Company.OrmLanguage
 						baseMappings.CopyTo(mappings, 0);
 					}
 					mappings[localCompartmentMappingsOffset+0] = new DslDiagrams::ElementListCompartmentMapping(
-																				"Properties", 
-																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
-																				global::Company.OrmLanguage.Property.DomainClassId, 
-																				GetElementsFromEntityElementForProperties,
-																				null,
-																				null,
-																				null);
-					mappings[localCompartmentMappingsOffset+1] = new DslDiagrams::ElementListCompartmentMapping(
 																				"References", 
 																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
 																				global::Company.OrmLanguage.Reference.DomainClassId, 
 																				GetElementsFromEntityElementForReferences,
+																				null,
+																				null,
+																				null);
+					mappings[localCompartmentMappingsOffset+1] = new DslDiagrams::ElementListCompartmentMapping(
+																				"Properties", 
+																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
+																				global::Company.OrmLanguage.Property.DomainClassId, 
+																				GetElementsFromEntityElementForProperties,
 																				null,
 																				null,
 																				null);
@@ -350,18 +350,18 @@ namespace Company.OrmLanguage
 		}
 		
 			#region DomainPath traversal methods to get the list of elements to display in a compartment.
-			internal static global::System.Collections.IList GetElementsFromEntityElementForProperties(DslModeling::ModelElement rootElement)
-			{
-				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
-					// Segments 0 and 1
-					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Property> result = root.Properties;
-				return result;
-			}
 			internal static global::System.Collections.IList GetElementsFromEntityElementForReferences(DslModeling::ModelElement rootElement)
 			{
 				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Reference> result = root.References;
+				return result;
+			}
+			internal static global::System.Collections.IList GetElementsFromEntityElementForProperties(DslModeling::ModelElement rootElement)
+			{
+				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
+					// Segments 0 and 1
+					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Property> result = root.Properties;
 				return result;
 			}
 			#endregion

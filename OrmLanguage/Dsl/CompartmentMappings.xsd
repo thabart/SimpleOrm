@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2008 Benjamin Schroeter
+  You are allowed to use this code in all your commercial, non-commercial, open and closed source projects.
+  But you have to leave this Copyright message in all files. This code is provided "as is" without warranty of any kind.
+  If you have any enhancements or bug reports I will appreciate a short feedback.
+  For more information visit the article to this code on my blog at
+  http://www.ticklishtechs.net/2008/02/29/connectors-between-compartment-shape-entries-with-dsl-tools-part-1/ */<?xml version="1.0" encoding="utf-8"  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="CompartmentMappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Connection" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element ref="CompartmentShape" maxOccurs="unbounded"/>
+        <xs:element ref="RegularShape" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="namespace" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Connection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Source"/>
+        <xs:element ref="Target"/>
+        <xs:element ref="Connector"/>
+      </xs:sequence>
+      <xs:attribute name="allowSelfReference" use="optional" type="xs:boolean"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="suppressEntryDeletePropagation" use="optional" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Source">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DomainClass"/>
+        <xs:element ref="EntryDomainClass"/>
+      </xs:sequence>
+      <xs:attribute name="allowHead" use="optional" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Target">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DomainClass"/>
+        <xs:element ref="EntryDomainClass"/>
+      </xs:sequence>
+      <xs:attribute name="allowHead" use="optional" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Connector">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompartmentShape">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegularShape">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DomainClass">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EntryDomainClass">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

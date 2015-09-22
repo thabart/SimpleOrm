@@ -1,0 +1,279 @@
+<#@ template hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#	
+	var absolutePath = this.Host.ResolvePath("../CompartmentMappings.xml");
+	XmlDocument doc = new XmlDocument();
+	doc.Load(absolutePath);
+
+	string Namespace = doc.SelectSingleNode("/CompartmentMappings/@namespace").Value;
+
+	List<ConnectionDefinition> connections = new List<ConnectionDefinition>();
+	List<string> allEntryDomainClasses = new List<string>();	
+	foreach (XmlNode node in doc.SelectNodes("/CompartmentMappings/Connection"))
+	{
+		ConnectionDefinition def = new ConnectionDefinition(node);
+		allEntryDomainClasses.Add(def.Source.EntryDomainClass);
+		allEntryDomainClasses.Add(def.Target.EntryDomainClass);
+		connections.Add(new ConnectionDefinition(node));
+	}
+	List<string> compartmentShapes = new List<string>();
+	foreach (XmlNode node in doc.SelectNodes("/CompartmentMappings/CompartmentShape"))
+		compartmentShapes.Add(node.SelectSingleNode("@name").Value);
+
+	List<string> regularShapes = new List<string>();
+	foreach (XmlNode node in doc.SelectNodes("/CompartmentMappings/RegularShape"))
+		regularShapes.Add(node.SelectSingleNode("@name").Value);
+		
+#>
+using System;
+using CompartmentMapping;
+using Company.OrmLanguage;
+using Microsoft.VisualStudio.Modeling;
+using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
+
+namespace <#= Namespace #>
+{
+<# foreach( ConnectionDefinition connection in connections) { #>
+<# // ------------------------------- Begin of ConnectionBuilder Code ---------------------------------- #>
+	#region Code for ConnectionBuilder '<#= connection.Name #>'
+<# if ( !connection.SuppressEntryDeletePropagation ) {  #>
+<#		if ( connection.Source.EntryDomainClass != "ModelElement"  ) {  #>
+    [RuleOn(typeof(<#= connection.Source.EntryDomainClass #>), FireTime = TimeToFire.LocalCommit)]
+<#		} #>
+<#		if ( connection.Target.EntryDomainClass != "ModelElement" && connection.Source.EntryDomainClass != connection.Target.EntryDomainClass ) {  #>
+    [RuleOn(typeof(<#= connection.Target.EntryDomainClass #>), FireTime = TimeToFire.LocalCommit)]
+<#		} #>
+    public class SourceOrTargetOf<#= connection.Name #>DeletingRule : CompartmentEntryDeletingRuleBase<<#= connection.Source.DomainClass #>, <#= connection.Source.EntryDomainClass #>, <#= connection.Name #>, <#= connection.Target.DomainClass #>, <#= connection.Target.EntryDomainClass #>>
+    {
+        protected override CompartmentMappingBuilderBase<<#= connection.Source.DomainClass #>, <#= connection.Source.EntryDomainClass #>, <#= connection.Name #>, <#= connection.Target.DomainClass #>, <#= connection.Target.EntryDomainClass #>> GetBuilderInstance()
+        {
+            return <#= connection.Name #>Builder.builder;
+        }
+    }
+<# } #>
+
+    public class <#= connection.Name #>Router : CompartmentMappingRouterBase<<#= connection.Source.DomainClass #>, <#= connection.Source.EntryDomainClass #>, <#= connection.Name #>, <#= connection.Target.DomainClass #>, <#= connection.Target.EntryDomainClass #>>
+    {
+        protected override CompartmentMappingBuilderBase<<#= connection.Source.DomainClass #>, <#= connection.Source.EntryDomainClass #>, <#= connection.Name #>, <#= connection.Target.DomainClass #>, <#= connection.Target.EntryDomainClass #>> GetBuilderInstance()
+        {
+            return <#= connection.Name #>Builder.builder;
+        }
+    }
+
+    public partial class <#= connection.Name #>Builder
+    {
+        internal static readonly <#= connection.Name #>BuilderInstance builder = new <#= connection.Name #>BuilderInstance();
+
+        public static bool CanAcceptSource(ModelElement candidate)
+        {
+            return builder.CanAcceptSource(candidate);
+        }
+
+        public static bool CanAcceptTarget(ModelElement candidate)
+        {
+            return builder.CanAcceptTarget(candidate);
+        }
+
+        public static bool CanAcceptSourceAndTarget(ModelElement candidateSource, ModelElement candidateTarget)
+        {
+            return builder.CanAcceptSourceAndTarget(candidateSource, candidateTarget);
+        }
+
+        public static ElementLink Connect(ModelElement source, ModelElement target)
+        {
+            return builder.Connect(source, target);
+        }
+    }
+
+	// Create this partial class in another file and implement at least the abstract methods!
+    public partial class <#= connection.Name #>BuilderInstance : CompartmentMappingBuilderBase<<#= connection.Source.DomainClass #>, <#= connection.Source.EntryDomainClass #>, <#= connection.Name #>, <#= connection.Target.DomainClass #>, <#= connection.Target.EntryDomainClass #>>
+    {
+        internal <#= connection.Name #>BuilderInstance()
+            : base(
+                <#= connection.Source.AllowHead ? "true" : "false" #>,		/* connection.Source.AllowHead */
+                <#= connection.Target.AllowHead ? "true" : "false" #>,		/* connection.Target.AllowHead */
+                <#= connection.AllowSelfReference ? "true" : "false" #>		/* connection.AllowSelfReference */		)
+        {
+        }
+		
+		public override bool IsEntryConnectionSource(Property entry, EntityHasRelationShips connection)
+        {
+            if (entry == null)
+                return connection.fromProperty.Equals(Guid.Empty);
+
+            return connection.fromProperty.Equals(entry.Guid);
+        }
+
+        public override bool IsEntryConnectionTarget(Property entry, EntityHasRelationShips connection)
+        {
+            if (entry == null)
+            {
+                return connection.toProperty.Equals(Guid.Empty);
+            }
+
+            return connection.toProperty.Equals(entry.Guid);
+        }
+
+        protected override ElementLink CreateElementLink(EntityElement source, SelectedCompartmentPartType sourcePartType, Property sourceEntry, EntityElement target, SelectedCompartmentPartType targetPartType, Property targetEntry)
+        {
+            EntityHasRelationShips result;
+            result = new EntityHasRelationShips(source, target);
+            if (sourcePartType == SelectedCompartmentPartType.Head)
+            {
+                result.fromProperty = Guid.Empty;
+            }
+            else
+            {
+                result.fromProperty = sourceEntry.Guid;
+            }
+
+            if (targetPartType == SelectedCompartmentPartType.Head)
+            {
+                result.toProperty = Guid.Empty;
+            }
+            else
+            {
+                result.toProperty = targetEntry.Guid;
+            }
+
+            return result;
+        }
+    }	
+	#endregion
+<# // ------------------------------- End of ConnectionBuilder Code ---------------------------------- #>
+<# } #>
+
+<# foreach( string shape in compartmentShapes) { #>
+<# // ------------------------------- Begin of Shape Code ---------------------------------- #>
+	#region Code for CompartmentShape '<#= shape #>'
+    partial class <#= shape #> : ICompartmentMouseActionTrackable
+    {
+        private readonly CompartmentMouseTrack mouseTrack = new CompartmentMouseTrack();
+
+        public CompartmentMouseTrack MouseTrack
+        {
+            get { return mouseTrack; }
+        }
+
+        public override void OnShapeInserted()
+        {
+            mouseTrack.ShapeInserted(this);
+            base.OnShapeInserted();
+        }
+        
+        public override void OnAbsoluteBoundsChanged(Microsoft.VisualStudio.Modeling.Diagrams.AbsoluteBoundsChangedEventArgs e)
+        {
+            CompartmentMappingUtil.RerouteCompartmentMappings(this);
+            base.OnAbsoluteBoundsChanged(e);
+        }
+    }
+	#endregion
+<# // ------------------------------- End of Shape Code ---------------------------------- #>
+<# } #>
+
+<# foreach( string shape in regularShapes) { #>
+<# // ------------------------------- Begin of Shape Code ---------------------------------- #>
+	#region Code for Shape '<#= shape #>'
+    partial class <#= shape #>
+    {
+        public override void OnAbsoluteBoundsChanged(Microsoft.VisualStudio.Modeling.Diagrams.AbsoluteBoundsChangedEventArgs e)
+        {
+            CompartmentMappingUtil.RerouteCompartmentMappings(this);
+            base.OnAbsoluteBoundsChanged(e);
+        }
+    }
+	#endregion
+<# // ------------------------------- End of Shape Code ---------------------------------- #>
+<# } #>
+
+<# foreach( ConnectionDefinition connection in connections) { #>
+<# // ------------------------------- Begin of Connector Code ---------------------------------- #>
+	#region Code for Connector '<#= connection.Connector #>'
+    partial class <#= connection.Connector #>
+    {
+        public override void OnInitialize()
+        {
+            this.FixedFrom = VGFixedCode.Caller;
+            this.FixedTo = VGFixedCode.Caller;
+            base.OnInitialize();
+        }
+
+        public override bool CanManuallyRoute
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+    
+    [RuleOn(typeof(<#= connection.Connector #>), FireTime = TimeToFire.LocalCommit)]
+    public class <#= connection.Connector #>AddRule : CompartmentMappingAddRuleBase
+    {
+    }
+	#endregion
+<# // ------------------------------- End of Connector Code ---------------------------------- #>
+<# } #>
+}
+<#+ class ConnectionDefinition
+    {
+        public ConnectionDefinition(XmlNode rootNode)
+        {
+            XmlNode node;
+
+            node = rootNode.SelectSingleNode("Source");
+            if (node != null)
+                Source = new Endpoint(node);
+
+            node = rootNode.SelectSingleNode("Target");
+            if (node != null)
+                Target = new Endpoint(node);
+
+            Name = rootNode.SelectSingleNode("@name").Value;
+            Connector = rootNode.SelectSingleNode("Connector/@name").Value;
+            SuppressEntryDeletePropagation = Helper.ParseAttributeAsBoolean(rootNode, "@suppressEntryDeletePropagation");
+            AllowSelfReference = Helper.ParseAttributeAsBoolean(rootNode, "@allowSelfReference");
+        }
+
+        public Endpoint Source;
+        public Endpoint Target;
+
+		public string Connector;
+
+        public string Name;
+        public bool AllowSelfReference;
+        public bool SuppressEntryDeletePropagation;
+    }
+
+    class Endpoint
+    {
+        public Endpoint(XmlNode node)
+        {
+            DomainClass = node.SelectSingleNode("DomainClass/@name").Value;
+            
+            XmlNode n = node.SelectSingleNode("EntryDomainClass/@name");
+            EntryDomainClass = n == null ? "ModelElement" : n.Value;
+            AllowHead = Helper.ParseAttributeAsBoolean(node, "@allowHead");
+        }
+
+        public string DomainClass;
+        public string EntryDomainClass;
+        public bool AllowHead;
+    }
+
+    class Helper
+    {
+        public static bool ParseAttributeAsBoolean(XmlNode node, string XPath)
+        {
+            XmlAttribute att = node.SelectSingleNode(XPath) as XmlAttribute;
+            if (att != null)
+                return XmlConvert.ToBoolean(att.Value);
+            else
+                return false;
+        }
+    }
+#>

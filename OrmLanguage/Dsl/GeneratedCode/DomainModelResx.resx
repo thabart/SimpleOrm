@@ -149,22 +149,6 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;EntityElement&apos;</comment>
   </data>
-  <data name="Company.OrmLanguage.Property.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.Property</value>
-    <comment>Description for DomainClass &apos;Property&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>DisplayName for DomainClass &apos;Property&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.Reference.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.Reference</value>
-    <comment>Description for DomainClass &apos;Reference&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.Reference.DisplayName" xml:space="preserve">
-    <value>Reference</value>
-    <comment>DisplayName for DomainClass &apos;Reference&apos;</comment>
-  </data>
   <data name="Company.OrmLanguage.Entry.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.Entry</value>
     <comment>Description for DomainClass &apos;Entry&apos;</comment>
@@ -188,6 +172,22 @@
   <data name="Company.OrmLanguage.Entry/Guid.DisplayName" xml:space="preserve">
     <value>Guid</value>
     <comment>DisplayName for DomainProperty &apos;Guid&apos; on DomainClass &apos;Entry&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Property.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.Property</value>
+    <comment>Description for DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>DisplayName for DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Reference.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.Reference</value>
+    <comment>Description for DomainClass &apos;Reference&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Reference.DisplayName" xml:space="preserve">
+    <value>Reference</value>
+    <comment>DisplayName for DomainClass &apos;Reference&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.SampleOrmModelHasElements.Description" xml:space="preserve">
     <value>Embedding relationship between the Model and Elements</value>
@@ -220,38 +220,6 @@
   <data name="Company.OrmLanguage.SampleOrmModelHasElements/Element.PropertyDisplayName" xml:space="preserve">
     <value>Sample Orm Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;Element&apos; on DomainRelationship &apos;SampleOrmModelHasElements&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.EntityHasProperties</value>
-    <comment>Description for DomainClass &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties.DisplayName" xml:space="preserve">
-    <value>Entity Has Properties</value>
-    <comment>DisplayName for DomainClass &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.EntityHasProperties.EntityElement</value>
-    <comment>Description for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.DisplayName" xml:space="preserve">
-    <value>Entity Element</value>
-    <comment>DisplayName for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.PropertyDisplayName" xml:space="preserve">
-    <value>Properties</value>
-    <comment>PropertyDisplayName for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/Property.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.EntityHasProperties.Property</value>
-    <comment>Description for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>DisplayName for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
-  </data>
-  <data name="Company.OrmLanguage.EntityHasProperties/Property.PropertyDisplayName" xml:space="preserve">
-    <value>Entity Element</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.EntityHasRelationShips.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.EntityHasRelationShips</value>
@@ -298,8 +266,40 @@
     <comment>DisplayName for DomainRole &apos;TargetEntityElement&apos; on DomainRelationship &apos;EntityHasRelationShips&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.EntityHasRelationShips/TargetEntityElement.PropertyDisplayName" xml:space="preserve">
-    <value>Source Entity Element</value>
+    <value>Source Entity Elements</value>
     <comment>PropertyDisplayName for DomainRole &apos;TargetEntityElement&apos; on DomainRelationship &apos;EntityHasRelationShips&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityHasProperties</value>
+    <comment>Description for DomainClass &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties.DisplayName" xml:space="preserve">
+    <value>Entity Has Properties</value>
+    <comment>DisplayName for DomainClass &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityHasProperties.EntityElement</value>
+    <comment>Description for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.DisplayName" xml:space="preserve">
+    <value>Entity Element</value>
+    <comment>DisplayName for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/EntityElement.PropertyDisplayName" xml:space="preserve">
+    <value>Properties</value>
+    <comment>PropertyDisplayName for DomainRole &apos;EntityElement&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/Property.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityHasProperties.Property</value>
+    <comment>Description for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>DisplayName for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasProperties/Property.PropertyDisplayName" xml:space="preserve">
+    <value>Entity Element</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Property&apos; on DomainRelationship &apos;EntityHasProperties&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.EntityHasReferences.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.EntityHasReferences</value>
@@ -346,7 +346,7 @@
     <comment>Compartment title</comment>
   </data>
   <data name="EntityShapeReferencesTitle" xml:space="preserve">
-    <value></value>
+    <value>References</value>
     <comment>Compartment title</comment>
   </data>
   <data name="EntityShapeNameDefaultText" xml:space="preserve">

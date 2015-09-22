@@ -173,6 +173,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CompartmentMapping\CompartmentMapping.csproj">
+      <Project>{6da3dc8d-e15c-4f70-ba5b-203a397e509b}</Project>
+      <Name>CompartmentMapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dsl\Dsl.csproj">
       <Project>{133b6421-a9f9-4081-98d3-c28a3fbb6a1f}</Project>
       <Name>Dsl</Name>

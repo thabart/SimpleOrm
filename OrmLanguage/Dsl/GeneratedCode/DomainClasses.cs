@@ -306,21 +306,6 @@ namespace Company.OrmLanguage
 			}
 		}
 		#endregion
-		#region Properties opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of Properties.
-		/// Description for Company.OrmLanguage.EntityHasProperties.EntityElement
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<Property> Properties
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<Property>, Property>(global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
-			}
-		}
-		#endregion
 		#region EntityElements opposite domain role accessor
 		
 		/// <summary>
@@ -336,22 +321,33 @@ namespace Company.OrmLanguage
 			}
 		}
 		#endregion
-		#region SourceEntityElement opposite domain role accessor
+		#region SourceEntityElements opposite domain role accessor
+		
 		/// <summary>
-		/// Gets or sets SourceEntityElement.
+		/// Gets a list of SourceEntityElements.
 		/// Description for Company.OrmLanguage.EntityHasRelationShips.TargetEntityElement
 		/// </summary>
-		public virtual EntityElement SourceEntityElement
+		public virtual DslModeling::LinkedElementCollection<EntityElement> SourceEntityElements
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Company.OrmLanguage.EntityHasRelationShips.TargetEntityElementDomainRoleId) as EntityElement;
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityElement>, EntityElement>(global::Company.OrmLanguage.EntityHasRelationShips.TargetEntityElementDomainRoleId);
 			}
+		}
+		#endregion
+		#region Properties opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of Properties.
+		/// Description for Company.OrmLanguage.EntityHasProperties.EntityElement
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<Property> Properties
+		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			set
+			get
 			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Company.OrmLanguage.EntityHasRelationShips.TargetEntityElementDomainRoleId, value);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<Property>, Property>(global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
 			}
 		}
 		#endregion
@@ -394,6 +390,11 @@ namespace Company.OrmLanguage
 				{
 					return true;
 				}
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Company.OrmLanguage.Reference.DomainClassId)) 
+				{
+					return true;
+				}
 			}
 			return base.CanMerge(rootElement, elementGroupPrototype);
 		}
@@ -424,6 +425,15 @@ namespace Company.OrmLanguage
 			{
 				// Create link for path EntityHasProperties.Properties
 				this.Properties.Add(sourceProperty1);
+
+				return;
+			}
+				
+			global::Company.OrmLanguage.Reference sourceReference2 = sourceElement as global::Company.OrmLanguage.Reference;
+			if (sourceReference2 != null)
+			{
+				// Create link for path EntityHasReferences.References
+				this.References.Add(sourceReference2);
 
 				return;
 			}
@@ -463,128 +473,22 @@ namespace Company.OrmLanguage
 
 				return;
 			}
+				
+			global::Company.OrmLanguage.Reference sourceReference2 = sourceElement as global::Company.OrmLanguage.Reference;
+			if (sourceReference2 != null)
+			{
+				// Delete link for path EntityHasReferences.References
+				
+				foreach (DslModeling::ElementLink link in global::Company.OrmLanguage.EntityHasReferences.GetLinks((global::Company.OrmLanguage.EntityElement)this, sourceReference2))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Company.OrmLanguage.EntityHasReferences.EntityElementDomainRoleId, global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId);
+				}
+
+				return;
+			}
 			// Fall through to base class if this class hasn't handled the unmerge.
 			base.MergeDisconnect(sourceElement);
-		}
-		#endregion
-	}
-}
-namespace Company.OrmLanguage
-{
-	/// <summary>
-	/// DomainClass Property
-	/// Description for Company.OrmLanguage.Property
-	/// </summary>
-	[DslDesign::DisplayNameResource("Company.OrmLanguage.Property.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Company.OrmLanguage.Property.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("2e887c94-2215-44d4-82cb-d0a069dff0bf")]
-	public partial class Property : Entry
-	{
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// Property domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x2e887c94, 0x2215, 0x44d4, 0x82, 0xcb, 0xd0, 0xa0, 0x69, 0xdf, 0xf0, 0xbf);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Property(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Property(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-		#region EntityElement opposite domain role accessor
-		/// <summary>
-		/// Gets or sets EntityElement.
-		/// Description for Company.OrmLanguage.EntityHasProperties.Property
-		/// </summary>
-		public virtual EntityElement EntityElement
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId) as EntityElement;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId, value);
-			}
-		}
-		#endregion
-	}
-}
-namespace Company.OrmLanguage
-{
-	/// <summary>
-	/// DomainClass Reference
-	/// Description for Company.OrmLanguage.Reference
-	/// </summary>
-	[DslDesign::DisplayNameResource("Company.OrmLanguage.Reference.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Company.OrmLanguage.Reference.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("b4d2b7dc-de9b-4d6d-bc48-2ceae846f01d")]
-	public partial class Reference : Entry
-	{
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// Reference domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb4d2b7dc, 0xde9b, 0x4d6d, 0xbc, 0x48, 0x2c, 0xea, 0xe8, 0x46, 0xf0, 0x1d);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Reference(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Reference(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-		#region EntityElement opposite domain role accessor
-		/// <summary>
-		/// Gets or sets EntityElement.
-		/// Description for Company.OrmLanguage.EntityHasReferences.Reference
-		/// </summary>
-		public virtual EntityElement EntityElement
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId) as EntityElement;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId, value);
-			}
 		}
 		#endregion
 	}
@@ -599,31 +503,21 @@ namespace Company.OrmLanguage
 	[DslDesign::DescriptionResource("Company.OrmLanguage.Entry.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("003edb12-1ee2-400d-8723-7b6c57d9a42c")]
-	public partial class Entry : DslModeling::ModelElement
+	[DslModeling::DomainObjectId("434fcd74-129b-4049-ba26-b5e60d519a1a")]
+	public abstract partial class Entry : DslModeling::ModelElement
 	{
 		#region Constructors, domain class Id
 	
 		/// <summary>
 		/// Entry domain class Id.
 		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x003edb12, 0x1ee2, 0x400d, 0x87, 0x23, 0x7b, 0x6c, 0x57, 0xd9, 0xa4, 0x2c);
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x434fcd74, 0x129b, 0x4049, 0xba, 0x26, 0xb5, 0xe6, 0x0d, 0x51, 0x9a, 0x1a);
 		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Entry(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
+		/// Constructor.
 		/// </summary>
 		/// <param name="partition">Partition where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public Entry(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+		protected Entry(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, propertyAssignments)
 		{
 		}
@@ -633,12 +527,12 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Name domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0xd9d4256b, 0xda15, 0x420a, 0x8a, 0x1a, 0x15, 0x2c, 0xc0, 0x74, 0xb6, 0x1b);
+		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0x360c5f50, 0xebef, 0x479d, 0x9b, 0x9b, 0xe9, 0x27, 0xa9, 0x59, 0xf8, 0x92);
 		
 		/// <summary>
 		/// Storage for Name
 		/// </summary>
-		private global::System.String namePropertyStorage = "New Property";
+		private global::System.String namePropertyStorage = string.Empty;
 		
 		/// <summary>
 		/// Gets or sets the value of Name domain property.
@@ -646,8 +540,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Name.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Name.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("New Property")]
-		[DslModeling::DomainObjectId("d9d4256b-da15-420a-8a1a-152cc074b61b")]
+		[DslModeling::DomainObjectId("360c5f50-ebef-479d-9b9b-e927a959f892")]
 		public global::System.String Name
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
@@ -721,12 +614,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Guid domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid GuidDomainPropertyId = new global::System.Guid(0x2e67e649, 0xd5b8, 0x4e23, 0x8e, 0x6f, 0xe8, 0x99, 0x6b, 0x0e, 0x0b, 0x8d);
-		
-		/// <summary>
-		/// Storage for Guid
-		/// </summary>
-		private global::System.Guid guidPropertyStorage;
+		public static readonly global::System.Guid GuidDomainPropertyId = new global::System.Guid(0xa0755a71, 0xef60, 0x4c60, 0xbf, 0x65, 0x5b, 0xf0, 0xd8, 0x5e, 0xf7, 0xec);
 		
 		/// <summary>
 		/// Gets or sets the value of Guid domain property.
@@ -734,24 +622,22 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Guid.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Guid.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainObjectId("2e67e649-d5b8-4e23-8e6f-e8996b0e0b8d")]
+		[global::System.ComponentModel.Browsable(false)]
+		[global::System.ComponentModel.ReadOnly(true)]
+		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
+		[DslModeling::DomainObjectId("a0755a71-ef60-4c60-bf65-5bf0d85ef7ec")]
 		public global::System.Guid Guid
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return guidPropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				GuidPropertyHandler.Instance.SetValue(this, value);
+				return GuidPropertyHandler.Instance.GetValue(this);
 			}
 		}
 		/// <summary>
 		/// Value handler for the Entry.Guid domain property.
 		/// </summary>
-		internal sealed partial class GuidPropertyHandler : DslModeling::DomainPropertyValueHandler<Entry, global::System.Guid>
+		internal sealed partial class GuidPropertyHandler : DslModeling::CalculatedPropertyValueHandler<Entry, global::System.Guid>
 		{
 			private GuidPropertyHandler() { }
 		
@@ -780,28 +666,134 @@ namespace Company.OrmLanguage
 			public override sealed global::System.Guid GetValue(Entry element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.guidPropertyStorage;
+				// There is no storage for Guid because its Kind is
+				// set to Calculated. Please provide the GetGuidValue()
+				// method on the domain class.
+				return element.GetGuidValue();
 			}
 		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(Entry element, global::System.Guid newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.Guid oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.guidPropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
 		}
 		
+		#endregion
+	}
+}
+namespace Company.OrmLanguage
+{
+	/// <summary>
+	/// DomainClass Property
+	/// Description for Company.OrmLanguage.Property
+	/// </summary>
+	[DslDesign::DisplayNameResource("Company.OrmLanguage.Property.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Company.OrmLanguage.Property.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("b9437070-9bf3-4fa0-a37d-0e63d94b2e8e")]
+	public sealed partial class Property : Entry
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// Property domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb9437070, 0x9bf3, 0x4fa0, 0xa3, 0x7d, 0x0e, 0x63, 0xd9, 0x4b, 0x2e, 0x8e);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public Property(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public Property(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EntityElement opposite domain role accessor
+		/// <summary>
+		/// Gets or sets EntityElement.
+		/// Description for Company.OrmLanguage.EntityHasProperties.Property
+		/// </summary>
+		public EntityElement EntityElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId) as EntityElement;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId, value);
+			}
+		}
+		#endregion
+	}
+}
+namespace Company.OrmLanguage
+{
+	/// <summary>
+	/// DomainClass Reference
+	/// Description for Company.OrmLanguage.Reference
+	/// </summary>
+	[DslDesign::DisplayNameResource("Company.OrmLanguage.Reference.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Company.OrmLanguage.Reference.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("35492d24-c52d-488e-a334-d32c0850ea5f")]
+	public sealed partial class Reference : Entry
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// Reference domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x35492d24, 0xc52d, 0x488e, 0xa3, 0x34, 0xd3, 0x2c, 0x08, 0x50, 0xea, 0x5f);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public Reference(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public Reference(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EntityElement opposite domain role accessor
+		/// <summary>
+		/// Gets or sets EntityElement.
+		/// Description for Company.OrmLanguage.EntityHasReferences.Reference
+		/// </summary>
+		public EntityElement EntityElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId) as EntityElement;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId, value);
+			}
+		}
 		#endregion
 	}
 }

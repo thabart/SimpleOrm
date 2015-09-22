@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CompartmentMappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="CompartmentMappings.xsd"
+ namespace="Company.OrmLanguage">
+
+  <Connection name="EntityHasRelationShips"
+    allowSelfReference="true"
+    suppressEntryDeletePropagation="false">
+
+    <Source allowHead="false">
+      <DomainClass name="EntityElement" />
+      <EntryDomainClass name="Property"/>
+    </Source>
+
+    <Target allowHead="true">
+      <DomainClass name="EntityElement"/>
+      <EntryDomainClass name="Property"/>
+    </Target>
+
+    <Connector name="EntityHasRelationShipsConnector"/>
+  </Connection>
+
+  <CompartmentShape name="EntityShape"/>
+</CompartmentMappings>

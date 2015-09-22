@@ -249,245 +249,6 @@ namespace Company.OrmLanguage
 namespace Company.OrmLanguage
 {
 	/// <summary>
-	/// DomainRelationship EntityHasProperties
-	/// Description for Company.OrmLanguage.EntityHasProperties
-	/// </summary>
-	[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(IsEmbedding=true)]
-	[DslModeling::DomainObjectId("bde149c0-a73b-4848-848e-fe0ee2178c3b")]
-	public partial class EntityHasProperties : DslModeling::ElementLink
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// EntityHasProperties domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xbde149c0, 0xa73b, 0x4848, 0x84, 0x8e, 0xfe, 0x0e, 0xe2, 0x17, 0x8c, 0x3b);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a EntityHasProperties link in the same Partition as the given EntityElement
-		/// </summary>
-		/// <param name="source">EntityElement to use as the source of the relationship.</param>
-		/// <param name="target">Property to use as the target of the relationship.</param>
-		public EntityHasProperties(EntityElement source, Property target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EntityHasProperties.EntityElementDomainRoleId, source), new DslModeling::RoleAssignment(EntityHasProperties.PropertyDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityHasProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityHasProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityHasProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityHasProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region EntityElement domain role code
-		
-		/// <summary>
-		/// EntityElement domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid EntityElementDomainRoleId = new global::System.Guid(0x2debbe78, 0xc609, 0x44af, 0xb5, 0x13, 0xf2, 0x83, 0xc9, 0x3d, 0x6d, 0x2f);
-		
-		/// <summary>
-		/// DomainRole EntityElement
-		/// Description for Company.OrmLanguage.EntityHasProperties.EntityElement
-		/// </summary>
-		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties/EntityElement.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties/EntityElement.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Properties", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasProperties/EntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("2debbe78-c609-44af-b513-f283c93d6d2f")]
-		public virtual EntityElement EntityElement
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityElement)DslModeling::DomainRoleInfo.GetRolePlayer(this, EntityElementDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, EntityElementDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access EntityElement of a Property
-		/// <summary>
-		/// Gets EntityElement.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static EntityElement GetEntityElement(Property element)
-		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, PropertyDomainRoleId) as EntityElement;
-		}
-		
-		/// <summary>
-		/// Sets EntityElement.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetEntityElement(Property element, EntityElement newEntityElement)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, PropertyDomainRoleId, newEntityElement);
-		}
-		#endregion
-		#region Property domain role code
-		
-		/// <summary>
-		/// Property domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid PropertyDomainRoleId = new global::System.Guid(0x1a9b2d73, 0xc741, 0x43a6, 0xb4, 0x51, 0xd5, 0xa9, 0x9f, 0xd9, 0xc4, 0x70);
-		
-		/// <summary>
-		/// DomainRole Property
-		/// Description for Company.OrmLanguage.EntityHasProperties.Property
-		/// </summary>
-		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties/Property.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties/Property.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityElement", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasProperties/Property.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
-		[DslModeling::DomainObjectId("1a9b2d73-c741-43a6-b451-d5a99fd9c470")]
-		public virtual Property Property
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (Property)DslModeling::DomainRoleInfo.GetRolePlayer(this, PropertyDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, PropertyDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access Properties of a EntityElement
-		/// <summary>
-		/// Gets a list of Properties.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<Property> GetProperties(EntityElement element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<Property>, Property>(element, EntityElementDomainRoleId);
-		}
-		#endregion
-		#region EntityElement link accessor
-		/// <summary>
-		/// Get the list of EntityHasProperties links to a EntityElement.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Company.OrmLanguage.EntityHasProperties> GetLinksToProperties ( global::Company.OrmLanguage.EntityElement entityElementInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(entityElementInstance, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
-		}
-		#endregion
-		#region Property link accessor
-		/// <summary>
-		/// Get the EntityHasProperties link to a Property.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Company.OrmLanguage.EntityHasProperties GetLinkToEntityElement (global::Company.OrmLanguage.Property propertyInstance)
-		{
-			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(propertyInstance, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Property not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
-		}
-		#endregion
-		#region EntityHasProperties instance accessors
-		
-		/// <summary>
-		/// Get any EntityHasProperties links between a given EntityElement and a Property.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Company.OrmLanguage.EntityHasProperties> GetLinks( global::Company.OrmLanguage.EntityElement source, global::Company.OrmLanguage.Property target )
-		{
-			global::System.Collections.Generic.List<global::Company.OrmLanguage.EntityHasProperties> outLinks = new global::System.Collections.Generic.List<global::Company.OrmLanguage.EntityHasProperties>();
-			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(source, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
-			foreach ( global::Company.OrmLanguage.EntityHasProperties link in links )
-			{
-				if ( target.Equals(link.Property) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		/// <summary>
-		/// Get the one EntityHasProperties link between a given EntityElementand a Property.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Company.OrmLanguage.EntityHasProperties GetLink( global::Company.OrmLanguage.EntityElement source, global::Company.OrmLanguage.Property target )
-		{
-			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(source, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
-			foreach ( global::Company.OrmLanguage.EntityHasProperties link in links )
-			{
-				if ( target.Equals(link.Property) )
-				{
-					return link;
-				}
-			}
-			return null;
-		}
-		
-		#endregion
-	}
-}
-namespace Company.OrmLanguage
-{
-	/// <summary>
 	/// DomainRelationship EntityHasRelationShips
 	/// Description for Company.OrmLanguage.EntityHasRelationShips
 	/// </summary>
@@ -590,25 +351,15 @@ namespace Company.OrmLanguage
 		}
 				
 		#endregion
-		#region Static methods to access SourceEntityElement of a EntityElement
+		#region Static methods to access SourceEntityElements of a EntityElement
 		/// <summary>
-		/// Gets SourceEntityElement.
+		/// Gets a list of SourceEntityElements.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static EntityElement GetSourceEntityElement(EntityElement element)
+		public static DslModeling::LinkedElementCollection<EntityElement> GetSourceEntityElements(EntityElement element)
 		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, TargetEntityElementDomainRoleId) as EntityElement;
-		}
-		
-		/// <summary>
-		/// Sets SourceEntityElement.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetSourceEntityElement(EntityElement element, EntityElement newSourceEntityElement)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, TargetEntityElementDomainRoleId, newSourceEntityElement);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityElement>, EntityElement>(element, TargetEntityElementDomainRoleId);
 		}
 		#endregion
 		#region TargetEntityElement domain role code
@@ -624,7 +375,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShips/TargetEntityElement.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShips/TargetEntityElement.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "SourceEntityElement", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasRelationShips/TargetEntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "SourceEntityElements", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasRelationShips/TargetEntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("41ce1527-7ae6-4c4a-a392-6cc58e7b5f3f")]
 		public virtual EntityElement TargetEntityElement
 		{
@@ -839,22 +590,13 @@ namespace Company.OrmLanguage
 		#endregion
 		#region TargetEntityElement link accessor
 		/// <summary>
-		/// Get the EntityHasRelationShips link to a EntityElement.
+		/// Get the list of EntityHasRelationShips links to a EntityElement.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Company.OrmLanguage.EntityHasRelationShips GetLinkToSourceEntityElement (global::Company.OrmLanguage.EntityElement targetEntityElementInstance)
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Company.OrmLanguage.EntityHasRelationShips> GetLinksToSourceEntityElements ( global::Company.OrmLanguage.EntityElement targetEntityElementInstance )
 		{
-			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasRelationShips> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasRelationShips>(targetEntityElementInstance, global::Company.OrmLanguage.EntityHasRelationShips.TargetEntityElementDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of TargetEntityElement not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasRelationShips>(targetEntityElementInstance, global::Company.OrmLanguage.EntityHasRelationShips.TargetEntityElementDomainRoleId);
 		}
 		#endregion
 		#region EntityHasRelationShips instance accessors
@@ -901,6 +643,245 @@ namespace Company.OrmLanguage
 namespace Company.OrmLanguage
 {
 	/// <summary>
+	/// DomainRelationship EntityHasProperties
+	/// Description for Company.OrmLanguage.EntityHasProperties
+	/// </summary>
+	[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("40169f63-50fa-4880-9004-59db7ce716b7")]
+	public partial class EntityHasProperties : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// EntityHasProperties domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x40169f63, 0x50fa, 0x4880, 0x90, 0x04, 0x59, 0xdb, 0x7c, 0xe7, 0x16, 0xb7);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a EntityHasProperties link in the same Partition as the given EntityElement
+		/// </summary>
+		/// <param name="source">EntityElement to use as the source of the relationship.</param>
+		/// <param name="target">Property to use as the target of the relationship.</param>
+		public EntityHasProperties(EntityElement source, Property target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EntityHasProperties.EntityElementDomainRoleId, source), new DslModeling::RoleAssignment(EntityHasProperties.PropertyDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EntityHasProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EntityHasProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EntityHasProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EntityHasProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EntityElement domain role code
+		
+		/// <summary>
+		/// EntityElement domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityElementDomainRoleId = new global::System.Guid(0x5b884564, 0x9a0a, 0x4b29, 0xa1, 0xae, 0x6e, 0x2c, 0x60, 0x7d, 0x60, 0xd6);
+		
+		/// <summary>
+		/// DomainRole EntityElement
+		/// Description for Company.OrmLanguage.EntityHasProperties.EntityElement
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties/EntityElement.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties/EntityElement.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Properties", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasProperties/EntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("5b884564-9a0a-4b29-a1ae-6e2c607d60d6")]
+		public virtual EntityElement EntityElement
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EntityElement)DslModeling::DomainRoleInfo.GetRolePlayer(this, EntityElementDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, EntityElementDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access EntityElement of a Property
+		/// <summary>
+		/// Gets EntityElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static EntityElement GetEntityElement(Property element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, PropertyDomainRoleId) as EntityElement;
+		}
+		
+		/// <summary>
+		/// Sets EntityElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetEntityElement(Property element, EntityElement newEntityElement)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, PropertyDomainRoleId, newEntityElement);
+		}
+		#endregion
+		#region Property domain role code
+		
+		/// <summary>
+		/// Property domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid PropertyDomainRoleId = new global::System.Guid(0x18c6b76a, 0xab2e, 0x4a66, 0x88, 0xdc, 0x34, 0xa6, 0xba, 0x41, 0x4f, 0x74);
+		
+		/// <summary>
+		/// DomainRole Property
+		/// Description for Company.OrmLanguage.EntityHasProperties.Property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasProperties/Property.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasProperties/Property.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityElement", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasProperties/Property.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("18c6b76a-ab2e-4a66-88dc-34a6ba414f74")]
+		public virtual Property Property
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (Property)DslModeling::DomainRoleInfo.GetRolePlayer(this, PropertyDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, PropertyDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Properties of a EntityElement
+		/// <summary>
+		/// Gets a list of Properties.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<Property> GetProperties(EntityElement element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<Property>, Property>(element, EntityElementDomainRoleId);
+		}
+		#endregion
+		#region EntityElement link accessor
+		/// <summary>
+		/// Get the list of EntityHasProperties links to a EntityElement.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Company.OrmLanguage.EntityHasProperties> GetLinksToProperties ( global::Company.OrmLanguage.EntityElement entityElementInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(entityElementInstance, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
+		}
+		#endregion
+		#region Property link accessor
+		/// <summary>
+		/// Get the EntityHasProperties link to a Property.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Company.OrmLanguage.EntityHasProperties GetLinkToEntityElement (global::Company.OrmLanguage.Property propertyInstance)
+		{
+			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(propertyInstance, global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Property not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region EntityHasProperties instance accessors
+		
+		/// <summary>
+		/// Get any EntityHasProperties links between a given EntityElement and a Property.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Company.OrmLanguage.EntityHasProperties> GetLinks( global::Company.OrmLanguage.EntityElement source, global::Company.OrmLanguage.Property target )
+		{
+			global::System.Collections.Generic.List<global::Company.OrmLanguage.EntityHasProperties> outLinks = new global::System.Collections.Generic.List<global::Company.OrmLanguage.EntityHasProperties>();
+			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(source, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
+			foreach ( global::Company.OrmLanguage.EntityHasProperties link in links )
+			{
+				if ( target.Equals(link.Property) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one EntityHasProperties link between a given EntityElementand a Property.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Company.OrmLanguage.EntityHasProperties GetLink( global::Company.OrmLanguage.EntityElement source, global::Company.OrmLanguage.Property target )
+		{
+			global::System.Collections.Generic.IList<global::Company.OrmLanguage.EntityHasProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Company.OrmLanguage.EntityHasProperties>(source, global::Company.OrmLanguage.EntityHasProperties.EntityElementDomainRoleId);
+			foreach ( global::Company.OrmLanguage.EntityHasProperties link in links )
+			{
+				if ( target.Equals(link.Property) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Company.OrmLanguage
+{
+	/// <summary>
 	/// DomainRelationship EntityHasReferences
 	/// Description for Company.OrmLanguage.EntityHasReferences
 	/// </summary>
@@ -908,8 +889,8 @@ namespace Company.OrmLanguage
 	[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasReferences.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
-	[DslModeling::DomainObjectId("e16ebd6e-090f-418b-9d1f-845d24718934")]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("c9d0517b-47b7-4cc9-abfa-e201641c96c2")]
 	public partial class EntityHasReferences : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
@@ -917,7 +898,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// EntityHasReferences domain class Id.
 		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xe16ebd6e, 0x090f, 0x418b, 0x9d, 0x1f, 0x84, 0x5d, 0x24, 0x71, 0x89, 0x34);
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc9d0517b, 0x47b7, 0x4cc9, 0xab, 0xfa, 0xe2, 0x01, 0x64, 0x1c, 0x96, 0xc2);
 	
 				
 		/// <summary>
@@ -978,7 +959,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// EntityElement domain role Id.
 		/// </summary>
-		public static readonly global::System.Guid EntityElementDomainRoleId = new global::System.Guid(0xa028db9b, 0xed0f, 0x4735, 0xa8, 0x77, 0x75, 0xea, 0x8e, 0xa5, 0x2b, 0xd1);
+		public static readonly global::System.Guid EntityElementDomainRoleId = new global::System.Guid(0x26cc55e6, 0x577e, 0x4505, 0x88, 0x82, 0x2b, 0xb9, 0xba, 0xbc, 0xaf, 0xd6);
 		
 		/// <summary>
 		/// DomainRole EntityElement
@@ -986,8 +967,8 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasReferences/EntityElement.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasReferences/EntityElement.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "References", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasReferences/EntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("a028db9b-ed0f-4735-a877-75ea8ea52bd1")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "References", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasReferences/EntityElement.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("26cc55e6-577e-4505-8882-2bb9babcafd6")]
 		public virtual EntityElement EntityElement
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
@@ -1029,7 +1010,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Reference domain role Id.
 		/// </summary>
-		public static readonly global::System.Guid ReferenceDomainRoleId = new global::System.Guid(0x995c88e4, 0x65cc, 0x4a0f, 0xbb, 0xf0, 0x10, 0xe0, 0x38, 0x5b, 0x7e, 0xf0);
+		public static readonly global::System.Guid ReferenceDomainRoleId = new global::System.Guid(0xe02a7c7b, 0x9baf, 0x4115, 0xa5, 0xeb, 0xc9, 0xc7, 0x13, 0xcc, 0x98, 0x4d);
 		
 		/// <summary>
 		/// DomainRole Reference
@@ -1037,8 +1018,8 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasReferences/Reference.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasReferences/Reference.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityElement", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasReferences/Reference.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
-		[DslModeling::DomainObjectId("995c88e4-65cc-4a0f-bbf0-10e0385b7ef0")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityElement", PropertyDisplayNameKey="Company.OrmLanguage.EntityHasReferences/Reference.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("e02a7c7b-9baf-4115-a5eb-c9c713cc984d")]
 		public virtual Reference Reference
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]

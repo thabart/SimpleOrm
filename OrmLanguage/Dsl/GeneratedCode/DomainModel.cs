@@ -69,12 +69,12 @@ namespace Company.OrmLanguage
 			{
 				typeof(SampleOrmModel),
 				typeof(EntityElement),
+				typeof(Entry),
 				typeof(Property),
 				typeof(Reference),
-				typeof(Entry),
 				typeof(SampleOrmModelHasElements),
-				typeof(EntityHasProperties),
 				typeof(EntityHasRelationShips),
+				typeof(EntityHasProperties),
 				typeof(EntityHasReferences),
 				typeof(OrmLanguageDiagram),
 				typeof(EntityHasRelationShipsConnector),
@@ -114,10 +114,10 @@ namespace Company.OrmLanguage
 			{
 				new DomainRolePlayerInfo(typeof(SampleOrmModelHasElements), "SampleOrmModel", SampleOrmModelHasElements.SampleOrmModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(SampleOrmModelHasElements), "Element", SampleOrmModelHasElements.ElementDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityHasProperties), "EntityElement", EntityHasProperties.EntityElementDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityHasProperties), "Property", EntityHasProperties.PropertyDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityHasRelationShips), "SourceEntityElement", EntityHasRelationShips.SourceEntityElementDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityHasRelationShips), "TargetEntityElement", EntityHasRelationShips.TargetEntityElementDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EntityHasProperties), "EntityElement", EntityHasProperties.EntityElementDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EntityHasProperties), "Property", EntityHasProperties.PropertyDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityHasReferences), "EntityElement", EntityHasReferences.EntityElementDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityHasReferences), "Reference", EntityHasReferences.ReferenceDomainRoleId),
 			};
@@ -146,10 +146,9 @@ namespace Company.OrmLanguage
 				createElementMap.Add(typeof(EntityElement), 1);
 				createElementMap.Add(typeof(Property), 2);
 				createElementMap.Add(typeof(Reference), 3);
-				createElementMap.Add(typeof(Entry), 4);
-				createElementMap.Add(typeof(OrmLanguageDiagram), 5);
-				createElementMap.Add(typeof(EntityHasRelationShipsConnector), 6);
-				createElementMap.Add(typeof(EntityShape), 7);
+				createElementMap.Add(typeof(OrmLanguageDiagram), 4);
+				createElementMap.Add(typeof(EntityHasRelationShipsConnector), 5);
+				createElementMap.Add(typeof(EntityShape), 6);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -167,10 +166,9 @@ namespace Company.OrmLanguage
 				case 1: return new EntityElement(partition, propertyAssignments);
 				case 2: return new Property(partition, propertyAssignments);
 				case 3: return new Reference(partition, propertyAssignments);
-				case 4: return new Entry(partition, propertyAssignments);
-				case 5: return new OrmLanguageDiagram(partition, propertyAssignments);
-				case 6: return new EntityHasRelationShipsConnector(partition, propertyAssignments);
-				case 7: return new EntityShape(partition, propertyAssignments);
+				case 4: return new OrmLanguageDiagram(partition, propertyAssignments);
+				case 5: return new EntityHasRelationShipsConnector(partition, propertyAssignments);
+				case 6: return new EntityShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -195,8 +193,8 @@ namespace Company.OrmLanguage
 			{
 				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(4);
 				createElementLinkMap.Add(typeof(SampleOrmModelHasElements), 0);
-				createElementLinkMap.Add(typeof(EntityHasProperties), 1);
-				createElementLinkMap.Add(typeof(EntityHasRelationShips), 2);
+				createElementLinkMap.Add(typeof(EntityHasRelationShips), 1);
+				createElementLinkMap.Add(typeof(EntityHasProperties), 2);
 				createElementLinkMap.Add(typeof(EntityHasReferences), 3);
 			}
 			int index;
@@ -213,8 +211,8 @@ namespace Company.OrmLanguage
 			switch (index)
 			{
 				case 0: return new SampleOrmModelHasElements(partition, roleAssignments, propertyAssignments);
-				case 1: return new EntityHasProperties(partition, roleAssignments, propertyAssignments);
-				case 2: return new EntityHasRelationShips(partition, roleAssignments, propertyAssignments);
+				case 1: return new EntityHasRelationShips(partition, roleAssignments, propertyAssignments);
+				case 2: return new EntityHasProperties(partition, roleAssignments, propertyAssignments);
 				case 3: return new EntityHasReferences(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
@@ -396,6 +394,7 @@ namespace Company.OrmLanguage
 			#region Initialize DomainData Table
 			DomainRoles.Add(global::Company.OrmLanguage.SampleOrmModelHasElements.ElementDomainRoleId, true);
 			DomainRoles.Add(global::Company.OrmLanguage.EntityHasProperties.PropertyDomainRoleId, true);
+			DomainRoles.Add(global::Company.OrmLanguage.EntityHasReferences.ReferenceDomainRoleId, true);
 			#endregion
 		}
 		/// <summary>

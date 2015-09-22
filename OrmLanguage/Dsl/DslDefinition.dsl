@@ -31,31 +31,39 @@
             <DomainPath>EntityHasProperties.Properties</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="Reference" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>EntityHasReferences.References</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
-    <DomainClass Id="2e887c94-2215-44d4-82cb-d0a069dff0bf" Description="Description for Company.OrmLanguage.Property" Name="Property" DisplayName="Property" Namespace="Company.OrmLanguage">
-      <BaseClass>
-        <DomainClassMoniker Name="Entry" />
-      </BaseClass>
-    </DomainClass>
-    <DomainClass Id="b4d2b7dc-de9b-4d6d-bc48-2ceae846f01d" Description="Description for Company.OrmLanguage.Reference" Name="Reference" DisplayName="Reference" Namespace="Company.OrmLanguage">
-      <BaseClass>
-        <DomainClassMoniker Name="Entry" />
-      </BaseClass>
-    </DomainClass>
-    <DomainClass Id="003edb12-1ee2-400d-8723-7b6c57d9a42c" Description="Description for Company.OrmLanguage.Entry" Name="Entry" DisplayName="Entry" Namespace="Company.OrmLanguage">
+    <DomainClass Id="434fcd74-129b-4049-ba26-b5e60d519a1a" Description="Description for Company.OrmLanguage.Entry" Name="Entry" DisplayName="Entry" InheritanceModifier="Abstract" Namespace="Company.OrmLanguage">
       <Properties>
-        <DomainProperty Id="d9d4256b-da15-420a-8a1a-152cc074b61b" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name" DefaultValue="New Property">
+        <DomainProperty Id="360c5f50-ebef-479d-9b9b-e927a959f892" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="2e67e649-d5b8-4e23-8e6f-e8996b0e0b8d" Description="Description for Company.OrmLanguage.Entry.Guid" Name="Guid" DisplayName="Guid">
+        <DomainProperty Id="a0755a71-ef60-4c60-bf65-5bf0d85ef7ec" Description="Description for Company.OrmLanguage.Entry.Guid" Name="Guid" DisplayName="Guid" Kind="Calculated" IsBrowsable="false" IsUIReadOnly="true">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
       </Properties>
+    </DomainClass>
+    <DomainClass Id="b9437070-9bf3-4fa0-a37d-0e63d94b2e8e" Description="Description for Company.OrmLanguage.Property" Name="Property" DisplayName="Property" InheritanceModifier="Sealed" Namespace="Company.OrmLanguage">
+      <BaseClass>
+        <DomainClassMoniker Name="Entry" />
+      </BaseClass>
+    </DomainClass>
+    <DomainClass Id="35492d24-c52d-488e-a334-d32c0850ea5f" Description="Description for Company.OrmLanguage.Reference" Name="Reference" DisplayName="Reference" InheritanceModifier="Sealed" Namespace="Company.OrmLanguage">
+      <BaseClass>
+        <DomainClassMoniker Name="Entry" />
+      </BaseClass>
     </DomainClass>
   </Classes>
   <Relationships>
@@ -71,22 +79,6 @@
         <DomainRole Id="ea1dfb1c-6090-4ea8-a509-0a2ada23da8f" Description="" Name="Element" DisplayName="Element" PropertyName="SampleOrmModel" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Sample Orm Model">
           <RolePlayer>
             <DomainClassMoniker Name="EntityElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
-    <DomainRelationship Id="bde149c0-a73b-4848-848e-fe0ee2178c3b" Description="Description for Company.OrmLanguage.EntityHasProperties" Name="EntityHasProperties" DisplayName="Entity Has Properties" Namespace="Company.OrmLanguage" IsEmbedding="true">
-      <Source>
-        <DomainRole Id="2debbe78-c609-44af-b513-f283c93d6d2f" Description="Description for Company.OrmLanguage.EntityHasProperties.EntityElement" Name="EntityElement" DisplayName="Entity Element" PropertyName="Properties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Properties">
-          <RolePlayer>
-            <DomainClassMoniker Name="EntityElement" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="1a9b2d73-c741-43a6-b451-d5a99fd9c470" Description="Description for Company.OrmLanguage.EntityHasProperties.Property" Name="Property" DisplayName="Property" PropertyName="EntityElement" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Element">
-          <RolePlayer>
-            <DomainClassMoniker Name="Property" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -112,23 +104,39 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="41ce1527-7ae6-4c4a-a392-6cc58e7b5f3f" Description="Description for Company.OrmLanguage.EntityHasRelationShips.TargetEntityElement" Name="TargetEntityElement" DisplayName="Target Entity Element" PropertyName="SourceEntityElement" Multiplicity="ZeroOne" PropertyDisplayName="Source Entity Element">
+        <DomainRole Id="41ce1527-7ae6-4c4a-a392-6cc58e7b5f3f" Description="Description for Company.OrmLanguage.EntityHasRelationShips.TargetEntityElement" Name="TargetEntityElement" DisplayName="Target Entity Element" PropertyName="SourceEntityElements" PropertyDisplayName="Source Entity Elements">
           <RolePlayer>
             <DomainClassMoniker Name="EntityElement" />
           </RolePlayer>
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="e16ebd6e-090f-418b-9d1f-845d24718934" Description="Description for Company.OrmLanguage.EntityHasReferences" Name="EntityHasReferences" DisplayName="Entity Has References" Namespace="Company.OrmLanguage">
+    <DomainRelationship Id="40169f63-50fa-4880-9004-59db7ce716b7" Description="Description for Company.OrmLanguage.EntityHasProperties" Name="EntityHasProperties" DisplayName="Entity Has Properties" Namespace="Company.OrmLanguage" IsEmbedding="true">
       <Source>
-        <DomainRole Id="a028db9b-ed0f-4735-a877-75ea8ea52bd1" Description="Description for Company.OrmLanguage.EntityHasReferences.EntityElement" Name="EntityElement" DisplayName="Entity Element" PropertyName="References" PropertyDisplayName="References">
+        <DomainRole Id="5b884564-9a0a-4b29-a1ae-6e2c607d60d6" Description="Description for Company.OrmLanguage.EntityHasProperties.EntityElement" Name="EntityElement" DisplayName="Entity Element" PropertyName="Properties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Properties">
           <RolePlayer>
             <DomainClassMoniker Name="EntityElement" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="995c88e4-65cc-4a0f-bbf0-10e0385b7ef0" Description="Description for Company.OrmLanguage.EntityHasReferences.Reference" Name="Reference" DisplayName="Reference" PropertyName="EntityElement" Multiplicity="ZeroOne" PropertyDisplayName="Entity Element">
+        <DomainRole Id="18c6b76a-ab2e-4a66-88dc-34a6ba414f74" Description="Description for Company.OrmLanguage.EntityHasProperties.Property" Name="Property" DisplayName="Property" PropertyName="EntityElement" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Entity Element">
+          <RolePlayer>
+            <DomainClassMoniker Name="Property" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="c9d0517b-47b7-4cc9-abfa-e201641c96c2" Description="Description for Company.OrmLanguage.EntityHasReferences" Name="EntityHasReferences" DisplayName="Entity Has References" Namespace="Company.OrmLanguage" IsEmbedding="true">
+      <Source>
+        <DomainRole Id="26cc55e6-577e-4505-8882-2bb9babcafd6" Description="Description for Company.OrmLanguage.EntityHasReferences.EntityElement" Name="EntityElement" DisplayName="Entity Element" PropertyName="References" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="References">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityElement" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="e02a7c7b-9baf-4115-a5eb-c9c713cc984d" Description="Description for Company.OrmLanguage.EntityHasReferences.Reference" Name="Reference" DisplayName="Reference" PropertyName="EntityElement" Multiplicity="One" PropagatesDelete="true" PropertyDisplayName="Entity Element">
           <RolePlayer>
             <DomainClassMoniker Name="Reference" />
           </RolePlayer>
@@ -178,14 +186,14 @@
       <XmlClassData TypeName="EntityElement" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityElementMoniker" ElementName="entityElement" MonikerTypeName="EntityElementMoniker">
         <DomainClassMoniker Name="EntityElement" />
         <ElementData>
-          <XmlRelationshipData UseFullForm="true" RoleElementName="properties">
-            <DomainRelationshipMoniker Name="EntityHasProperties" />
-          </XmlRelationshipData>
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="EntityElement/Name" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="entityElements">
             <DomainRelationshipMoniker Name="EntityHasRelationShips" />
+          </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="properties">
+            <DomainRelationshipMoniker Name="EntityHasProperties" />
           </XmlRelationshipData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="references">
             <DomainRelationshipMoniker Name="EntityHasReferences" />
@@ -201,12 +209,6 @@
       <XmlClassData TypeName="EntityShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityShapeMoniker" ElementName="entityShape" MonikerTypeName="EntityShapeMoniker">
         <CompartmentShapeMoniker Name="EntityShape" />
       </XmlClassData>
-      <XmlClassData TypeName="Property" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyMoniker" ElementName="property" MonikerTypeName="PropertyMoniker">
-        <DomainClassMoniker Name="Property" />
-      </XmlClassData>
-      <XmlClassData TypeName="EntityHasProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasPropertiesMoniker" ElementName="entityHasProperties" MonikerTypeName="EntityHasPropertiesMoniker">
-        <DomainRelationshipMoniker Name="EntityHasProperties" />
-      </XmlClassData>
       <XmlClassData TypeName="EntityHasRelationShips" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasRelationShipsMoniker" ElementName="entityHasRelationShips" MonikerTypeName="EntityHasRelationShipsMoniker">
         <DomainRelationshipMoniker Name="EntityHasRelationShips" />
         <ElementData>
@@ -221,19 +223,25 @@
       <XmlClassData TypeName="EntityHasRelationShipsConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasRelationShipsConnectorMoniker" ElementName="entityHasRelationShipsConnector" MonikerTypeName="EntityHasRelationShipsConnectorMoniker">
         <ConnectorMoniker Name="EntityHasRelationShipsConnector" />
       </XmlClassData>
-      <XmlClassData TypeName="Reference" MonikerAttributeName="" SerializeId="true" MonikerElementName="referenceMoniker" ElementName="reference" MonikerTypeName="ReferenceMoniker">
-        <DomainClassMoniker Name="Reference" />
-      </XmlClassData>
       <XmlClassData TypeName="Entry" MonikerAttributeName="" SerializeId="true" MonikerElementName="entryMoniker" ElementName="entry" MonikerTypeName="EntryMoniker">
         <DomainClassMoniker Name="Entry" />
         <ElementData>
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="Entry/Name" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="guid">
+          <XmlPropertyData XmlName="guid" Representation="Ignore">
             <DomainPropertyMoniker Name="Entry/Guid" />
           </XmlPropertyData>
         </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="Property" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyMoniker" ElementName="property" MonikerTypeName="PropertyMoniker">
+        <DomainClassMoniker Name="Property" />
+      </XmlClassData>
+      <XmlClassData TypeName="Reference" MonikerAttributeName="" SerializeId="true" MonikerElementName="referenceMoniker" ElementName="reference" MonikerTypeName="ReferenceMoniker">
+        <DomainClassMoniker Name="Reference" />
+      </XmlClassData>
+      <XmlClassData TypeName="EntityHasProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasPropertiesMoniker" ElementName="entityHasProperties" MonikerTypeName="EntityHasPropertiesMoniker">
+        <DomainRelationshipMoniker Name="EntityHasProperties" />
       </XmlClassData>
       <XmlClassData TypeName="EntityHasReferences" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityHasReferencesMoniker" ElementName="entityHasReferences" MonikerTypeName="EntityHasReferencesMoniker">
         <DomainRelationshipMoniker Name="EntityHasReferences" />
@@ -242,7 +250,7 @@
   </XmlSerializationBehavior>
   <ExplorerBehavior Name="OrmLanguageExplorer" />
   <ConnectionBuilders>
-    <ConnectionBuilder Name="EntityHasRelationShipsBuilder">
+    <ConnectionBuilder Name="EntityHasRelationShipsBuilder" IsCustom="true">
       <LinkConnectDirective>
         <DomainRelationshipMoniker Name="EntityHasRelationShips" />
         <SourceDirectives>
@@ -256,25 +264,6 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="EntityElement" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </TargetDirectives>
-      </LinkConnectDirective>
-    </ConnectionBuilder>
-    <ConnectionBuilder Name="EntityHasReferencesBuilder">
-      <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="EntityHasReferences" />
-        <SourceDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="EntityElement" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </SourceDirectives>
-        <TargetDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="Reference" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -301,9 +290,9 @@
         </DecoratorMap>
         <CompartmentShapeMoniker Name="EntityShape" />
         <CompartmentMap>
-          <CompartmentMoniker Name="EntityShape/Properties" />
+          <CompartmentMoniker Name="EntityShape/References" />
           <ElementsDisplayed>
-            <DomainPath>EntityHasProperties.Properties/!Property</DomainPath>
+            <DomainPath>EntityHasReferences.References/!Reference</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>
@@ -312,9 +301,9 @@
           </PropertyDisplayed>
         </CompartmentMap>
         <CompartmentMap>
-          <CompartmentMoniker Name="EntityShape/References" />
+          <CompartmentMoniker Name="EntityShape/Properties" />
           <ElementsDisplayed>
-            <DomainPath>EntityHasReferences.References/!Reference</DomainPath>
+            <DomainPath>EntityHasProperties.Properties/!Property</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>
