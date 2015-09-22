@@ -14,16 +14,15 @@ using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 namespace Company.OrmLanguage
 {
 	/// <summary>
-	/// DomainClass ExampleConnector
-	/// Connector between the ExampleShapes. Represents ExampleRelationships on the
-	/// Diagram.
+	/// DomainClass EntityHasRelationShipsConnector
+	/// Description for Company.OrmLanguage.EntityHasRelationShipsConnector
 	/// </summary>
-	[DslDesign::DisplayNameResource("Company.OrmLanguage.ExampleConnector.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Company.OrmLanguage.ExampleConnector.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShipsConnector.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShipsConnector.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("7b03930b-fe2d-46a7-b047-e4fc98e06f41")]
-	public partial class ExampleConnector : DslDiagrams::BinaryLinkShape
+	[DslModeling::DomainObjectId("f6e2759d-26b8-4d8b-81d3-f33fd8d3086f")]
+	public partial class EntityHasRelationShipsConnector : DslDiagrams::BinaryLinkShape
 	{
 		#region DiagramElement boilerplate
 		private static DslDiagrams::StyleSet classStyleSet;
@@ -88,9 +87,9 @@ namespace Company.OrmLanguage
 		}
 		
 		/// <summary>
-		/// Finds a decorator associated with ExampleConnector.
+		/// Finds a decorator associated with EntityHasRelationShipsConnector.
 		/// </summary>
-		public static DslDiagrams::Decorator FindExampleConnectorDecorator(string decoratorName)
+		public static DslDiagrams::Decorator FindEntityHasRelationShipsConnectorDecorator(string decoratorName)
 		{	
 			if(decorators == null) return null;
 			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
@@ -109,14 +108,8 @@ namespace Company.OrmLanguage
 			
 			// Line pen settings for this connector.
 			DslDiagrams::PenSettings linePen = new DslDiagrams::PenSettings();
-			linePen.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, linePen);
-			linePen.Width = 0.01f;
+			linePen.DashStyle = global::System.Drawing.Drawing2D.DashStyle.Dash;
 			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, linePen);
-			DslDiagrams::BrushSettings lineBrush = new DslDiagrams::BrushSettings();
-			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
-			
 		}
 		
 		/// <summary>
@@ -125,7 +118,7 @@ namespace Company.OrmLanguage
 		protected override void InitializeInstanceResources()
 		{
 			base.InitializeInstanceResources();
-			this.SetDecorators(null, new DslDiagrams::SizeD(0.1,0.1), DslDiagrams::LinkDecorator.DecoratorEmptyArrow, new DslDiagrams::SizeD(0.1,0.1), false);
+			this.SetDecorators(null, new DslDiagrams::SizeD(0.1,0.1), DslDiagrams::LinkDecorator.DecoratorHollowArrow, new DslDiagrams::SizeD(0.1,0.1), false);
 		}
 		
 		#endregion
@@ -133,15 +126,15 @@ namespace Company.OrmLanguage
 		#region Constructors, domain class Id
 	
 		/// <summary>
-		/// ExampleConnector domain class Id.
+		/// EntityHasRelationShipsConnector domain class Id.
 		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x7b03930b, 0xfe2d, 0x46a7, 0xb0, 0x47, 0xe4, 0xfc, 0x98, 0xe0, 0x6f, 0x41);
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xf6e2759d, 0x26b8, 0x4d8b, 0x81, 0xd3, 0xf3, 0x3f, 0xd8, 0xd3, 0x08, 0x6f);
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="store">Store where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ExampleConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public EntityHasRelationShipsConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
 		{
 		}
@@ -151,7 +144,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		/// <param name="partition">Partition where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ExampleConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public EntityHasRelationShipsConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, propertyAssignments)
 		{
 		}

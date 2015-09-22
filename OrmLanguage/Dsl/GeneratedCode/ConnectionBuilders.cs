@@ -15,7 +15,7 @@ namespace Company.OrmLanguage
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class EntityElementReferencesTargetsBuilder
+	public static partial class EntityHasRelationShipsBuilder
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -89,7 +89,8 @@ namespace Company.OrmLanguage
 					{
 						global::Company.OrmLanguage.EntityElement sourceEntityElement = (global::Company.OrmLanguage.EntityElement)candidateSource;
 						global::Company.OrmLanguage.EntityElement targetEntityElement = (global::Company.OrmLanguage.EntityElement)candidateTarget;
-						if(targetEntityElement == null || sourceEntityElement == null || global::Company.OrmLanguage.EntityElementReferencesTargets.GetLinks(sourceEntityElement, targetEntityElement).Count > 0) return false;
+						if(targetEntityElement == null || global::Company.OrmLanguage.EntityHasRelationShips.GetLinkToSourceEntityElement(targetEntityElement) != null) return false;
+						if(targetEntityElement == null || sourceEntityElement == null || global::Company.OrmLanguage.EntityHasRelationShips.GetLinks(sourceEntityElement, targetEntityElement).Count > 0) return false;
 						return true;
 					}
 				}
@@ -127,7 +128,138 @@ namespace Company.OrmLanguage
 					{
 						global::Company.OrmLanguage.EntityElement sourceAccepted = (global::Company.OrmLanguage.EntityElement)source;
 						global::Company.OrmLanguage.EntityElement targetAccepted = (global::Company.OrmLanguage.EntityElement)target;
-						DslModeling::ElementLink result = new global::Company.OrmLanguage.EntityElementReferencesTargets(sourceAccepted, targetAccepted);
+						DslModeling::ElementLink result = new global::Company.OrmLanguage.EntityHasRelationShips(sourceAccepted, targetAccepted);
+						if (DslModeling::DomainClassInfo.HasNameProperty(result))
+						{
+							DslModeling::DomainClassInfo.SetUniqueName(result);
+						}
+						return result;
+					}
+				}
+				
+			}
+			global::System.Diagnostics.Debug.Fail("Having agreed that the connection can be accepted we should never fail to make one.");
+			throw new global::System.InvalidOperationException();
+		}
+		#endregion
+ 	}
+	/// <summary>
+	/// ConnectionBuilder class to provide logic for constructing connections between elements.
+	/// </summary>
+	public static partial class EntityHasReferencesBuilder
+	{
+		#region Accept Connection Methods
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the source of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the source of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Company.OrmLanguage.EntityElement)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the target of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the target of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Company.OrmLanguage.Reference)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		/// <summary>
+		/// Test whether a given pair of model elements are acceptable to this ConnectionBuilder as the source and target of a connection
+		/// </summary>
+		/// <param name="candidateSource">The model element to test as a source</param>
+		/// <param name="candidateTarget">The model element to test as a target</param>
+		/// <returns>Whether the elements can be used as the source and target of a connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static bool CanAcceptSourceAndTarget(DslModeling::ModelElement candidateSource, DslModeling::ModelElement candidateTarget)
+		{
+			// Accepts null, null; source, null; source, target but NOT null, target
+			if (candidateSource == null)
+			{
+				if (candidateTarget != null)
+				{
+					throw new global::System.ArgumentNullException("candidateSource");
+				}
+				else // Both null
+				{
+					return false;
+				}
+			}
+			bool acceptSource = CanAcceptSource(candidateSource);
+			// If the source wasn't accepted then there's no point checking targets.
+			// If there is no target then the source controls the accept.
+			if (!acceptSource || candidateTarget == null)
+			{
+				return acceptSource;
+			}
+			else // Check combinations
+			{
+				if (candidateSource is global::Company.OrmLanguage.EntityElement)
+				{
+					if (candidateTarget is global::Company.OrmLanguage.Reference)
+					{
+						global::Company.OrmLanguage.EntityElement sourceEntityElement = (global::Company.OrmLanguage.EntityElement)candidateSource;
+						global::Company.OrmLanguage.Reference targetReference = (global::Company.OrmLanguage.Reference)candidateTarget;
+						if(targetReference == null || global::Company.OrmLanguage.EntityHasReferences.GetLinkToEntityElement(targetReference) != null) return false;
+						if(targetReference == null || sourceEntityElement == null || global::Company.OrmLanguage.EntityHasReferences.GetLinks(sourceEntityElement, targetReference).Count > 0) return false;
+						return true;
+					}
+				}
+				
+			}
+			return false;
+		}
+		#endregion
+
+		#region Connection Methods
+		/// <summary>
+		/// Make a connection between the given pair of source and target elements
+		/// </summary>
+		/// <param name="source">The model element to use as the source of the connection</param>
+		/// <param name="target">The model element to use as the target of the connection</param>
+		/// <returns>A link representing the created connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static DslModeling::ElementLink Connect(DslModeling::ModelElement source, DslModeling::ModelElement target)
+		{
+			if (source == null)
+			{
+				throw new global::System.ArgumentNullException("source");
+			}
+			if (target == null)
+			{
+				throw new global::System.ArgumentNullException("target");
+			}
+			
+			if (CanAcceptSourceAndTarget(source, target))
+			{
+				if (source is global::Company.OrmLanguage.EntityElement)
+				{
+					if (target is global::Company.OrmLanguage.Reference)
+					{
+						global::Company.OrmLanguage.EntityElement sourceAccepted = (global::Company.OrmLanguage.EntityElement)source;
+						global::Company.OrmLanguage.Reference targetAccepted = (global::Company.OrmLanguage.Reference)target;
+						DslModeling::ElementLink result = new global::Company.OrmLanguage.EntityHasReferences(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
 							DslModeling::DomainClassInfo.SetUniqueName(result);
@@ -146,14 +278,14 @@ namespace Company.OrmLanguage
  	/// <summary>
 	/// Handles interaction between the ConnectionBuilder and the corresponding ConnectionTool.
 	/// </summary>
-	internal partial class ExampleRelationshipConnectAction : DslDiagrams::ConnectAction
+	internal partial class EntityRelationShipConnectAction : DslDiagrams::ConnectAction
 	{
 		private DslDiagrams::ConnectionType[] connectionTypes;
 		
 		/// <summary>
-		/// Constructs a new ExampleRelationshipConnectAction for the given Diagram.
+		/// Constructs a new EntityRelationShipConnectAction for the given Diagram.
 		/// </summary>
-		public ExampleRelationshipConnectAction(DslDiagrams::Diagram diagram): base(diagram, true) 
+		public EntityRelationShipConnectAction(DslDiagrams::Diagram diagram): base(diagram, true) 
 		{
 		}
 		
@@ -183,24 +315,24 @@ namespace Company.OrmLanguage
 		
 		
 		/// <summary>
-		/// Returns the ExampleRelationshipConnectionType associated with this action.
+		/// Returns the EntityRelationShipConnectionType associated with this action.
 		/// </summary>
 		protected override DslDiagrams::ConnectionType[] GetConnectionTypes(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement)
 		{
 			if(this.connectionTypes == null)
 			{
-				this.connectionTypes = new DslDiagrams::ConnectionType[] { new ExampleRelationshipConnectionType() };
+				this.connectionTypes = new DslDiagrams::ConnectionType[] { new EntityRelationShipConnectionType() };
 			}
 			
 			return this.connectionTypes;
 		}
 		
-		private partial class ExampleRelationshipConnectionTypeBase : DslDiagrams::ConnectionType
+		private partial class EntityRelationShipConnectionTypeBase : DslDiagrams::ConnectionType
 		{
 			/// <summary>
-			/// Constructs a new the ExampleRelationshipConnectionType with the given ConnectionBuilder.
+			/// Constructs a new the EntityRelationShipConnectionType with the given ConnectionBuilder.
 			/// </summary>
-			protected ExampleRelationshipConnectionTypeBase() : base() {}
+			protected EntityRelationShipConnectionTypeBase() : base() {}
 			
 			private static DslDiagrams::ShapeElement RemovePassThroughShapes(DslDiagrams::ShapeElement shape)
 			{
@@ -220,7 +352,7 @@ namespace Company.OrmLanguage
 			/// Called by the base ConnectAction class to determine if the given shapes can be connected.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder EntityElementReferencesTargetsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder EntityHasRelationShipsBuilder.
 			/// </remarks>
 			public override bool CanCreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, ref string connectionWarning)
 			{
@@ -246,11 +378,11 @@ namespace Company.OrmLanguage
 				{				
 					if(targetShapeElement == null)
 					{
-						return EntityElementReferencesTargetsBuilder.CanAcceptSource(sourceElement);
+						return EntityHasRelationShipsBuilder.CanAcceptSource(sourceElement);
 					}
 					else
 					{				
-						return EntityElementReferencesTargetsBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
+						return EntityHasRelationShipsBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
 					}
 				}
 				else
@@ -275,7 +407,7 @@ namespace Company.OrmLanguage
 			/// Called by the base ConnectAction class to create the underlying relationship.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder EntityElementReferencesTargetsBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder EntityHasRelationShipsBuilder.
 			/// </remarks>
 			public override void CreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, DslDiagrams::PaintFeedbackArgs paintFeedbackArgs)
 			{
@@ -289,16 +421,16 @@ namespace Company.OrmLanguage
 				if(sourceElement == null) sourceElement = sourceShapeElement;
 				DslModeling::ModelElement targetElement = targetShapeElement.ModelElement;
 				if(targetElement == null) targetElement = targetShapeElement;
-				EntityElementReferencesTargetsBuilder.Connect(sourceElement, targetElement);
+				EntityHasRelationShipsBuilder.Connect(sourceElement, targetElement);
 			}
 		}
 		
-		private partial class ExampleRelationshipConnectionType : ExampleRelationshipConnectionTypeBase
+		private partial class EntityRelationShipConnectionType : EntityRelationShipConnectionTypeBase
 		{
 			/// <summary>
-			/// Constructs a new the ExampleRelationshipConnectionType with the given ConnectionBuilder.
+			/// Constructs a new the EntityRelationShipConnectionType with the given ConnectionBuilder.
 			/// </summary>
-			public ExampleRelationshipConnectionType() : base() {}
+			public EntityRelationShipConnectionType() : base() {}
 		}
 	}
 }

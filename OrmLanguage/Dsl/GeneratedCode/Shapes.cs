@@ -149,6 +149,16 @@ namespace Company.OrmLanguage
 				return global::System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
 			}
 		}
+		/// <summary>
+		/// Specifies the geometry used by this shape
+		/// </summary>
+		public override DslDiagrams::ShapeGeometry ShapeGeometry
+		{
+			get
+			{
+				return DslDiagrams::ShapeGeometries.RoundedRectangle;
+			}
+		}
 		#endregion
 		#region Decorators
 		/// <summary>
@@ -178,7 +188,7 @@ namespace Company.OrmLanguage
 			base.InitializeDecorators(shapeFields, decorators);
 			
 			DslDiagrams::ShapeField field1 = DslDiagrams::ShapeElement.FindShapeField(shapeFields, "Name");
-			DslDiagrams::Decorator decorator1 = new DslDiagrams::ShapeDecorator(field1, DslDiagrams::ShapeDecoratorPosition.InnerTopLeft, DslDiagrams::PointD.Empty);
+			DslDiagrams::Decorator decorator1 = new DslDiagrams::ShapeDecorator(field1, DslDiagrams::ShapeDecoratorPosition.InnerTopCenter, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator1);
 				
 		}
@@ -288,8 +298,8 @@ namespace Company.OrmLanguage
 					}
 					mappings[localCompartmentMappingsOffset+0] = new DslDiagrams::ElementListCompartmentMapping(
 																				"Properties", 
-																				global::Company.OrmLanguage.EntityProperty.NameDomainPropertyId, 
-																				global::Company.OrmLanguage.EntityProperty.DomainClassId, 
+																				global::Company.OrmLanguage.Entry.NameDomainPropertyId, 
+																				global::Company.OrmLanguage.Property.DomainClassId, 
 																				GetElementsFromEntityElementForProperties,
 																				null,
 																				null,
@@ -327,7 +337,7 @@ namespace Company.OrmLanguage
 			{
 				global::Company.OrmLanguage.EntityElement root = (global::Company.OrmLanguage.EntityElement)rootElement;
 					// Segments 0 and 1
-					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.EntityProperty> result = root.Properties;
+					DslModeling::LinkedElementCollection<global::Company.OrmLanguage.Property> result = root.Properties;
 				return result;
 			}
 			#endregion

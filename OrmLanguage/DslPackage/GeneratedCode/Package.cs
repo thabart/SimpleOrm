@@ -23,25 +23,25 @@ namespace Company.OrmLanguage
 	/// <summary>
 	/// This class implements the VS package that integrates this DSL into Visual Studio.
 	/// </summary>
-	[VSShell::DefaultRegistryRoot("Software\\Microsoft\\VisualStudio\\14.0")]
+	[VSShell::DefaultRegistryRoot("Software\\Microsoft\\VisualStudio\\12.0")]
 	[VSShell::PackageRegistration(RegisterUsing = VSShell::RegistrationMethod.Assembly, UseManagedResourcesOnly = true)]
 	[VSShell::ProvideToolWindow(typeof(OrmLanguageExplorerToolWindow), MultiInstances = false, Style = VSShell::VsDockStyle.Tabbed, Orientation = VSShell::ToolWindowOrientation.Right, Window = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}")]
 	[VSShell::ProvideToolWindowVisibility(typeof(OrmLanguageExplorerToolWindow), Constants.OrmLanguageEditorFactoryId)]
 	[VSShell::ProvideStaticToolboxGroup("@OrmLanguageToolboxTab;Company.OrmLanguage.Dsl.dll", "Company.OrmLanguage.OrmLanguageToolboxTab")]
 	[VSShell::ProvideStaticToolboxItem("Company.OrmLanguage.OrmLanguageToolboxTab",
-					"@ExampleElementToolboxItem;Company.OrmLanguage.Dsl.dll", 
-					"Company.OrmLanguage.ExampleElementToolboxItem", 
+					"@EntityToolboxItem;Company.OrmLanguage.Dsl.dll", 
+					"Company.OrmLanguage.EntityToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"CreateExampleClassF1Keyword", 
-					"@ExampleElementToolboxBitmap;Company.OrmLanguage.Dsl.dll", 
+					"@EntityToolboxBitmap;Company.OrmLanguage.Dsl.dll", 
 					0xff00ff,
 					Index = 0)]
 	[VSShell::ProvideStaticToolboxItem("Company.OrmLanguage.OrmLanguageToolboxTab",
-					"@ExampleRelationshipToolboxItem;Company.OrmLanguage.Dsl.dll", 
-					"Company.OrmLanguage.ExampleRelationshipToolboxItem", 
+					"@EntityRelationShipToolboxItem;Company.OrmLanguage.Dsl.dll", 
+					"Company.OrmLanguage.EntityRelationShipToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ConnectExampleRelationF1Keyword", 
-					"@ExampleRelationshipToolboxBitmap;Company.OrmLanguage.Dsl.dll", 
+					"EntityRelationShip", 
+					"@EntityRelationShipToolboxBitmap;Company.OrmLanguage.Dsl.dll", 
 					0xff00ff,
 					Index = 1)]
 	[VSShell::ProvideEditorFactory(typeof(OrmLanguageEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]

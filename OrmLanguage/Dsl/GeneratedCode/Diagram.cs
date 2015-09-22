@@ -279,9 +279,9 @@ namespace Company.OrmLanguage
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Company.OrmLanguage.EntityElementReferencesTargets)
+			if(element is global::Company.OrmLanguage.EntityHasRelationShips)
 			{
-				global::Company.OrmLanguage.ExampleConnector newShape = new global::Company.OrmLanguage.ExampleConnector(this.Partition);
+				global::Company.OrmLanguage.EntityHasRelationShipsConnector newShape = new global::Company.OrmLanguage.EntityHasRelationShipsConnector(this.Partition);
 				return newShape;
 			}
 			return base.CreateChildShape(element);
@@ -320,7 +320,7 @@ namespace Company.OrmLanguage
 		
 		#region Connect actions
 		private bool changingMouseAction;
-		private global::Company.OrmLanguage.ExampleRelationshipConnectAction exampleRelationshipConnectAction;
+		private global::Company.OrmLanguage.EntityRelationShipConnectAction entityRelationShipConnectAction;
 		/// <summary>
 		/// Virtual method to provide a filter when to select the mouse action
 		/// </summary>
@@ -343,14 +343,14 @@ namespace Company.OrmLanguage
 			if(activeView != null)
 			{
 				DslDiagrams::MouseAction action = null;
-				if (SelectedToolboxItemSupportsFilterString(activeView, global::Company.OrmLanguage.OrmLanguageToolboxHelper.ExampleRelationshipFilterString))
+				if (SelectedToolboxItemSupportsFilterString(activeView, global::Company.OrmLanguage.OrmLanguageToolboxHelper.EntityRelationShipFilterString))
 				{
-					if (this.exampleRelationshipConnectAction == null)
+					if (this.entityRelationShipConnectAction == null)
 					{
-						this.exampleRelationshipConnectAction = new global::Company.OrmLanguage.ExampleRelationshipConnectAction(this);
-						this.exampleRelationshipConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
+						this.entityRelationShipConnectAction = new global::Company.OrmLanguage.EntityRelationShipConnectAction(this);
+						this.entityRelationShipConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
 					}
-					action = this.exampleRelationshipConnectAction;
+					action = this.entityRelationShipConnectAction;
 				} 
 				else
 				{
@@ -409,10 +409,10 @@ namespace Company.OrmLanguage
 			{
 				if(disposing)
 				{
-					if(this.exampleRelationshipConnectAction != null)
+					if(this.entityRelationShipConnectAction != null)
 					{
-						this.exampleRelationshipConnectAction.Dispose();
-						this.exampleRelationshipConnectAction = null;
+						this.entityRelationShipConnectAction.Dispose();
+						this.entityRelationShipConnectAction = null;
 					}
 					this.UnsubscribeCompartmentItemsEvents();
 				}
@@ -469,7 +469,7 @@ namespace Company.OrmLanguage
 		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityElement), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityElementReferencesTargets), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasRelationShips), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -625,7 +625,7 @@ namespace Company.OrmLanguage
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
-			internal static global::System.Collections.ICollection GetEntityElementForEntityShapeProperties(global::Company.OrmLanguage.EntityProperty root)
+			internal static global::System.Collections.ICollection GetEntityElementForEntityShapeProperties(global::Company.OrmLanguage.Property root)
 			{
 				// Segments 1 and 0
 				global::Company.OrmLanguage.EntityElement result = root.EntityElement;
@@ -703,7 +703,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Rule to update compartments when the property on an item being displayed changes.
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityProperty), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.Property), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
 		{
 			/// <summary>
@@ -718,9 +718,9 @@ namespace Company.OrmLanguage
 			internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
 			{
 				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(e.ModelElement is global::Company.OrmLanguage.EntityProperty && e.DomainProperty.Id == global::Company.OrmLanguage.EntityProperty.NameDomainPropertyId)
+				if(e.ModelElement is global::Company.OrmLanguage.Property && e.DomainProperty.Id == global::Company.OrmLanguage.Property.NameDomainPropertyId)
 				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.EntityProperty)e.ModelElement);
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.Property)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 				}
 			}
@@ -748,7 +748,7 @@ namespace Company.OrmLanguage
 				{
 					if(e.DomainRole.IsSource)
 					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityElementForEntityShapePropertiesFromLastLink((global::Company.OrmLanguage.EntityProperty)e.OldRolePlayer);
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityElementForEntityShapePropertiesFromLastLink((global::Company.OrmLanguage.Property)e.OldRolePlayer);
 						//foreach(DslModeling::ModelElement element in oldElements)
 						//{
 						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
@@ -767,7 +767,7 @@ namespace Company.OrmLanguage
 					}
 					else 
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.EntityProperty)e.NewRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.Property)e.NewRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 					}
 				}
@@ -796,7 +796,7 @@ namespace Company.OrmLanguage
 				{
 					if(!e.CounterpartDomainRole.IsSource)
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.EntityProperty)e.CounterpartRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityElementForEntityShapeProperties((global::Company.OrmLanguage.Property)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Company.OrmLanguage.EntityShape), "Properties", repaintOnly);
 					}
 				}
@@ -806,7 +806,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Reroute a connector when the role players of its underlying relationship change
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityElementReferencesTargets), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Company.OrmLanguage.EntityHasRelationShips), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
 		{
 			/// <summary>
