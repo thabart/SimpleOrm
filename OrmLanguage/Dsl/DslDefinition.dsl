@@ -16,7 +16,7 @@
     </DomainClass>
     <DomainClass Id="10f6f6a8-e10f-47b5-b83e-153c8cfb0322" Description="Elements embedded in the model. Appear as boxes on the diagram." Name="EntityElement" DisplayName="Entity Element" Namespace="Company.OrmLanguage">
       <Properties>
-        <DomainProperty Id="3d2a9e27-1fbf-4b35-82f5-aaab3979ccec" Description="Description for Company.OrmLanguage.EntityElement.Name" Name="Name" DisplayName="Name" DefaultValue="New Entity">
+        <DomainProperty Id="3d2a9e27-1fbf-4b35-82f5-aaab3979ccec" Description="Description for Company.OrmLanguage.EntityElement.Name" Name="Name" DisplayName="Name" DefaultValue="New Entity" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -41,16 +41,21 @@
         </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
-    <DomainClass Id="434fcd74-129b-4049-ba26-b5e60d519a1a" Description="Description for Company.OrmLanguage.Entry" Name="Entry" DisplayName="Entry" InheritanceModifier="Abstract" Namespace="Company.OrmLanguage">
+    <DomainClass Id="434fcd74-129b-4049-ba26-b5e60d519a1a" Description="Description for Company.OrmLanguage.Entry" Name="Entry" DisplayName="Entry" InheritanceModifier="Abstract" Namespace="Company.OrmLanguage" HasCustomConstructor="true">
       <Properties>
-        <DomainProperty Id="360c5f50-ebef-479d-9b9b-e927a959f892" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name">
+        <DomainProperty Id="360c5f50-ebef-479d-9b9b-e927a959f892" Description="Description for Company.OrmLanguage.Entry.Name" Name="Name" DisplayName="Name" DefaultValue="New property">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a0755a71-ef60-4c60-bf65-5bf0d85ef7ec" Description="Description for Company.OrmLanguage.Entry.Guid" Name="Guid" DisplayName="Guid" Kind="Calculated" IsBrowsable="false" IsUIReadOnly="true">
+        <DomainProperty Id="a0755a71-ef60-4c60-bf65-5bf0d85ef7ec" Description="Description for Company.OrmLanguage.Entry.Guid" Name="Guid" DisplayName="Guid" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="33ad3cdc-58fd-4d0d-9681-e2f1ddf55dba" Description="Description for Company.OrmLanguage.Entry.Type" Name="Type" DisplayName="Type">
+          <Type>
+            <ExternalTypeMoniker Name="/System/TypeCode" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -160,6 +165,7 @@
     <ExternalType Name="Guid" Namespace="System" />
     <ExternalType Name="Boolean" Namespace="System" />
     <ExternalType Name="Char" Namespace="System" />
+    <ExternalType Name="TypeCode" Namespace="System" />
   </Types>
   <Shapes>
     <CompartmentShape Id="c4e83e27-330b-483c-9a73-b40e9dbef110" Description="Description for Company.OrmLanguage.EntityShape" Name="EntityShape" DisplayName="Entity Shape" Namespace="Company.OrmLanguage" FixedTooltipText="Entity Shape" InitialHeight="1" Geometry="RoundedRectangle">
@@ -229,8 +235,11 @@
           <XmlPropertyData XmlName="name">
             <DomainPropertyMoniker Name="Entry/Name" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="guid" Representation="Ignore">
+          <XmlPropertyData XmlName="guid">
             <DomainPropertyMoniker Name="Entry/Guid" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="type">
+            <DomainPropertyMoniker Name="Entry/Type" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

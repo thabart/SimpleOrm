@@ -112,6 +112,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DomainClasses.tt</DependentUpon>
     </Compile>
+    <Compile Include="GeneratedCode\Serializer1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Serializer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Partials\EntityElement.Partial.cs" />
     <Compile Include="Partials\Entry.Partial.cs" />
     <Compile Include="GeneratedCode\DomainRelationships.cs">
       <AutoGen>True</AutoGen>
@@ -157,11 +163,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DomainModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GeneratedCode\Serializer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Serializer.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -272,4 +273,5 @@
       <Name>CompartmentMapping</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
 </Project>

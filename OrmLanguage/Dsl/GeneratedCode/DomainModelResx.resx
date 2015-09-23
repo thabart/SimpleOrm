@@ -173,6 +173,14 @@
     <value>Guid</value>
     <comment>DisplayName for DomainProperty &apos;Guid&apos; on DomainClass &apos;Entry&apos;</comment>
   </data>
+  <data name="Company.OrmLanguage.Entry/Type.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.Entry.Type</value>
+    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;Entry&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Entry/Type.DisplayName" xml:space="preserve">
+    <value>Type</value>
+    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;Entry&apos;</comment>
+  </data>
   <data name="Company.OrmLanguage.Property.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.Property</value>
     <comment>Description for DomainClass &apos;Property&apos;</comment>

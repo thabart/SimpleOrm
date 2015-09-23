@@ -171,6 +171,7 @@ namespace Company.OrmLanguage
 	[DslDesign::DescriptionResource("Company.OrmLanguage.EntityElement.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Company.OrmLanguage.OrmLanguageDomainModel))]
 	[global::System.CLSCompliant(true)]
+	[global::System.Diagnostics.DebuggerDisplay("{GetType().Name,nq} (Name = {namePropertyStorage})")]
 	[DslModeling::DomainObjectId("10f6f6a8-e10f-47b5-b83e-153c8cfb0322")]
 	public partial class EntityElement : DslModeling::ModelElement
 	{
@@ -219,6 +220,7 @@ namespace Company.OrmLanguage
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityElement/Name.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityElement/Name.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("New Entity")]
+		[DslModeling::ElementName]
 		[DslModeling::DomainObjectId("3d2a9e27-1fbf-4b35-82f5-aaab3979ccec")]
 		public global::System.String Name
 		{
@@ -512,15 +514,17 @@ namespace Company.OrmLanguage
 		/// Entry domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x434fcd74, 0x129b, 0x4049, 0xba, 0x26, 0xb5, 0xe6, 0x0d, 0x51, 0x9a, 0x1a);
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		protected Entry(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
+		// Constructors were not generated for this class because it had HasCustomConstructor
+		// set to true. Please provide the constructors below in a partial class.
+		///// <summary>
+		///// Constructor.
+		///// </summary>
+		///// <param name="partition">Partition where new element is to be created.</param>
+		///// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		//protected Entry(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
+		//	: base(partition, propertyAssignments)
+		//{
+		//}
 		#endregion
 		#region Name domain property code
 		
@@ -532,7 +536,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// Storage for Name
 		/// </summary>
-		private global::System.String namePropertyStorage = string.Empty;
+		private global::System.String namePropertyStorage = "New property";
 		
 		/// <summary>
 		/// Gets or sets the value of Name domain property.
@@ -540,6 +544,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Name.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Name.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("New property")]
 		[DslModeling::DomainObjectId("360c5f50-ebef-479d-9b9b-e927a959f892")]
 		public global::System.String Name
 		{
@@ -617,27 +622,35 @@ namespace Company.OrmLanguage
 		public static readonly global::System.Guid GuidDomainPropertyId = new global::System.Guid(0xa0755a71, 0xef60, 0x4c60, 0xbf, 0x65, 0x5b, 0xf0, 0xd8, 0x5e, 0xf7, 0xec);
 		
 		/// <summary>
+		/// Storage for Guid
+		/// </summary>
+		private global::System.Guid guidPropertyStorage;
+		
+		/// <summary>
 		/// Gets or sets the value of Guid domain property.
 		/// Description for Company.OrmLanguage.Entry.Guid
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Guid.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Guid.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
-		[global::System.ComponentModel.ReadOnly(true)]
-		[DslModeling::DomainProperty(Kind = DslModeling::DomainPropertyKind.Calculated)]
 		[DslModeling::DomainObjectId("a0755a71-ef60-4c60-bf65-5bf0d85ef7ec")]
 		public global::System.Guid Guid
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GuidPropertyHandler.Instance.GetValue(this);
+				return guidPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GuidPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
 		/// Value handler for the Entry.Guid domain property.
 		/// </summary>
-		internal sealed partial class GuidPropertyHandler : DslModeling::CalculatedPropertyValueHandler<Entry, global::System.Guid>
+		internal sealed partial class GuidPropertyHandler : DslModeling::DomainPropertyValueHandler<Entry, global::System.Guid>
 		{
 			private GuidPropertyHandler() { }
 		
@@ -666,12 +679,113 @@ namespace Company.OrmLanguage
 			public override sealed global::System.Guid GetValue(Entry element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				// There is no storage for Guid because its Kind is
-				// set to Calculated. Please provide the GetGuidValue()
-				// method on the domain class.
-				return element.GetGuidValue();
+				return element.guidPropertyStorage;
 			}
 		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Entry element, global::System.Guid newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Guid oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.guidPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Type domain property code
+		
+		/// <summary>
+		/// Type domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TypeDomainPropertyId = new global::System.Guid(0x33ad3cdc, 0x58fd, 0x4d0d, 0x96, 0x81, 0xe2, 0xf1, 0xdd, 0xf5, 0x5d, 0xba);
+		
+		/// <summary>
+		/// Storage for Type
+		/// </summary>
+		private global::System.TypeCode typePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of Type domain property.
+		/// Description for Company.OrmLanguage.Entry.Type
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.Entry/Type.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.Entry/Type.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("33ad3cdc-58fd-4d0d-9681-e2f1ddf55dba")]
+		public global::System.TypeCode Type
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return typePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TypePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Entry.Type domain property.
+		/// </summary>
+		internal sealed partial class TypePropertyHandler : DslModeling::DomainPropertyValueHandler<Entry, global::System.TypeCode>
+		{
+			private TypePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Entry.Type domain property value handler.
+			/// </summary>
+			public static readonly TypePropertyHandler Instance = new TypePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Entry.Type domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TypeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.TypeCode GetValue(Entry element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.typePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Entry element, global::System.TypeCode newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.TypeCode oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.typePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
 		}
 		
 		#endregion

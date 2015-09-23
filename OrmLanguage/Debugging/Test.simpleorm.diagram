@@ -1,1 +1,27 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ormLanguageDiagram dslVersion="1.0.0.0" Id="afe89f5a-59ac-400b-9dcd-53c6567ee867" absoluteBounds="0, 0, 11, 8.5" name="Test">
+  <sampleOrmModelMoniker Id="b7c2513a-0640-4f48-83cf-f23bbf957eaa" />
+  <nestedChildShapes>
+    <entityShape Id="217bfec2-234d-42c2-948c-8a82ab8d359d" absoluteBounds="3, 1.5, 1.5, 1.8110807291666666">
+      <entityElementMoniker Id="aca87d30-5eaf-445d-b92a-fa66d8f6e225" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7bb8cd60-9fff-4407-9b16-ed14d7311b7b" absoluteBounds="3.0149999999999997, 2.51, 1.4700000000000002, 0.44169108072916663" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="268a9de0-6803-457e-846d-332c5d719a54" absoluteBounds="3.015, 2.9616910807291665, 1.4700000000000002, 0.2493896484375" name="References" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <entityShape Id="0df050a3-ed90-4894-bef9-f0a8000e6c2f" absoluteBounds="7, 0.5, 1.5, 1.8110807291666666">
+      <entityElementMoniker Id="3ff5f2f7-097e-4b84-a4c0-3b841e24a1d4" />
+      <nestedChildShapes>
+        <elementListCompartment Id="37420a86-b122-4d81-a9d4-40ea89174217" absoluteBounds="7.0150000000000006, 1.5099999999999998, 1.4700000000000002, 0.44169108072916663" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d31d2b92-0a99-467b-a27d-085dc59ef78a" absoluteBounds="7.0150000000000006, 1.9616910807291665, 1.4700000000000002, 0.2493896484375" name="References" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <entityHasRelationShipsConnector Id="9b8ac714-5862-4d16-bb72-e619e782a121" edgePoints="[(4.5 : 2.86335286458333); (4.875 : 2.86335286458333); (4.875 : 1.86335286458333); (7 : 1.86335286458333)]" fixedFrom="Caller" fixedTo="Caller">
+      <entityHasRelationShipsMoniker Id="639d23f6-1cb0-4e83-9ce0-6af622351e2b" />
+      <nodes>
+        <entityShapeMoniker Id="217bfec2-234d-42c2-948c-8a82ab8d359d" />
+        <entityShapeMoniker Id="0df050a3-ed90-4894-bef9-f0a8000e6c2f" />
+      </nodes>
+    </entityHasRelationShipsConnector>
+  </nestedChildShapes>
+</ormLanguageDiagram>
