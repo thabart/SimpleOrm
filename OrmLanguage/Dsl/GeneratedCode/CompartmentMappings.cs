@@ -1,6 +1,5 @@
 using System;
 using CompartmentMapping;
-using Company.OrmLanguage;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams.GraphObject;
 
@@ -85,19 +84,23 @@ namespace Company.OrmLanguage
             if (sourcePartType == SelectedCompartmentPartType.Head)
             {
                 result.fromProperty = Guid.Empty;
+                result.fromPropertyName = string.Empty;
             }
             else
             {
                 result.fromProperty = sourceEntry.Guid;
+				result.fromPropertyName = sourceEntry.EntityElement.Name + "_" + sourceEntry.Name;
             }
 
             if (targetPartType == SelectedCompartmentPartType.Head)
             {
                 result.toProperty = Guid.Empty;
+				result.toPropertyName = string.Empty;
             }
             else
             {
                 result.toProperty = targetEntry.Guid;
+				result.toPropertyName = targetEntry.EntityElement.Name + "_" + targetEntry.Name;
             }
 
             return result;

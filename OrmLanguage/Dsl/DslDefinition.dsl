@@ -90,14 +90,24 @@
     </DomainRelationship>
     <DomainRelationship Id="33832f8d-6221-4dd5-a704-ceaa7c397002" Description="Description for Company.OrmLanguage.EntityHasRelationShips" Name="EntityHasRelationShips" DisplayName="Entity Has Relation Ships" Namespace="Company.OrmLanguage">
       <Properties>
-        <DomainProperty Id="2d5672af-c4c7-4508-b19f-2bfb13321664" Description="Description for Company.OrmLanguage.EntityHasRelationShips.From Property" Name="fromProperty" DisplayName="From Property">
+        <DomainProperty Id="2d5672af-c4c7-4508-b19f-2bfb13321664" Description="Description for Company.OrmLanguage.EntityHasRelationShips.From Property" Name="fromProperty" DisplayName="From Property" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="681e85b9-dd7b-4970-985a-2eca85a5d449" Description="Description for Company.OrmLanguage.EntityHasRelationShips.To Property" Name="toProperty" DisplayName="To Property">
+        <DomainProperty Id="681e85b9-dd7b-4970-985a-2eca85a5d449" Description="Description for Company.OrmLanguage.EntityHasRelationShips.To Property" Name="toProperty" DisplayName="To Property" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="ede80518-fefd-479b-b5a5-8e4a3896b206" Description="Description for Company.OrmLanguage.EntityHasRelationShips.From Property Name" Name="fromPropertyName" DisplayName="From Property Name">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4c475f09-94de-4a4b-a23b-8592afecccd4" Description="Description for Company.OrmLanguage.EntityHasRelationShips.To Property Name" Name="toPropertyName" DisplayName="To Property Name">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -223,6 +233,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="toProperty">
             <DomainPropertyMoniker Name="EntityHasRelationShips/toProperty" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="fromPropertyName">
+            <DomainPropertyMoniker Name="EntityHasRelationShips/fromPropertyName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="toPropertyName">
+            <DomainPropertyMoniker Name="EntityHasRelationShips/toPropertyName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

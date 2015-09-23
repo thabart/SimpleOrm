@@ -308,6 +308,10 @@
         <xsd:attribute name="fromProperty" type="xsd:string" />
         <!-- Property: toProperty -->
         <xsd:attribute name="toProperty" type="xsd:string" />
+        <!-- Property: fromPropertyName -->
+        <xsd:attribute name="fromPropertyName" type="xsd:string" />
+        <!-- Property: toPropertyName -->
+        <xsd:attribute name="toPropertyName" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

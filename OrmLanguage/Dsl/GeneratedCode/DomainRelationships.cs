@@ -421,6 +421,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShips/fromProperty.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShips/fromProperty.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("2d5672af-c4c7-4508-b19f-2bfb13321664")]
 		public global::System.Guid fromProperty
 		{
@@ -508,6 +509,7 @@ namespace Company.OrmLanguage
 		/// </summary>
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShips/toProperty.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShips/toProperty.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
 		[DslModeling::DomainObjectId("681e85b9-dd7b-4970-985a-2eca85a5d449")]
 		public global::System.Guid toProperty
 		{
@@ -571,6 +573,180 @@ namespace Company.OrmLanguage
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.toPropertyPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region fromPropertyName domain property code
+		
+		/// <summary>
+		/// fromPropertyName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid fromPropertyNameDomainPropertyId = new global::System.Guid(0xede80518, 0xfefd, 0x479b, 0xb5, 0xa5, 0x8e, 0x4a, 0x38, 0x96, 0xb2, 0x06);
+		
+		/// <summary>
+		/// Storage for fromPropertyName
+		/// </summary>
+		private global::System.String fromPropertyNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of fromPropertyName domain property.
+		/// Description for Company.OrmLanguage.EntityHasRelationShips.From Property Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShips/fromPropertyName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShips/fromPropertyName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("ede80518-fefd-479b-b5a5-8e4a3896b206")]
+		public global::System.String fromPropertyName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return fromPropertyNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				fromPropertyNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityHasRelationShips.fromPropertyName domain property.
+		/// </summary>
+		internal sealed partial class fromPropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityHasRelationShips, global::System.String>
+		{
+			private fromPropertyNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityHasRelationShips.fromPropertyName domain property value handler.
+			/// </summary>
+			public static readonly fromPropertyNamePropertyHandler Instance = new fromPropertyNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityHasRelationShips.fromPropertyName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return fromPropertyNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityHasRelationShips element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.fromPropertyNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityHasRelationShips element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.fromPropertyNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region toPropertyName domain property code
+		
+		/// <summary>
+		/// toPropertyName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid toPropertyNameDomainPropertyId = new global::System.Guid(0x4c475f09, 0x94de, 0x4a4b, 0xa2, 0x3b, 0x85, 0x92, 0xaf, 0xec, 0xcc, 0xd4);
+		
+		/// <summary>
+		/// Storage for toPropertyName
+		/// </summary>
+		private global::System.String toPropertyNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of toPropertyName domain property.
+		/// Description for Company.OrmLanguage.EntityHasRelationShips.To Property Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityHasRelationShips/toPropertyName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityHasRelationShips/toPropertyName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("4c475f09-94de-4a4b-a23b-8592afecccd4")]
+		public global::System.String toPropertyName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return toPropertyNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				toPropertyNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityHasRelationShips.toPropertyName domain property.
+		/// </summary>
+		internal sealed partial class toPropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityHasRelationShips, global::System.String>
+		{
+			private toPropertyNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityHasRelationShips.toPropertyName domain property value handler.
+			/// </summary>
+			public static readonly toPropertyNamePropertyHandler Instance = new toPropertyNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityHasRelationShips.toPropertyName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return toPropertyNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityHasRelationShips element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.toPropertyNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityHasRelationShips element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.toPropertyNamePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

@@ -4111,6 +4111,40 @@ namespace Company.OrmLanguage
 					}
 				}
 			}
+			// fromPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribfromPropertyName = OrmLanguageSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "fromPropertyName");
+				if (attribfromPropertyName != null)
+				{
+					global::System.String valueOffromPropertyName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribfromPropertyName, out valueOffromPropertyName))
+					{
+						instanceOfEntityHasRelationShips.fromPropertyName = valueOffromPropertyName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						OrmLanguageSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "fromPropertyName", typeof(global::System.String), attribfromPropertyName);
+					}
+				}
+			}
+			// toPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribtoPropertyName = OrmLanguageSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "toPropertyName");
+				if (attribtoPropertyName != null)
+				{
+					global::System.String valueOftoPropertyName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribtoPropertyName, out valueOftoPropertyName))
+					{
+						instanceOfEntityHasRelationShips.toPropertyName = valueOftoPropertyName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						OrmLanguageSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "toPropertyName", typeof(global::System.String), attribtoPropertyName);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4615,6 +4649,28 @@ namespace Company.OrmLanguage
 				if (!serializationContext.Result.Failed)
 				{
 					OrmLanguageSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "toProperty", serializedPropValue);
+				}
+			}
+			// fromPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfEntityHasRelationShips.fromPropertyName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						OrmLanguageSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "fromPropertyName", propValue);
+	
+				}
+			}
+			// toPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfEntityHasRelationShips.toPropertyName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						OrmLanguageSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "toPropertyName", propValue);
+	
 				}
 			}
 		}

@@ -103,6 +103,8 @@ namespace Company.OrmLanguage
 				new DomainMemberInfo(typeof(Entry), "Type", Entry.TypeDomainPropertyId, typeof(Entry.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityHasRelationShips), "fromProperty", EntityHasRelationShips.fromPropertyDomainPropertyId, typeof(EntityHasRelationShips.fromPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityHasRelationShips), "toProperty", EntityHasRelationShips.toPropertyDomainPropertyId, typeof(EntityHasRelationShips.toPropertyPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityHasRelationShips), "fromPropertyName", EntityHasRelationShips.fromPropertyNameDomainPropertyId, typeof(EntityHasRelationShips.fromPropertyNamePropertyHandler)),
+				new DomainMemberInfo(typeof(EntityHasRelationShips), "toPropertyName", EntityHasRelationShips.toPropertyNameDomainPropertyId, typeof(EntityHasRelationShips.toPropertyNamePropertyHandler)),
 			};
 		}
 		/// <summary>

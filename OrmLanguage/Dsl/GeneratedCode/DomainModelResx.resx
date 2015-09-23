@@ -253,6 +253,22 @@
     <value>To Property</value>
     <comment>DisplayName for DomainProperty &apos;toProperty&apos; on DomainClass &apos;EntityHasRelationShips&apos;</comment>
   </data>
+  <data name="Company.OrmLanguage.EntityHasRelationShips/fromPropertyName.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityHasRelationShips.From Property Name</value>
+    <comment>Description for DomainProperty &apos;fromPropertyName&apos; on DomainClass &apos;EntityHasRelationShips&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasRelationShips/fromPropertyName.DisplayName" xml:space="preserve">
+    <value>From Property Name</value>
+    <comment>DisplayName for DomainProperty &apos;fromPropertyName&apos; on DomainClass &apos;EntityHasRelationShips&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasRelationShips/toPropertyName.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityHasRelationShips.To Property Name</value>
+    <comment>Description for DomainProperty &apos;toPropertyName&apos; on DomainClass &apos;EntityHasRelationShips&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityHasRelationShips/toPropertyName.DisplayName" xml:space="preserve">
+    <value>To Property Name</value>
+    <comment>DisplayName for DomainProperty &apos;toPropertyName&apos; on DomainClass &apos;EntityHasRelationShips&apos;</comment>
+  </data>
   <data name="Company.OrmLanguage.EntityHasRelationShips/SourceEntityElement.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.EntityHasRelationShips.SourceEntityElement</value>
     <comment>Description for DomainRole &apos;SourceEntityElement&apos; on DomainRelationship &apos;EntityHasRelationShips&apos;</comment>
