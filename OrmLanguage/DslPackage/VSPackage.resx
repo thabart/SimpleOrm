@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -132,5 +132,14 @@
   </data>
   <data name="201" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\File.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1110" xml:space="preserve">
+    <value>SimpleOrmMappingWindow Extension</value>
+  </data>
+  <data name="1112" xml:space="preserve">
+    <value>SimpleOrmMappingWindow Visual Stuido Extension Detailed Info</value>
+  </data>
+  <data name="1400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\SimpleOrmMappingWindowPackage.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -415,7 +415,7 @@ namespace Company.OrmLanguage
 			references.Add(this.GetType().Assembly.Location);
 			references.Add(typeof(global::Microsoft.VisualStudio.Modeling.Diagrams.Diagram).Assembly.Location);
 			references.Add(typeof(DslModeling::Store).Assembly.Location);
-			references.Add("Microsoft.VisualStudio.TextTemplating.Modeling.12.0");
+			references.Add("Microsoft.VisualStudio.TextTemplating.Modeling.14.0");
 			return references.ToArray();
 		}
 	}
