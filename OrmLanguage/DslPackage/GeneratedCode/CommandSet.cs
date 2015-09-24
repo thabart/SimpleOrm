@@ -38,7 +38,7 @@ namespace Company.OrmLanguage
 
         protected override IList<MenuCommand> GetMenuCommands()
         {
-            var commands = new List<MenuCommand>();
+            var commands = base.GetMenuCommands();
             var cmdViewSimpleOrmMappingRules = new DynamicStatusMenuCommand(
                 new EventHandler(OnPopUpMenuDisplayAction),
                 new EventHandler(OnPopUpMenuClick),
