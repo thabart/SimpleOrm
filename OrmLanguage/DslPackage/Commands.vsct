@@ -14,5 +14,21 @@
   <Extern href="DSLToolsCmdID.h"/>
   <Include href="GeneratedCode\GeneratedVsct.vsct"/>
   <Commands package="guidPkg">
+    <Buttons>
+      <Button guid="cmdViewSimpleOrmMappingRulesGuid" id="cmdViewSimpleOrmMappingRulesId" priority="0x0902" type="Button">
+        <Parent guid="guidCmdSet" id="grpidContextMain" />
+        <Strings>
+          <CanonicalName>cmdViewSimpleOrmMappingRules</CanonicalName>
+          <ButtonText>View simple orm mapping rules</ButtonText>
+          <ToolTipText>View simple orm mapping rules</ToolTipText>
+        </Strings>
+      </Button>      
+    </Buttons>
   </Commands>
+
+  <Symbols>
+    <GuidSymbol name="cmdViewSimpleOrmMappingRulesGuid" value="{EC120F9A-9E7F-469d-8D61-F4E2A97E5725}">
+      <IDSymbol name="cmdViewSimpleOrmMappingRulesId" value="0x810"></IDSymbol>
+    </GuidSymbol>
+  </Symbols>
 </CommandTable>

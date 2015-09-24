@@ -369,10 +369,6 @@
     <value>Properties</value>
     <comment>Compartment title</comment>
   </data>
-  <data name="EntityShapeReferencesTitle" xml:space="preserve">
-    <value>References</value>
-    <comment>Compartment title</comment>
-  </data>
   <data name="EntityShapeNameDefaultText" xml:space="preserve">
     <value>Name</value>
     <comment>Text decorator default text</comment>

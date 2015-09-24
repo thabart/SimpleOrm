@@ -183,7 +183,6 @@
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="Name" />
       </ShapeHasDecorators>
       <Compartment Name="Properties" Title="Properties" />
-      <Compartment Name="References" Title="References" />
     </CompartmentShape>
   </Shapes>
   <Connectors>
@@ -314,17 +313,6 @@
           </PropertyDisplayed>
         </DecoratorMap>
         <CompartmentShapeMoniker Name="EntityShape" />
-        <CompartmentMap>
-          <CompartmentMoniker Name="EntityShape/References" />
-          <ElementsDisplayed>
-            <DomainPath>EntityHasReferences.References/!Reference</DomainPath>
-          </ElementsDisplayed>
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="Entry/Name" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </CompartmentMap>
         <CompartmentMap>
           <CompartmentMoniker Name="EntityShape/Properties" />
           <ElementsDisplayed>

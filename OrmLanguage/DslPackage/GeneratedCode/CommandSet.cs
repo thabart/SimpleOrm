@@ -12,6 +12,10 @@ using VSShell = global::Microsoft.VisualStudio.Shell;
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 using DslValidation = global::Microsoft.VisualStudio.Modeling.Validation;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System;
+using Microsoft.VisualStudio.Modeling.Shell;
 
 namespace Company.OrmLanguage
 {
@@ -20,14 +24,51 @@ namespace Company.OrmLanguage
 	/// </summary>
 	internal partial class OrmLanguageCommandSet : OrmLanguageCommandSetBase
 	{
-		/// <summary>
-		/// Constructs a new OrmLanguageCommandSet.
-		/// </summary>
-		public OrmLanguageCommandSet(global::System.IServiceProvider serviceProvider) 
+        public Guid cmdViewSimpleOrmMappingRulesGuid = new Guid("EC120F9A-9E7F-469d-8D61-F4E2A97E5725");
+        public const int cmdViewSimpleOrmMappingRulesId = 0x810;
+
+
+        /// <summary>
+        /// Constructs a new OrmLanguageCommandSet.
+        /// </summary>
+        public OrmLanguageCommandSet(global::System.IServiceProvider serviceProvider) 
 			: base(serviceProvider)
 		{
 		}
-	}
+
+        protected override IList<MenuCommand> GetMenuCommands()
+        {
+            var commands = new List<MenuCommand>();
+            var cmdViewSimpleOrmMappingRules = new DynamicStatusMenuCommand(
+                new EventHandler(OnPopUpMenuDisplayAction),
+                new EventHandler(OnPopUpMenuClick),
+                new CommandID(cmdViewSimpleOrmMappingRulesGuid, cmdViewSimpleOrmMappingRulesId));
+            commands.Add(cmdViewSimpleOrmMappingRules);
+            return commands;
+        }
+
+        internal void OnPopUpMenuDisplayAction(object sender, EventArgs args)
+        {
+            var command = sender as MenuCommand;
+            foreach(var selectedObject in CurrentSelection)
+            {
+                if (selectedObject is EntityHasRelationShipsConnector)
+                {
+                    command.Visible = true;
+                    command.Enabled = true;
+                    return;
+                }
+            }
+
+            command.Visible = false;
+            command.Enabled = false;
+        }
+
+        internal void OnPopUpMenuClick(object sender, EventArgs args)
+        {
+            var command = sender as MenuCommand;
+        }
+    }
 
 	/// <summary>
 	/// Class containing handlers for commands supported by this DSL.
