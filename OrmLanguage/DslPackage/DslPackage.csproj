@@ -183,12 +183,14 @@
     </Compile>
     <Compile Include="Partials\OrmLanguageCommandSet.partial.cs" />
     <Compile Include="Partials\OrmLanguagePackage.Partial.cs" />
+    <Compile Include="Window\PropertyMappingViewModel.cs" />
     <Compile Include="Window\SimpleOrmMappingWindow.cs" />
     <Compile Include="Window\SimpleOrmMappingWindowCommand.cs" />
     <Compile Include="Window\SimpleOrmMappingWindowControl.xaml.cs">
       <DependentUpon>SimpleOrmMappingWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SimpleOrmMappingWindowPackage.cs" />
+    <Compile Include="Window\SimpleOrmMappingWindowViewModel.cs" />
     <None Include="packages.config" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
