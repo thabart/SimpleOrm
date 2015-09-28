@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Company.OrmLanguage.Window
 {
-    public class PropertyMappingViewModel
+    public class PropertyMappingViewModel : INotifyPropertyChanged
     {
         private readonly Property _property;
 
@@ -27,6 +27,18 @@ namespace Company.OrmLanguage.Window
                     _property.ColumnName = value;
                     transaction.Commit();
                 }
+
+                NotifyPropertyChanged("ColumnName");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
     }

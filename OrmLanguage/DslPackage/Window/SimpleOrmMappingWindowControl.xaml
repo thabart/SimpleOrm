@@ -68,7 +68,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Column name: " Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}" Grid.Column="0" />
-                                <TextBox Text="{Binding ColumnName}" Background="{DynamicResource {x:Static shell:VsBrushes.SearchBoxBackgroundKey}}"
+                                <TextBox Text="{Binding ColumnName, UpdateSourceTrigger=PropertyChanged}" Background="{DynamicResource {x:Static shell:VsBrushes.SearchBoxBackgroundKey}}"
                                          Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}"
                                          Grid.Column="1" />
                             </Grid>
