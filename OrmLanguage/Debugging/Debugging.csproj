@@ -1,11 +1,12 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.10318</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{54eeecb0-bf37-42b3-b44a-fd29bcdb82db}</ProjectGuid>
+    <ProjectGuid>{54EEECB0-BF37-42B3-B44A-FD29BCDB82DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Debugging</RootNamespace>
@@ -36,6 +37,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity1.cs">
+      <DependentUpon>GenerateModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity2.cs">
+      <DependentUpon>GenerateModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Includes\FileGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FileGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -43,10 +55,6 @@
       <Link>Language1Schema.xsd</Link>
       <SubType>
       </SubType>
-    </None>
-    <None Include="Language1Report.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Language1Report.txt</LastGenOutput>
     </None>
     <None Include="Language1ReportVB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -65,10 +73,15 @@
     <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Language1Report.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Language1Report.tt</DependentUpon>
+    <Content Include="GenerateModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+    <Content Include="Includes\FileGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FileGenerator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Includes\GenerateModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
     <Content Include="Language1ReportVB.txt">
       <AutoGen>True</AutoGen>

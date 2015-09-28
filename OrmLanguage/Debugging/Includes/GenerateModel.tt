@@ -1,0 +1,20 @@
+﻿<#@ template  debug="true" hostSpecific="true" language="C#" #>
+<#@ import namespace="System.Runtime.Remoting.Messaging" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension="/" #>
+using System;
+
+public class <#= ModelName #> {
+	<# 
+		
+	#>
+}
+<#+
+	string ModelName {
+		get { return (string)CallContext.GetData("ModelName"); }
+    }
+
+	Dictionary<string, TypeCode> Properties {		
+		get { return (Dictionary<string, TypeCode>)CallContext.GetData("Properties"); }
+    }
+#>
