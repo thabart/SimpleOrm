@@ -149,6 +149,14 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;EntityElement&apos;</comment>
   </data>
+  <data name="Company.OrmLanguage.EntityElement/TableName.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.EntityElement.Table Name</value>
+    <comment>Description for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityElement&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.EntityElement/TableName.DisplayName" xml:space="preserve">
+    <value>Table Name</value>
+    <comment>DisplayName for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityElement&apos;</comment>
+  </data>
   <data name="Company.OrmLanguage.Entry.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.Entry</value>
     <comment>Description for DomainClass &apos;Entry&apos;</comment>
@@ -188,6 +196,14 @@
   <data name="Company.OrmLanguage.Property.DisplayName" xml:space="preserve">
     <value>Property</value>
     <comment>DisplayName for DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Property/ColumnName.Description" xml:space="preserve">
+    <value>Description for Company.OrmLanguage.Property.Column Name</value>
+    <comment>Description for DomainProperty &apos;ColumnName&apos; on DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Company.OrmLanguage.Property/ColumnName.DisplayName" xml:space="preserve">
+    <value>Column Name</value>
+    <comment>DisplayName for DomainProperty &apos;ColumnName&apos; on DomainClass &apos;Property&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.Reference.Description" xml:space="preserve">
     <value>Description for Company.OrmLanguage.Reference</value>

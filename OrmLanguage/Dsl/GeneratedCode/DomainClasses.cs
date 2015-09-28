@@ -290,6 +290,94 @@ namespace Company.OrmLanguage
 		}
 		
 		#endregion
+		#region TableName domain property code
+		
+		/// <summary>
+		/// TableName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TableNameDomainPropertyId = new global::System.Guid(0x52f4d899, 0xfdcc, 0x4165, 0xb6, 0x38, 0x36, 0x9d, 0x75, 0xbc, 0x4a, 0x61);
+		
+		/// <summary>
+		/// Storage for TableName
+		/// </summary>
+		private global::System.String tableNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TableName domain property.
+		/// Description for Company.OrmLanguage.EntityElement.Table Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityElement/TableName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityElement/TableName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("52f4d899-fdcc-4165-b638-369d75bc4a61")]
+		public global::System.String TableName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return tableNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TableNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityElement.TableName domain property.
+		/// </summary>
+		internal sealed partial class TableNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityElement, global::System.String>
+		{
+			private TableNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityElement.TableName domain property value handler.
+			/// </summary>
+			public static readonly TableNamePropertyHandler Instance = new TableNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityElement.TableName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TableNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityElement element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.tableNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityElement element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.tableNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region SampleOrmModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets SampleOrmModel.
@@ -829,6 +917,94 @@ namespace Company.OrmLanguage
 			: base(partition, propertyAssignments)
 		{
 		}
+		#endregion
+		#region ColumnName domain property code
+		
+		/// <summary>
+		/// ColumnName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ColumnNameDomainPropertyId = new global::System.Guid(0xade58ecf, 0x85f8, 0x4998, 0x8e, 0xff, 0x2f, 0x82, 0x45, 0xc8, 0x5c, 0x4d);
+		
+		/// <summary>
+		/// Storage for ColumnName
+		/// </summary>
+		private global::System.String columnNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of ColumnName domain property.
+		/// Description for Company.OrmLanguage.Property.Column Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Company.OrmLanguage.Property/ColumnName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Company.OrmLanguage.Property/ColumnName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("ade58ecf-85f8-4998-8eff-2f8245c85c4d")]
+		public global::System.String ColumnName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return columnNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ColumnNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Property.ColumnName domain property.
+		/// </summary>
+		internal sealed partial class ColumnNamePropertyHandler : DslModeling::DomainPropertyValueHandler<Property, global::System.String>
+		{
+			private ColumnNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Property.ColumnName domain property value handler.
+			/// </summary>
+			public static readonly ColumnNamePropertyHandler Instance = new ColumnNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Property.ColumnName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ColumnNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Property element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.columnNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Property element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.columnNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
 		#endregion
 		#region EntityElement opposite domain role accessor
 		/// <summary>

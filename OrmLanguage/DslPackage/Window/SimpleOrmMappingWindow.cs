@@ -26,17 +26,28 @@ namespace Company.OrmLanguage
     [Guid("00954eb4-c9c9-42e4-a81a-cb09b617534a")]
     public class SimpleOrmMappingWindow : ToolWindowPane
     {
+        private readonly SimpleOrmMappingWindowControl _simpleOrmMappingWindowControl;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleOrmMappingWindow"/> class.
         /// </summary>
         public SimpleOrmMappingWindow() : base(null)
         {
-            this.Caption = "SimpleOrmMappingWindow";
+            _simpleOrmMappingWindowControl = new SimpleOrmMappingWindowControl();
 
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
-            this.Content = new SimpleOrmMappingWindowControl();
+            Content = _simpleOrmMappingWindowControl;
+        }
+
+        public EntityElement EntityElement
+        {
+            set
+            {
+                Caption = string.Format("Mapping rules : {0}", value.Name);
+                _simpleOrmMappingWindowControl.EntityElement = value;
+            }
         }
     }
 }

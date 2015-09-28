@@ -4,37 +4,37 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System.Windows;
+using Company.OrmLanguage.Window;
+
 namespace Company.OrmLanguage
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
-    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for SimpleOrmMappingWindowControl.
     /// </summary>
-    public partial class SimpleOrmMappingWindowControl : UserControl
+    public partial class SimpleOrmMappingWindowControl
     {
+        private readonly SimpleOrmMappingWindowViewModel _simpleOrmMappingWindowViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleOrmMappingWindowControl"/> class.
         /// </summary>
         public SimpleOrmMappingWindowControl()
         {
-            this.InitializeComponent();
+            _simpleOrmMappingWindowViewModel = new SimpleOrmMappingWindowViewModel();
+            InitializeComponent();
+            Loaded += OnLoaded;
         }
 
-        /// <summary>
-        /// Handles click on the button by displaying a message box.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event args.</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions", Justification = "Sample code")]
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Default event handler naming pattern")]
-        private void button1_Click(object sender, RoutedEventArgs e)
+        public EntityElement EntityElement
         {
-            MessageBox.Show(
-                string.Format(System.Globalization.CultureInfo.CurrentUICulture, "Invoked '{0}'", this.ToString()),
-                "SimpleOrmMappingWindow");
+            set { _simpleOrmMappingWindowViewModel.Update(value); }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            DataContext = _simpleOrmMappingWindowViewModel;
         }
     }
 }

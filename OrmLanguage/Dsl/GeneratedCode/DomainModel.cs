@@ -98,9 +98,11 @@ namespace Company.OrmLanguage
 			return new DomainMemberInfo[]
 			{
 				new DomainMemberInfo(typeof(EntityElement), "Name", EntityElement.NameDomainPropertyId, typeof(EntityElement.NamePropertyHandler)),
+				new DomainMemberInfo(typeof(EntityElement), "TableName", EntityElement.TableNameDomainPropertyId, typeof(EntityElement.TableNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Entry), "Name", Entry.NameDomainPropertyId, typeof(Entry.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(Entry), "Guid", Entry.GuidDomainPropertyId, typeof(Entry.GuidPropertyHandler)),
 				new DomainMemberInfo(typeof(Entry), "Type", Entry.TypeDomainPropertyId, typeof(Entry.TypePropertyHandler)),
+				new DomainMemberInfo(typeof(Property), "ColumnName", Property.ColumnNameDomainPropertyId, typeof(Property.ColumnNamePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityHasRelationShips), "fromProperty", EntityHasRelationShips.fromPropertyDomainPropertyId, typeof(EntityHasRelationShips.fromPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityHasRelationShips), "toProperty", EntityHasRelationShips.toPropertyDomainPropertyId, typeof(EntityHasRelationShips.toPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityHasRelationShips), "fromPropertyName", EntityHasRelationShips.fromPropertyNameDomainPropertyId, typeof(EntityHasRelationShips.fromPropertyNamePropertyHandler)),

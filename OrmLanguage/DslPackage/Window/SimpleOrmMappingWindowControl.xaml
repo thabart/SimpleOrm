@@ -3,15 +3,87 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             Background="{DynamicResource VsBrush.Window}"
-             Foreground="{DynamicResource VsBrush.WindowText}"
+             xmlns:window="clr-namespace:Company.OrmLanguage.Window"
+             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.12.0"
+             Background="{DynamicResource {x:Static shell:VsBrushes.ToolWindowBackgroundKey}}"
+             Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=window:SimpleOrmMappingWindowViewModel}"
              Name="MyToolWindow">
-    <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Margin="10" HorizontalAlignment="Center">SimpleOrmMappingWindow</TextBlock>
-            <Button Content="Click me!" Click="button1_Click" Width="120" Height="80" Name="button1"/>
-        </StackPanel>
-    </Grid>
+    <StackPanel>
+        <GroupBox Header="Entity">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Table name: " Grid.Column="0" />
+                    <TextBox Text="{Binding TableName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                             Background="{DynamicResource {x:Static shell:VsBrushes.SearchBoxBackgroundKey}}"
+                             Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}"
+                             Grid.Column="1"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Entity name: " Grid.Column="0" />
+                    <TextBlock Text="{Binding EntityName}" Grid.Column="1" Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}" />
+                </Grid>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Properties">
+            <ListBox ItemsSource="{Binding PropertyMappings}" Background="{DynamicResource {x:Static shell:VsBrushes.ToolWindowBackgroundKey}}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Column name: " Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}" Grid.Column="0" />
+                                <TextBox Text="{Binding ColumnName}" Background="{DynamicResource {x:Static shell:VsBrushes.SearchBoxBackgroundKey}}"
+                                         Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}"
+                                         Grid.Column="1" />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Property name: " Grid.Column="0" Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}" />
+                                <TextBlock Text="{Binding PropertyName}" Grid.Column="1" Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+    </StackPanel>
 </UserControl>
