@@ -21,6 +21,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="6d566ff8-c66f-4084-af24-07371f559584" Description="Description for Company.OrmLanguage.EntityElement.Table Name" Name="TableName" DisplayName="Table Name" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -64,6 +69,13 @@
       <BaseClass>
         <DomainClassMoniker Name="Entry" />
       </BaseClass>
+      <Properties>
+        <DomainProperty Id="ad6efef2-7efe-4bfb-b2a2-553466ce969d" Description="Description for Company.OrmLanguage.Property.Column Name" Name="ColumnName" DisplayName="Column Name" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
     </DomainClass>
     <DomainClass Id="35492d24-c52d-488e-a334-d32c0850ea5f" Description="Description for Company.OrmLanguage.Reference" Name="Reference" DisplayName="Reference" InheritanceModifier="Sealed" Namespace="Company.OrmLanguage">
       <BaseClass>
@@ -213,6 +225,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="references">
             <DomainRelationshipMoniker Name="EntityHasReferences" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="tableName">
+            <DomainPropertyMoniker Name="EntityElement/TableName" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="SampleOrmModelHasElements" MonikerAttributeName="" SerializeId="true" MonikerElementName="sampleOrmModelHasElementsMoniker" ElementName="sampleOrmModelHasElements" MonikerTypeName="SampleOrmModelHasElementsMoniker">
@@ -260,6 +275,11 @@
       </XmlClassData>
       <XmlClassData TypeName="Property" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyMoniker" ElementName="property" MonikerTypeName="PropertyMoniker">
         <DomainClassMoniker Name="Property" />
+        <ElementData>
+          <XmlPropertyData XmlName="columnName">
+            <DomainPropertyMoniker Name="Property/ColumnName" />
+          </XmlPropertyData>
+        </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="Reference" MonikerAttributeName="" SerializeId="true" MonikerElementName="referenceMoniker" ElementName="reference" MonikerTypeName="ReferenceMoniker">
         <DomainClassMoniker Name="Reference" />

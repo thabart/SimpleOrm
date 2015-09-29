@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio;
+﻿using Company.OrmLanguage.Window;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -44,12 +45,21 @@ namespace Company.OrmLanguage
 
         internal void OnPopUpMenuClick(object sender, EventArgs args)
         {
-            var package = ServiceProvider.GetService(typeof(Package)) as ModelingPackage;
-            var pane = (SimpleOrmMappingWindow)package.FindToolWindow(typeof(SimpleOrmMappingWindow), 0, true);
-            if (pane == null || pane.Frame == null)
+            var showSimpleOrmWindow = ShowSimpleOrmWindowSingleton.Instance();
+            if (showSimpleOrmWindow == null)
             {
-                return;
+                var package = ServiceProvider.GetService(typeof (Package)) as ModelingPackage;
+                var simpleOrmMappingWindow = (SimpleOrmMappingWindow) package.FindToolWindow(typeof (SimpleOrmMappingWindow), 0, true);
+                if (simpleOrmMappingWindow == null || simpleOrmMappingWindow.Frame == null)
+                {
+                    return;
+                }
+
+                ShowSimpleOrmWindowSingleton.Instanciate(simpleOrmMappingWindow);
             }
+
+            var windowFrame = ShowSimpleOrmWindowSingleton.Instance().GetWindowFrame();
+            var mappingWindow = ShowSimpleOrmWindowSingleton.Instance().GetOrmMappingWindow();
 
             foreach (var selectedObject in CurrentSelection)
             {
@@ -57,8 +67,7 @@ namespace Company.OrmLanguage
                 {
                     var entityShape = selectedObject as EntityShape;
                     var modelElement = entityShape.ModelElement as EntityElement;
-                    pane.EntityElement = modelElement;
-                    var windowFrame = (IVsWindowFrame)pane.Frame;
+                    mappingWindow.EntityElement = modelElement;
                     ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
                     return;

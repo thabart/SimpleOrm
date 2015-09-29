@@ -295,7 +295,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// TableName domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid TableNameDomainPropertyId = new global::System.Guid(0x52f4d899, 0xfdcc, 0x4165, 0xb6, 0x38, 0x36, 0x9d, 0x75, 0xbc, 0x4a, 0x61);
+		public static readonly global::System.Guid TableNameDomainPropertyId = new global::System.Guid(0x6d566ff8, 0xc66f, 0x4084, 0xaf, 0x24, 0x07, 0x37, 0x1f, 0x55, 0x95, 0x84);
 		
 		/// <summary>
 		/// Storage for TableName
@@ -309,7 +309,7 @@ namespace Company.OrmLanguage
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.EntityElement/TableName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.EntityElement/TableName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
-		[DslModeling::DomainObjectId("52f4d899-fdcc-4165-b638-369d75bc4a61")]
+		[DslModeling::DomainObjectId("6d566ff8-c66f-4084-af24-07371f559584")]
 		public global::System.String TableName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
@@ -923,7 +923,7 @@ namespace Company.OrmLanguage
 		/// <summary>
 		/// ColumnName domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid ColumnNameDomainPropertyId = new global::System.Guid(0xade58ecf, 0x85f8, 0x4998, 0x8e, 0xff, 0x2f, 0x82, 0x45, 0xc8, 0x5c, 0x4d);
+		public static readonly global::System.Guid ColumnNameDomainPropertyId = new global::System.Guid(0xad6efef2, 0x7efe, 0x4bfb, 0xb2, 0xa2, 0x55, 0x34, 0x66, 0xce, 0x96, 0x9d);
 		
 		/// <summary>
 		/// Storage for ColumnName
@@ -937,7 +937,7 @@ namespace Company.OrmLanguage
 		[DslDesign::DisplayNameResource("Company.OrmLanguage.Property/ColumnName.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Company.OrmLanguage.Property/ColumnName.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.Browsable(false)]
-		[DslModeling::DomainObjectId("ade58ecf-85f8-4998-8eff-2f8245c85c4d")]
+		[DslModeling::DomainObjectId("ad6efef2-7efe-4bfb-b2a2-553466ce969d")]
 		public global::System.String ColumnName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
