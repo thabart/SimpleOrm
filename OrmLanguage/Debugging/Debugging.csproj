@@ -37,10 +37,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deeeevvit.cs">
+      <DependentUpon>GenerateModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeeeevvitMapping.cs">
+      <DependentUpon>GenerateMappings.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateDbContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenerateDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Includes\FileGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FileGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Loki.cs">
+      <DependentUpon>GenerateModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LokiMapping.cs">
+      <DependentUpon>GenerateMappings.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +80,10 @@
     <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GenerateDbContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GenerateDbContext.cs</LastGenOutput>
+    </Content>
     <Content Include="GenerateMappings.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>

@@ -1,0 +1,22 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" hostspecific="True" debug="True" language="C#" #>
+<#@ OrmLanguage processor="OrmLanguageDirectiveProcessor" requires="fileName='Test.simpleorm'" #>
+<#@ include file="Includes\FileGenerator.tt" #>
+<#@ import namespace="System.Runtime.Remoting.Messaging" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension="/" #>
+
+<#
+	foreach(EntityElement element in this.SampleOrmModel.Elements) {
+		Dictionary<string, string> properties = new Dictionary<string, string>();
+		foreach(Property property in element.Properties) {
+			properties.Add(property.Name, property.ColumnName);
+        }
+
+		CallContext.SetData("ModelName", element.Name);		
+		CallContext.SetData("TableName", element.TableName);
+		CallContext.SetData("Properties", properties);
+
+		string fileName = string.Format("{0}Mapping.cs", element.Name);
+		ProcessTemplate("Includes\\GenerateMapping.tt", fileName);
+    }
+#>
