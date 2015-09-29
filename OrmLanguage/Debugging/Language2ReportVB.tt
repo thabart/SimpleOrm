@@ -1,6 +1,6 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" language="VB" #>
 <#@ output extension=".txt" #>
-<#@ Language1 processor="Language1DirectiveProcessor" requires="fileName='Sample.simpleorm'" #>
+<#@ Language2 processor="Language2DirectiveProcessor" requires="fileName='Sample.simpleorm'" #>
 
 Generated material. Generating code in VB.
 

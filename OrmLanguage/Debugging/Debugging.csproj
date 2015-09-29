@@ -37,12 +37,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity1.cs">
-      <DependentUpon>GenerateModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity2.cs">
-      <DependentUpon>GenerateModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Includes\FileGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -55,10 +49,6 @@
       <Link>Language1Schema.xsd</Link>
       <SubType>
       </SubType>
-    </None>
-    <None Include="Language1ReportVB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Language1ReportVB.txt</LastGenOutput>
     </None>
     <None Include="Sample.simpleorm" />
     <None Include="Sample.simpleorm.diagram">
@@ -73,6 +63,9 @@
     <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GenerateMappings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
     <Content Include="GenerateModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
@@ -80,13 +73,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FileGenerator.cs</LastGenOutput>
     </Content>
+    <Content Include="Includes\GenerateMapping.tt" />
     <Content Include="Includes\GenerateModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-    </Content>
-    <Content Include="Language1ReportVB.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Language1ReportVB.tt</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

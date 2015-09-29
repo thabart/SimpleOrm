@@ -20,7 +20,7 @@ Thumbs.db
 *.tmp
 *.orig
 [Bb]in
-[Dd]ebug*/
+[Dd]ebug/
 *.lib
 *.sbr
 obj/

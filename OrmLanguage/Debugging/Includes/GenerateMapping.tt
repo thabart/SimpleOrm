@@ -3,7 +3,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ assembly name="EnvDTE" #>
 <#@ output extension="/" #>
-using System;
 <#
 	var visualStudio = ( this.Host as IServiceProvider )
         .GetService( typeof( EnvDTE.DTE ) ) as EnvDTE.DTE;
@@ -11,23 +10,30 @@ using System;
         .FindProjectItem( this.Host.TemplateFile )
         .ContainingProject as EnvDTE.Project;
 	string strDefaultNamespace = project.Properties.Item( "DefaultNamespace" ).Value.ToString();
+	string mappingNamespace = strDefaultNamespace + ".Mappings";
 	string modelNamespace = strDefaultNamespace + ".Models";
-	if (ModelName == null || Properties == null) {
+	if (ModelName == null || Properties == null || TableName == null) {
 		return string.Empty;
     }
 #>
+using ORM.Mappings;
+using <#=modelNamespace #>;
 
-namespace <#= modelNamespace #> {
-	public class <#= ModelName #> {
+namespace <#= mappingNamespace #> {
+	public class <#= ModelName #>Mapping : BaseMapping<<#=ModelName#>> {
+		public <#= ModelName #>Mapping() {
+			MapClassToTable("<#= TableName #>");
 <# 
-foreach(KeyValuePair<string, TypeCode> property in Properties) {
+foreach(KeyValuePair<string, string> property in Properties) {
 #>
-		public <#= property.Value #> <#= property.Key #> { get; set; }
+			MapProperty(t => <#= property.Key #>, "<#= property.Value #>");
 <#
 }
 #>
+		}
 	}
 }
+
 <#+
 	string ModelName {
 		get { 
@@ -36,7 +42,14 @@ foreach(KeyValuePair<string, TypeCode> property in Properties) {
 		}
     }
 
-	Dictionary<string, TypeCode> Properties {		
-		get { return (Dictionary<string, TypeCode>)CallContext.GetData("Properties"); }
+	string TableName {		
+		get { 
+			var result = (string)CallContext.GetData("TableName"); 
+			return result;
+		}
+    }
+
+	Dictionary<string, string> Properties {		
+		get { return (Dictionary<string, string>)CallContext.GetData("Properties"); }
     }
 #>
