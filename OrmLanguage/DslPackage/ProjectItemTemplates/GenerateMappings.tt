@@ -1,5 +1,5 @@
 ﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" hostspecific="True" debug="True" language="C#" #>
-<#@ OrmLanguage processor="OrmLanguageDirectiveProcessor" requires="fileName='Test.simpleorm'" #>
+<#@ OrmLanguage processor="OrmLanguageDirectiveProcessor" requires="fileName='$ormfilename$'" #>
 <#@ include file="Includes\FileGenerator.tt" #>
 <#@ import namespace="System.Runtime.Remoting.Messaging" #>
 <#@ import namespace="System.Collections.Generic" #>
