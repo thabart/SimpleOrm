@@ -300,12 +300,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSharp.tt</DependentUpon>
     </VSItemTemplate>
-    <VSItemTemplate Include="ProjectItemTemplates\VisualBasic.vstemplate">
-      <OutputName>OrmLanguage</OutputName>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VisualBasic.tt</DependentUpon>
-    </VSItemTemplate>
     <None Include="Resources\File.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -334,10 +328,6 @@
     </None>
     <None Include="ProjectItemTemplates\simpleorm.simpleorm" />
     <None Include="ProjectItemTemplates\simpleorm.diagram" />
-    <None Include="ProjectItemTemplates\VisualBasic.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VisualBasic.vstemplate</LastGenOutput>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
@@ -348,9 +338,15 @@
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="Resources\ModelExplorerToolWindowBitmaps.bmp" />
+    <Content Include="ProjectItemTemplates\GenerateDbContext.tt" />
+    <Content Include="ProjectItemTemplates\GenerateMappings.tt" />
+    <Content Include="ProjectItemTemplates\GenerateModels.tt" />
+    <Content Include="ProjectItemTemplates\FileGenerator.tt" />
+    <Content Include="ProjectItemTemplates\GenerateMapping.tt" />
+    <Content Include="ProjectItemTemplates\GenerateModel.tt" />
     <Content Include="Resources\SimpleOrmMappingWindowCommand.png" />
     <Content Include="Resources\SimpleOrmMappingWindowPackage.ico" />
+    <Content Include="Resources\__TemplateIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Window\SimpleOrmMappingWindowControl.xaml">

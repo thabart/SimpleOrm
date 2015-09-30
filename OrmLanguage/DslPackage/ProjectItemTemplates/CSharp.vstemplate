@@ -6,12 +6,24 @@
 		<Description Package="{673435e5-6a48-4569-b3b6-7a7ca61bb1d2}" ID="102"/>
 		<Icon Package="{673435e5-6a48-4569-b3b6-7a7ca61bb1d2}" ID="201" />
 		<ProjectType>CSharp</ProjectType>
-		<SortOrder>360</SortOrder>
+		<SortOrder>10</SortOrder>
 		<DefaultName>OrmLanguage.simpleorm</DefaultName>
 	</TemplateData>
 	<TemplateContent>
+		<CustomParameters>
+			<CustomParameter Name="$ormfilename$" Value="$fileinputname$.simpleorm" />
+		</CustomParameters>
+
 		<ProjectItem TargetFileName="$fileinputname$.simpleorm">simpleorm.simpleorm</ProjectItem>
 		<ProjectItem TargetFileName="$fileinputname$.simpleorm.diagram">simpleorm.diagram</ProjectItem>
+	
+		<ProjectItem TargetFileName="GenerateDbContext.tt" ReplaceParameters="true">GenerateDbContext.tt</ProjectItem>
+		<ProjectItem TargetFileName="GenerateModels.tt" ReplaceParameters="true">GenerateModels.tt</ProjectItem>
+		<ProjectItem TargetFileName="GenerateMappings.tt" ReplaceParameters="true">GenerateMappings.tt</ProjectItem>
+	
+		<ProjectItem TargetFileName="Includes\FileGenerator.tt">FileGenerator.tt</ProjectItem>
+		<ProjectItem TargetFileName="Includes\GenerateModel.tt">GenerateModel.tt</ProjectItem>
+		<ProjectItem TargetFileName="Includes\GenerateMapping.tt">GenerateMapping.tt</ProjectItem>
 	</TemplateContent>
 </VSTemplate>
 
