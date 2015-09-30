@@ -39,5 +39,6 @@
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="<#= dslProjectName #>" Path="|<#= dslProjectName #>|" />
     <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%" d:TargetPath="|%CurrentProject%;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />
+	<Asset Type="SimpleOrm.1.0.134.nupkg" d:Source="File" Path="Packages\SimpleOrm.1.0.134.nupkg" d:VsixSubPath="Packages" />
   </Assets>
 </PackageManifest>

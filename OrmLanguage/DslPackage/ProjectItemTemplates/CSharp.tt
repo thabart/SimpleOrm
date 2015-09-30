@@ -24,9 +24,19 @@
 		<ProjectItem TargetFileName="GenerateModels.tt" ReplaceParameters="true">GenerateModels.tt</ProjectItem>
 		<ProjectItem TargetFileName="GenerateMappings.tt" ReplaceParameters="true">GenerateMappings.tt</ProjectItem>
 	
-		<ProjectItem TargetFileName="Includes\FileGenerator.tt">FileGenerator.tt</ProjectItem>
-		<ProjectItem TargetFileName="Includes\GenerateModel.tt">GenerateModel.tt</ProjectItem>
-		<ProjectItem TargetFileName="Includes\GenerateMapping.tt">GenerateMapping.tt</ProjectItem>
+		<ProjectItem TargetFileName="Includes\FileGenerator.tt" CustomTool="">FileGenerator.tt</ProjectItem>
+		<ProjectItem TargetFileName="Includes\GenerateModel.tt" CustomTool="">GenerateModel.tt</ProjectItem>
+		<ProjectItem TargetFileName="Includes\GenerateMapping.tt" CustomTool="">GenerateMapping.tt</ProjectItem>
 	</TemplateContent>
+	<WizardExtension>
+		<Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+		<FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+	</WizardExtension>
+	<WizardData>
+		<packages repository="extension"
+					repositoryId="673435e5-6a48-4569-b3b6-7a7ca61bb1d2">
+			<package id="SimpleOrm" version="1.0.134" />
+		</packages>
+	</WizardData>
 </VSTemplate>
 
