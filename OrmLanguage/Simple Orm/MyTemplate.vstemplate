@@ -2,8 +2,7 @@
   <TemplateData>
     <DefaultName>Simple Orm.simpleorm</DefaultName>
     <Name>Simple Orm</Name>
-    <Description>
-    </Description>
+    <Description>Simple Orm</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>__TemplateIcon.ico</Icon>
@@ -36,11 +35,6 @@
       </Reference>
     </References>
     <ProjectItem SubType="Designer" TargetFileName="$fileinputname$.simpleorm" ReplaceParameters="false">Model.simpleorm</ProjectItem>
-	<ProjectItem TargetFileName="GenerateDbContext.tt">GenerateDbContext.tt</ProjectItem>
-	<ProjectItem TargetFileName="GenerateMappings.tt">GenerateMappings.tt</ProjectItem>
-	<ProjectItem TargetFileName="GenerateModels.tt">GenerateModels.tt</ProjectItem>
-	<ProjectItem TargetFileName="Includes\FileGenerator.tt">Includes\FileGenerator.tt</ProjectItem>
-	<ProjectItem TargetFileName="Includes\GenerateMapping.tt">Includes\GenerateMapping.tt</ProjectItem>
-	<ProjectItem TargetFileName="Includes\GenerateModel.tt">Includes\GenerateModel.tt</ProjectItem>
+    <ProjectItem TargetFileName="GenerateDbContext.tt">GenerateDbContext.tt</ProjectItem>
   </TemplateContent>
 </VSTemplate>
