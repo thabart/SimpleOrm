@@ -34,7 +34,19 @@
         <Assembly>mscorlib</Assembly>
       </Reference>
     </References>
+	
+	<CustomParameters>
+		<CustomParameter Name="$ormfilename$" Value="$fileinputname$.simpleorm" />
+	</CustomParameters>
+	
     <ProjectItem SubType="Designer" TargetFileName="$fileinputname$.simpleorm" ReplaceParameters="false">Model.simpleorm</ProjectItem>
-    <ProjectItem TargetFileName="GenerateDbContext.tt">GenerateDbContext.tt</ProjectItem>
+	
+    <ProjectItem TargetFileName="GenerateDbContext.tt" ReplaceParameters="true">GenerateDbContext.tt</ProjectItem>
+    <ProjectItem TargetFileName="GenerateModels.tt" ReplaceParameters="true">GenerateModels.tt</ProjectItem>
+    <ProjectItem TargetFileName="GenerateMappings.tt" ReplaceParameters="true">GenerateMappings.tt</ProjectItem>
+	
+    <ProjectItem TargetFileName="Includes\GenerateModel.tt">Includes\GenerateModel.tt</ProjectItem>
+    <ProjectItem TargetFileName="Includes\GenerateMapping.tt">Includes\GenerateMapping.tt</ProjectItem>
+    <ProjectItem TargetFileName="Includes\FileGenerator.tt">Includes\FileGenerator.tt</ProjectItem>
   </TemplateContent>
 </VSTemplate>
