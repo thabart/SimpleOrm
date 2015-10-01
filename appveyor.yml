@@ -20,16 +20,14 @@ artifacts:
   name: ORM
 - path: SimpleOrm.*.nupkg
   name: Nuget
-- path: ORM.VSPackage\bin\$(configuration)
-  name: VSPackage
-- path: Output\Company.OrmLanguage.DslPackage.2013.vsix
-  name: OrmLanguage
+- path: VsPackages
+  name: VsPackages
 deploy:
 - provider: GitHub
   description: Simple ORM
   auth_token:
     secure: lQ8ijoj6dfshLfFWRKFUrphgt4LkIz1YduZU+S6xuF33ewz1WcySLNJURJysTF11
-  artifact: ORM,Nuget,VSPackage, OrmLanguage
+  artifact: ORM,Nuget,VsPackages
   on:
     branch: master
     appveyor_repo_tag: true
