@@ -1,6 +1,6 @@
 <#@ Dsl processor="DslDirectiveProcessor" requires="fileName='..\DslDefinition.dsl'" #>
-<#@ include file="Dsl\SerializationHelper.tt" #>
-<#@ include file="Dsl\MonikerAmbiguityValidation.tt" #>
+<#@ include file="$(SolutionDir)\TextTemplates\Dsl\SerializationHelper.tt" #>
+<#@ include file="$(SolutionDir)\TextTemplates\Dsl\MonikerAmbiguityValidation.tt" #>
 <#
 	GenerateMonikerAmbiguityValidation(this.DslLibrary);
 #>
