@@ -4,7 +4,7 @@ platform: Any CPU
 environment:
   matrix:
   - solution_name: ORM.sln
-  - solution_name: OrmLanguage\OrmLanguage.sln
+#  - solution_name: OrmLanguage\OrmLanguage.sln
 build_script:
 - msbuild %solution_name%
 install:

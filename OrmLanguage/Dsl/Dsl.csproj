@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -21,8 +22,6 @@
     </StartupObject>
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
   </PropertyGroup>
-  <Import Condition=" '$(AppVeyor)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
-  <Import Condition=" '$(AppVeyor)' != ''" Project="$(SolutionDir)\References\DSLTools\Microsoft.DSLTools.Settings.targets" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -231,51 +230,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CompartmentMappings.cs</LastGenOutput>
     </Content>
-    <Content Include="GeneratedCode\Dsl\Closures.tt" />
-    <Content Include="GeneratedCode\Dsl\ConnectionBuilder.tt" />
-    <Content Include="GeneratedCode\Dsl\Connectors.tt" />
-    <Content Include="GeneratedCode\Dsl\CustomTypeDescriptors.tt" />
-    <Content Include="GeneratedCode\Dsl\DesignerExtensionMetadataAttribute.tt" />
-    <Content Include="GeneratedCode\Dsl\Diagram.tt" />
-    <Content Include="GeneratedCode\Dsl\DiagramUtilities.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainClass.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainClassCodeGenerator.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainClassMonikerSchema.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainClassSchema.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainClassSerializer.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainEnumeration.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainEnumerationSchema.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainModel.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainModelCodeGenerator.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainModelSerializer.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainProperty.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainRelationship.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainRelationshipCodeGenerator.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainRole.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainSchema.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainSerializer.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainXmlMonikerResolver.tt" />
-    <Content Include="GeneratedCode\Dsl\DomainXmlSerializationBehavior.tt" />
-    <Content Include="GeneratedCode\Dsl\DslCodeGenerator.tt" />
-    <Content Include="GeneratedCode\Dsl\DslDefinitionAccess.tt" />
-    <Content Include="GeneratedCode\Dsl\DslResxGenerator.tt" />
-    <Content Include="GeneratedCode\Dsl\GestureExtensionController.tt" />
-    <Content Include="GeneratedCode\Dsl\GestureExtensionEnablement.tt" />
-    <Content Include="GeneratedCode\Dsl\HelpKeywordHelper.tt" />
-    <Content Include="GeneratedCode\Dsl\Merge.tt" />
-    <Content Include="GeneratedCode\Dsl\ModelDirectiveProcessor.tt" />
-    <Content Include="GeneratedCode\Dsl\MonikerAmbiguityValidation.tt" />
-    <Content Include="GeneratedCode\Dsl\MonikerSerializer.tt" />
-    <Content Include="GeneratedCode\Dsl\MultiplicityValidation.tt" />
-    <Content Include="GeneratedCode\Dsl\PathMerge.tt" />
-    <Content Include="GeneratedCode\Dsl\PropertiesGrid.tt" />
-    <Content Include="GeneratedCode\Dsl\PropertyPathTypeDescriptors.tt" />
-    <Content Include="GeneratedCode\Dsl\SerializationHelper.tt" />
-    <Content Include="GeneratedCode\Dsl\SerializationMessages.tt" />
-    <Content Include="GeneratedCode\Dsl\SerializationUtilities.tt" />
-    <Content Include="GeneratedCode\Dsl\Shapes.tt" />
-    <Content Include="GeneratedCode\Dsl\ToolboxHelper.tt" />
-    <Content Include="GeneratedCode\Dsl\Utilities.tt" />
     <Content Include="GeneratedCode\OrmLanguageSchema.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
