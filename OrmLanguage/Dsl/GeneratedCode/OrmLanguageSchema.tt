@@ -1,2 +1,2 @@
-<#@ include file="$(SolutionDir)\TextTemplates\Dsl\DomainSchema.tt" #>
+<#@ include file="..\TextTemplates\Dsl\DomainSchema.tt" #>
 <#@ Dsl processor="DslDirectiveProcessor"  requires="fileName='..\DslDefinition.dsl'" #>

@@ -1,2 +1,2 @@
-<#@ include file="$(SolutionDir)\TextTemplates\Dsl\DomainRelationshipCodeGenerator.tt" #>
+<#@ include file="..\TextTemplates\Dsl\DomainRelationshipCodeGenerator.tt" #>
 <#@ Dsl processor="DslDirectiveProcessor"  requires="fileName='..\DslDefinition.dsl'" #>
