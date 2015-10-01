@@ -42,4 +42,4 @@ deploy:
     appveyor_repo_tag: true
 after_deploy:
 # - ps: Vsix-PublishToGallery ORM.VSPackage\bin\$env:CONFIGURATION\*.vsix
- - ps: Vsix-PublishToGallery Output\*.vsix
+# - ps: Vsix-PublishToGallery Output\*.vsix

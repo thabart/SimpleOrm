@@ -7,7 +7,7 @@ This small ORM has a limited set of features :
 
 * It supports some basic SQL actions such as "select", "where" & "insert" instructions. Behind the scene, the expression tree is parsed and converted into T-SQL script.
 * It also allows a project to use the code first-approach.
-* A visual studio extension is available to generate the entities from a database (model-first-approach)
+* Two visual studio extensions are available to generate the entities from a database (model-first-approach)
 
 ## Code-First approach
 
@@ -72,9 +72,9 @@ INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'tem
 
 ## Model-First approach
 
-Two VSPackages are available to work with model-first approach:
+Two VSPackages are available to help you working with the model-first approach :
 * The first one is using ENVDTE to generate the entities in the selected project.
-* The second one is following the same approach as EntityFramework. It defines a Domain Specific Language (DSL) to represent the tables in a schema, and uses T4 templates to generate the classes (mappings, entities & DBContext).
+* The second one is following the same approach as EntityFramework. It defines a Domain Specific Language (DSL) to represent entities in a schema. And it uses T4 templates to generate the classes (mappings, entities & DBContext).
 
 #### First VSPackage : Generate entities with ENVDTE
 
@@ -103,15 +103,34 @@ Follow those steps, if you want to use the extension :
 ##### Second VSPackage : Domain Specific Language
 
 Pre-requisites to use this VSPackage :
-* Only the version 2013 of Visual Studio is supported
+* Visual Studio version 2013 & 2015 are supported.
+* The extension can work only on C# project.
 
-You can find the VSPackage in the GIT artifacts (since version 0.0.0.10) ==> Company.OrmLanguage.DslPackage.2013.vsix
+Based on the version of your Visual Studio, download the correct "VSPackage" from the GIT artifacts (available since the release 0.0.0.11).
+Once the VSPackage is installed, start a new Visual Studio instance and create a new console application (C#).
+Follow those steps :
+* In the new project, add a new item "OrmLanguage.simpleorm".
 
-TODO : Describe the steps.
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/AddSimpleOrmItem.png)
+
+* Several files will be added into your project :
+** File with ".simpleorm" extension : visual representation of your entities.
+** GenerateDbContext.tt : is used to generate the DBContext file.
+** GenerateMappings.tt : is used to generate all the mappings.
+** GenerateModels.tt : is used to generate all the entities.
+
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/StructureOfSimpleOrm.png)
+
+* Edit the "OrmLanguage.simpleorm" file. An empty pane window is displayed. On the left of the screen, there're two new objects under "OrmLanguage" (Entitiy & EntityRelationShip). You can drag & drop them into the model viewer.
+
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/SimpleOrmViewer.png)
+
+* Right click on the "model viewer" and click on "Generate entities", a new window will be displayed. Follow the steps describe in the previous "VSPackage" above and click on generate.
+
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/GenerateTables.png)
+
+* New entities have been added into the model-viewer. Then you can use the T4 templates to generate the files (mappings & entities & DBContext)
+
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/GeneratedEntities.png)
 
 ### Release process
@@ -119,4 +138,4 @@ TODO : Describe the steps.
 Each time a label is pushed on the "master" branch to the remote repository, the following actions happened :
 * A new release is created on GITHUB with the artifacts (VSIX package, Library.zip & Nuget package)
 * The nuget package is published.
-* The VSIX packages are manually deployed.
+* The VSIX packages are manually deployed to the Gallery & they are available in the GIT artifacts.
