@@ -14,7 +14,7 @@ namespace Company.OrmLanguage
 {
 	/// <summary>
 	/// DomainModel OrmLanguageDomainModel
-	/// Description for Company.OrmLanguage.OrmLanguage
+	/// Description for Simple Orm language
 	/// </summary>
 	[DslDesign::DisplayNameResource("Company.OrmLanguage.OrmLanguageDomainModel.DisplayName", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Company.OrmLanguage.OrmLanguageDomainModel.Description", typeof(global::Company.OrmLanguage.OrmLanguageDomainModel), "Company.OrmLanguage.GeneratedCode.DomainModelResx")]

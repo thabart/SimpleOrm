@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Company.OrmLanguage.OrmLanguageDomainModel.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.OrmLanguage</value>
+    <value>Description for Simple Orm language</value>
     <comment>Description for DslLibrary &apos;OrmLanguage&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.OrmLanguageDomainModel.DisplayName" xml:space="preserve">
@@ -406,7 +406,7 @@
     <comment>Model Explorer Toolwindow title</comment>
   </data>
   <data name="Company.OrmLanguage.OrmLanguageDiagram.Description" xml:space="preserve">
-    <value>Description for Company.OrmLanguage.OrmLanguageDiagram</value>
+    <value>Description for Simple Orm language</value>
     <comment>Description for DomainClass &apos;OrmLanguageDiagram&apos;</comment>
   </data>
   <data name="Company.OrmLanguage.OrmLanguageDiagram.DisplayName" xml:space="preserve">

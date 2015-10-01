@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="673435e5-6a48-4569-b3b6-7a7ca61bb1d2" Version="1.0.0.0" Language="en-US" Publisher="Company" />
     <DisplayName>OrmLanguage</DisplayName>
-    <Description>Description for Company.OrmLanguage.OrmLanguage</Description>
+    <Description>Description for Simple Orm language</Description>
   </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="12.0" />

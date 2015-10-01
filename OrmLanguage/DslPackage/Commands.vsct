@@ -22,13 +22,24 @@
           <ButtonText>View simple orm mapping rules</ButtonText>
           <ToolTipText>View simple orm mapping rules</ToolTipText>
         </Strings>
-      </Button>      
+      </Button>
+      <Button guid="cmdGenerateEntitiesGuid" id="cmdGenerateEntitiesId" priority="0x1000" type="Button">
+        <Parent guid="guidCmdSet" id="grpidContextMain" />
+        <Strings>
+          <CanonicalName>cmdGenerateEntities</CanonicalName>
+          <ButtonText>Generate entities</ButtonText>
+          <ToolTipText>Generate entities from database</ToolTipText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
   <Symbols>
     <GuidSymbol name="cmdViewSimpleOrmMappingRulesGuid" value="{EC120F9A-9E7F-469d-8D61-F4E2A97E5725}">
       <IDSymbol name="cmdViewSimpleOrmMappingRulesId" value="0x810"></IDSymbol>
+    </GuidSymbol>
+    <GuidSymbol name="cmdGenerateEntitiesGuid" value="{0D203C5B-36AE-41B0-871D-4B4216D13815}">
+      <IDSymbol name="cmdGenerateEntitiesId" value="0x820"/>
     </GuidSymbol>
   </Symbols>
 </CommandTable>

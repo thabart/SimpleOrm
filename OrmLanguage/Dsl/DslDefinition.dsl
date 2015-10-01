@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3418fb30-d41c-496d-9cb7-5c76ba66620c" Description="Description for Company.OrmLanguage.OrmLanguage" Name="OrmLanguage" DisplayName="OrmLanguage" Namespace="Company.OrmLanguage" ProductName="OrmLanguage" CompanyName="Company" PackageGuid="673435e5-6a48-4569-b3b6-7a7ca61bb1d2" PackageNamespace="Company.OrmLanguage" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
+<Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3418fb30-d41c-496d-9cb7-5c76ba66620c" Description="Description for Simple Orm language" Name="OrmLanguage" DisplayName="OrmLanguage" Namespace="Company.OrmLanguage" ProductName="OrmLanguage" CompanyName="Company" PackageGuid="673435e5-6a48-4569-b3b6-7a7ca61bb1d2" PackageNamespace="Company.OrmLanguage" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="583ad1fe-b130-4778-a99a-ddfa88829f94" Description="The root in which all other elements are embedded. Appears as a diagram." Name="SampleOrmModel" DisplayName="Sample Orm Model" Namespace="Company.OrmLanguage">
       <ElementMergeDirectives>
@@ -314,7 +314,7 @@
       </LinkConnectDirective>
     </ConnectionBuilder>
   </ConnectionBuilders>
-  <Diagram Id="c3303623-5860-4dd8-9d94-f791d26e5e29" Description="Description for Company.OrmLanguage.OrmLanguageDiagram" Name="OrmLanguageDiagram" DisplayName="Minimal Language Diagram" Namespace="Company.OrmLanguage">
+  <Diagram Id="c3303623-5860-4dd8-9d94-f791d26e5e29" Description="Description for Simple Orm language" Name="OrmLanguageDiagram" DisplayName="Minimal Language Diagram" Namespace="Company.OrmLanguage">
     <Class>
       <DomainClassMoniker Name="SampleOrmModel" />
     </Class>
