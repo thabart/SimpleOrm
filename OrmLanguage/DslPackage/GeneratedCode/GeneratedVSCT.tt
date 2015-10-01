@@ -4,4 +4,4 @@
 	// This Guid must be kept synchronized with the CommandSetId Guid in Constants.tt
 	Guid guidCmdSet = new Guid ("8fa6312d-5282-4261-9438-810a4c01580b");
 #>
-<#@ include file="..\TextTemplates\DslPackage\GeneratedVSCT.tt" #>
+<#@ include file="DslPackage\GeneratedVSCT.tt" #>

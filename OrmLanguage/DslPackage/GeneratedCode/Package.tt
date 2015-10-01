@@ -13,7 +13,7 @@
 	//Failure to do so may result in your Toolbox items not appearing correctly.
 	string dslAssembly = "Company.OrmLanguage.Dsl.dll";
 #>
-<#@ include file="..\TextTemplates\DslPackage\Package.tt" #>
+<#@ include file="DslPackage\Package.tt" #>
 <#
 	string directiveName = this.Dsl.Name;
 #>
