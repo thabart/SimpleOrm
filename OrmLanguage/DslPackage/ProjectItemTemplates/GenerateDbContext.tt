@@ -36,7 +36,7 @@ foreach(EntityElement element in this.SampleOrmModel.Elements) {
 }
 #>
 
-		public override void Mappings(IEntityMappingContainer entityMappingContainer)
+		protected override void Mappings(IEntityMappingContainer entityMappingContainer)
 		{
 <#
 foreach(EntityElement element in this.SampleOrmModel.Elements) {

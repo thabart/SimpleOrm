@@ -212,7 +212,7 @@
     <Compile Include="SimpleOrmMappingWindowPackage.cs" />
     <Compile Include="Window\SimpleOrmMappingWindowViewModel.cs" />
     <None Include="packages.config" />
-    <Content Include="Packages\SimpleOrm.1.0.134.nupkg">
+    <Content Include="Packages\SimpleOrm.1.0.201.nupkg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

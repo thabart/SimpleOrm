@@ -10,19 +10,15 @@ namespace Company.OrmLanguage.Partials
     {
         private static ShowGenerateTablesWindowSingleton _showGenerateTablesWindowSingleton;
 
-        private readonly ImportView _importView;
+        private ImportView _importView;
+
+        private bool _isClosed;
 
         private readonly Action<object, ImportTablesEventArgs> _callback;
 
         private ShowGenerateTablesWindowSingleton(Action<object, ImportTablesEventArgs> callback)
         {
-            _importView = new ImportView();
-            _importView.Loaded += (sender, args) =>
-            {
-                var importViewModel = (ImportViewModel)_importView.DataContext;
-                importViewModel.ImportTablesEvent += (o, eventArgs) => _callback(o, eventArgs);
-            };
-
+            _isClosed = true;
             _callback = callback;
         }
 
@@ -38,16 +34,26 @@ namespace Company.OrmLanguage.Partials
 
         public void Show()
         {
-            if (_callback == null || _importView == null)
+            if (_callback == null)
             {
                 return;
             }
 
-            if (!_importView.IsVisible)
+            if (_isClosed)
             {
+                _importView = new ImportView();
+                _importView.Loaded += (sender, args) =>
+                {
+                    _isClosed = false;
+                    var importViewModel = (ImportViewModel)_importView.DataContext;
+                    importViewModel.ImportTablesEvent += (o, eventArgs) => _callback(o, eventArgs);
+                };
+
+                _importView.Closed += (sender, args) => _isClosed = true;
                 _importView.Show();
             }
-            else
+
+            if (!_importView.IsVisible)
             {
                 _importView.Focus();
             }

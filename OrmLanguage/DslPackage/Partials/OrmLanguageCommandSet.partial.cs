@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms.VisualStyles;
-using Company.OrmLanguage.Partials;
+﻿using Company.OrmLanguage.Partials;
 using Company.OrmLanguage.Window;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell;
 

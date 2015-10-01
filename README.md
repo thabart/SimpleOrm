@@ -72,6 +72,12 @@ INSERT INTO dbo.Customers('67C6B660-1463-4065-96D5-F1C1D966B6F8', 'temp 3', 'tem
 
 ## Model-First approach
 
+Two VSPackages are available to work with model-first approach:
+* The first one is using ENVDTE to generate the entities in the selected project.
+* The second one is following the same approach as EntityFramework. It defines a Domain Specific Language (DSL) to represent the tables in a schema, and uses T4 templates to generate the classes (mappings, entities & DBContext).
+
+#### First VSPackage : Generate entities with ENVDTE
+
 Pre-requisites to use the SimpleOrm Visual studio extension:
 * Visual Studio version 2013 & 2015 are supported
 * The extension can work only on c# project (WPF or ASP.NET MVC)
@@ -94,10 +100,23 @@ Follow those steps, if you want to use the extension :
 
 ![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/ProjectStructure.png)
 
+##### Second VSPackage : Domain Specific Language
+
+Pre-requisites to use this VSPackage :
+* Only the version 2013 of Visual Studio is supported
+
+You can find the VSPackage in the GIT artifacts (since version 0.0.0.10) ==> Company.OrmLanguage.DslPackage.2013.vsix
+
+TODO : Describe the steps.
+![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/AddSimpleOrmItem.png)
+![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/StructureOfSimpleOrm.png)
+![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/SimpleOrmViewer.png)
+![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/GenerateTables.png)
+![alt tag](https://raw.githubusercontent.com/thabart/SimpleOrm/master/Images/GeneratedEntities.png)
 
 ### Release process
 
 Each time a label is pushed on the "master" branch to the remote repository, the following actions happened :
 * A new release is created on GITHUB with the artifacts (VSIX package, Library.zip & Nuget package)
 * The nuget package is published.
-* The VSIX package is published.
+* The VSIX packages are manually deployed.
