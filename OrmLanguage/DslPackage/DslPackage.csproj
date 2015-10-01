@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <VSToolsPath Condition="'$(AppVeyor)'!=''">$(SolutionDir)\References</VSToolsPath>
     <ProductVersion>10.0.20723</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{63201676-38BB-40A4-9763-C2624AA3FC39}</ProjectGuid>
@@ -25,6 +25,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
+  <Import Condition=" '$(AppVeyor)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
+  <Import Condition=" '$(AppVeyor)' != ''" Project="$(SolutionDir)\References\DSLTools\Microsoft.DSLTools.Settings.targets" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
