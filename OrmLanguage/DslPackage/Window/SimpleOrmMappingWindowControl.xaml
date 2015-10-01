@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:window="clr-namespace:Company.OrmLanguage.Window"
-             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.12.0"
              Background="{DynamicResource {x:Static shell:VsBrushes.ToolWindowBackgroundKey}}"
              Foreground="{DynamicResource {x:Static shell:VsBrushes.NewProjectProviderHoverForegroundKey}}"
              mc:Ignorable="d"
